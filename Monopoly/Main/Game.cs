@@ -35,17 +35,17 @@ namespace Monopoly.Main
         public Gameplan gameplan;
         int playerTurnPointer = 0;
         Player[] players;
-        Graphics g;
         IPurchasable selectedItem = null;
 
-        public Game(Player[] players)
+        public Game(Player[] players, Monopoly window)
         {
             this.players = players;
             GameState = GameStage.DICE;
-            this.window = new Monopoly(players);
+            this.window = window;
             colorGroups = new int[,] { { 0, 0, 0 }, { 255, 51, 51 }, { 0, 128, 255 }, { 152, 76, 0 },
                                              {255, 153, 51 }, {255, 102, 255 }, {0, 0, 204 },
                                              {0, 204, 102 }, {255, 255, 51 } };
+            PrepareGame(new GameSettings());
             window.Load += OnLoad;
         }
 
@@ -112,10 +112,12 @@ namespace Monopoly.Main
 
         private void PrepareGame(GameSettings settings)
         {
+            
             riskCardManager = new RiskCardManager("riskCards.txt");
             treasureCardManager = new TreasureCardManager("treasureCards.txt");
             propertyManager = new Cards.PropertyManager("properties.txt");
             gameplan = new Gameplan(players, propertyManager.GetFieldTypes());
+            window.ShowPlayerInfo(players[playerTurnPointer]);
         }
 
         private void Button1_action()
@@ -262,7 +264,7 @@ namespace Monopoly.Main
 
         private void Button2_action()
         {
-            if (GameState != GameStage.NO_ACTION) { return;  }
+            if (GameState == GameStage.NO_ACTION) { return;  }
             Card card = (Card)propertyManager
                  .CardAt(gameplan.PlayerPosition(players[playerTurnPointer]));
             Player p = players[playerTurnPointer];
@@ -662,6 +664,7 @@ namespace Monopoly.Main
                 playerTurnPointer = playerTurnPointer++ % players.Length;
             } while (players[playerTurnPointer].Blocked > 0);
             window.PrepareForDice(players[playerTurnPointer].Color);
+            window.ShowPlayerInfo(players[playerTurnPointer]);
             GameState = GameStage.DICE;
         }
 

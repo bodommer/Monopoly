@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,6 +15,7 @@ namespace Monopoly.Cards
         public float MortgageValue { get; protected set; }
         public int Group { get; protected set; }
         public bool Mortgaged { get; set; } = false;
+        public Image logo;
 
         public virtual float GetPayment()
         {

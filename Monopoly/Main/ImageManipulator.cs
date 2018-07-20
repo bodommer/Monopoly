@@ -32,7 +32,7 @@ namespace Monopoly.Main
                 image.Dispose();
 
                 string fileRelativePath = "Resources/resized/" + i;
-                newImage.Save("Resources/resized/" + i.ToString(), ImageFormat.Jpeg);
+                newImage.Save("Resources/resized/" + i.ToString());
             }
         }
     }

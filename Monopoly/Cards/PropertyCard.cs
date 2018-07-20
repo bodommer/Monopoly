@@ -1,6 +1,7 @@
 ﻿using Monopoly.Cards;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,7 +16,7 @@ namespace Monopoly.Main
         public float ApartmentCost { get; private set; }
         // public Image image { get; private set; }
 
-        public PropertyCard(string data)
+        public PropertyCard(string data, Image img)
         {
             string[] details = data.Split(';');
             if (details[0] == "ATT")
@@ -37,6 +38,8 @@ namespace Monopoly.Main
             ApartmentCost = float.Parse(details[7]);
             MortgageValue = float.Parse(details[8]);
             Group = int.Parse(details[9]);
+
+            logo = img;
         }
 
         public void AddApartment()
@@ -53,5 +56,6 @@ namespace Monopoly.Main
         {
             return payments[apt];
         }
+
     }
 }

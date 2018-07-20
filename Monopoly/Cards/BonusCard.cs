@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,7 +16,7 @@ namespace Monopoly.Cards
 
         private float[] payments;
 
-        public BonusCard(string data)
+        public BonusCard(string data, Image img)
         {
             payments = new float[4] { ONE_BONUS, TWO_BONUS, THREE_BONUS, FOUR_BONUS};
 
@@ -25,6 +26,8 @@ namespace Monopoly.Cards
             Name = content[0];
             Cost = float.Parse(content[2]);
             MortgageValue = float.Parse(content[3]);
+
+            logo = img;
         }
 
         public new float GetPayment()

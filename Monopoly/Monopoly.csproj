@@ -5,12 +5,27 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{B9922401-012E-4BE3-8A66-E59478EE573D}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <OutputType>WinExe</OutputType>
     <RootNamespace>Monopoly</RootNamespace>
     <AssemblyName>Monopoly</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -30,6 +45,12 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Monopoly.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -96,15 +117,47 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Resource1.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resource1.resx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="bin\Debug\Resources\images\1" />
+    <None Include="bin\Debug\Resources\images\11" />
+    <None Include="bin\Debug\Resources\images\12" />
+    <None Include="bin\Debug\Resources\images\13" />
+    <None Include="bin\Debug\Resources\images\14" />
+    <None Include="bin\Debug\Resources\images\15" />
+    <None Include="bin\Debug\Resources\images\16" />
+    <None Include="bin\Debug\Resources\images\18" />
+    <None Include="bin\Debug\Resources\images\19" />
+    <None Include="bin\Debug\Resources\images\21" />
+    <None Include="bin\Debug\Resources\images\23" />
+    <None Include="bin\Debug\Resources\images\24" />
+    <None Include="bin\Debug\Resources\images\25" />
+    <None Include="bin\Debug\Resources\images\26" />
+    <None Include="bin\Debug\Resources\images\27" />
+    <None Include="bin\Debug\Resources\images\28" />
+    <None Include="bin\Debug\Resources\images\29" />
+    <None Include="bin\Debug\Resources\images\3" />
+    <None Include="bin\Debug\Resources\images\31" />
+    <None Include="bin\Debug\Resources\images\32" />
+    <None Include="bin\Debug\Resources\images\34" />
+    <None Include="bin\Debug\Resources\images\35" />
+    <None Include="bin\Debug\Resources\images\37" />
+    <None Include="bin\Debug\Resources\images\39" />
+    <None Include="bin\Debug\Resources\images\5" />
+    <None Include="bin\Debug\Resources\images\6" />
+    <None Include="bin\Debug\Resources\images\8" />
+    <None Include="bin\Debug\Resources\images\9" />
     <None Include="Properties\DataSources\Monopoly.Cards.IPurchasable.datasource" />
     <None Include="Properties\DataSources\Monopoly.Main.PropertyCard.datasource" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Exceptions\" />
-    <Folder Include="Resources\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Forms\MainMenu.resx">
@@ -126,6 +179,208 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="Resource1.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resource1.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\Resources\images\image-drawn.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\Resources\logos\1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\Resources\logos\3.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\Resources\logos\5.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\Resources\logos\6.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\Resources\logos\8.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\Resources\logos\9.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\Resources\logos\11.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\Resources\logos\12.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\Resources\logos\13.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\Resources\logos\14.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\Resources\logos\15.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\Resources\logos\16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\Resources\logos\18.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\Resources\logos\19.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\Resources\logos\21.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\Resources\logos\23.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\Resources\logos\24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\Resources\logos\25.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\Resources\logos\26.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\Resources\logos\27.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\Resources\logos\28.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\Resources\logos\29.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\Resources\logos\31.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\Resources\logos\32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\Resources\logos\34.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\Resources\logos\35.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\Resources\logos\37.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\Resources\logos\39.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\Resources\images\playerHub.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\images\1.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\images\3.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\images\5.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\images\6.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\images\8.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\images\9.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\images\11.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\images\12.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\images\13.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\images\14.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\images\15.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\images\16.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\images\18.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\images\19.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\images\21.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\images\23.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\images\24.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\images\25.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\images\26.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\images\27.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\images\28.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\images\29.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\images\31.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\images\32.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\images\34.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\images\35.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\images\37.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\images\39.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\treasureCards.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\riskCards.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\properties.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.6.1">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.6.1 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Monopoly.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -2,9 +2,11 @@
 using Monopoly.Players;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -18,6 +20,15 @@ namespace Monopoly.Cards
 
         private Dictionary<int, IPurchasable> propertyCards;
         private Dictionary<IPurchasable, Player> ownership;
+
+        private Image[] logos = {null, Resource1._1, null, Resource1._3, null, Resource1._5,
+                                Resource1._6, null, Resource1._8, Resource1._9, null, Resource1._11,
+                                Resource1._12, Resource1._13, Resource1._14, Resource1._15,
+                                Resource1._16, null, Resource1._18, Resource1._19, null, Resource1._21,
+                                null, Resource1._23, Resource1._24, Resource1._25, Resource1._26,
+                                Resource1._27, Resource1._28, Resource1._29, null, Resource1._31,
+                                Resource1._32, null, Resource1._34, Resource1._35, null, Resource1._37,
+                                null, Resource1._39 };
 
         private int[][] groups;
         
@@ -40,21 +51,25 @@ namespace Monopoly.Cards
             // initialise all the property cards
             propertyCards = new Dictionary<int, IPurchasable>();
             ownership = new Dictionary<IPurchasable, Player>();
-            string[] cardDetails = File.ReadAllLines(source);
+
+            string details = Resource1.properties;
+            string[] cardDetails = Regex.Split(details, @"\r?\n|\r");
+
+            //string[] cardDetails = File.ReadAllLines(source);
             for (int i = 0; i < NUMBER_OF_PROPERTY_CARDS; i++)
             {
                 string[] numberAndData = cardDetails[i].Split(' ');
-                propertyCards.Add(int.Parse(numberAndData[0]), new PropertyCard(numberAndData[1]));
+                propertyCards.Add(int.Parse(numberAndData[0]), new PropertyCard(numberAndData[1], logos[int.Parse(numberAndData[0])]));
             }
             for (int i = NUMBER_OF_PROPERTY_CARDS; i < NUMBER_OF_PROPERTY_CARDS + NUMBER_OF_AGENCIES; i++)
             {
                 string[] numberAndData = cardDetails[i].Split(' ');
-                propertyCards.Add(int.Parse(numberAndData[0]), new AgencyCard(numberAndData[1]));
+                propertyCards.Add(int.Parse(numberAndData[0]), new AgencyCard(numberAndData[1], logos[int.Parse(numberAndData[0])]));
             }
             for (int i = NUMBER_OF_PROPERTY_CARDS + NUMBER_OF_AGENCIES; i < NUMBER_OF_PROPERTY_CARDS + NUMBER_OF_AGENCIES + NUMBER_OF_BONUS_CARDS; i++)
             {
                 string[] numberAndData = cardDetails[i].Split(' ');
-                propertyCards.Add(int.Parse(numberAndData[0]), new BonusCard(numberAndData[1]));
+                propertyCards.Add(int.Parse(numberAndData[0]), new BonusCard(numberAndData[1], logos[int.Parse(numberAndData[0])]));
             }
         }
 

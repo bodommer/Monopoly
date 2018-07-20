@@ -1,9 +1,12 @@
 ﻿using Monopoly.Main;
+using Monopoly.Properties;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace Monopoly
@@ -22,7 +25,9 @@ namespace Monopoly
             // initialise all the risk cards
             try
             {
-                cardDetails = File.ReadAllLines(source);
+                string details = Resource1.riskCards;
+
+                cardDetails = Regex.Split(details, @"\r?\n|\r");
             } catch
             {
                 throw new InvalidDataException("Wrong source file address!");

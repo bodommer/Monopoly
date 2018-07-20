@@ -16,7 +16,6 @@ namespace Monopoly
             //Main.Monopoly window = new Main.Monopoly();
             //Console.ReadLine();
             //Game g = new Game();
-
             Application.Run(new Main.MainMenu());
             //ImageManipulator.CreateThumbnails();
         }

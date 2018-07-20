@@ -20,6 +20,7 @@ namespace Monopoly.Main
         PictureBox[] player;
         int numberOfPlayers;
         public int button;
+        Image[] logos;
 
         public Monopoly(Player[] players)
         {
@@ -31,9 +32,13 @@ namespace Monopoly.Main
             gamePlan = drawArea.CreateGraphics();
             playerPart = playerDetail.CreateGraphics();
             DrawPlan();
-            playerDetail.Image = Image.FromFile("Resources/images/playerHub.png", true);
-            drawArea.Image = Image.FromFile("Resources/images/image-drawn.png", true);
+            playerDetail.Image = Resource1.playerHub;
+            drawArea.Image = Resource1.image_drawn;
+            //playerDetail.Image = Image.FromFile("Resources/images/playerHub.png", true);
+            //drawArea.Image = Image.FromFile("Resources/images/image-drawn.png", true);
             gamePlan.DrawEllipse(new Pen(Brushes.Black, 3), 20, 20, 20, 20);
+            new Game(players, this);
+            logos = new Image[40];
         }
 
         private void MainWindow_Load(object sender, EventArgs e)
@@ -113,9 +118,11 @@ namespace Monopoly.Main
             CardTitle.Text = card.Name;
             CardTitle.BackColor = color;
             CardTitle.ForeColor = Color.WhiteSmoke;
-            Image img = Image.FromFile("Resources/images/" + field.ToString());
-            logoBox.Image = img;
+            string resName = field.ToString() + ".png";
+            Image img = card.logo;
+            //Image img = Image.FromFile("Resources/images/" + field.ToString());
             logoBox.Padding = new Padding((298 - img.Width)/2, (140 - img.Height)/2, 0, 0);
+            logoBox.Image = img;
             priceLabel.Text = "Price: " + card.Cost + "m";
             paymentLabel1.Text = "Payment 1: " + card.GetPayment(0) + "m";
             paymentLabel2.Text = "Payment 2: " + card.GetPayment(1) + "m";
@@ -131,7 +138,10 @@ namespace Monopoly.Main
             CardTitle.Text = card.Name;
             CardTitle.BackColor = Color.White;
             CardTitle.ForeColor = Color.Black;
-            logoBox.Image = Image.FromFile("Resources/images/" + field.ToString());
+            string resName = $"_1";
+            logoBox.Image = card.logo;
+            //logoBox.Image = Resource1."_1"; ;
+
             priceLabel.Text = "Price: " + card.Cost + "m";
             paymentLabel1.Text = "One agency owned payment: ";
             paymentLabel2.Text = card.GetBonus(1) + "m * dice roll value";
@@ -147,7 +157,10 @@ namespace Monopoly.Main
             CardTitle.Text = card.Name;
             CardTitle.BackColor = Color.White;
             CardTitle.ForeColor = Color.Black;
-            logoBox.Image = Image.FromFile("Resources/images/" + field.ToString());
+
+            string resName = $"_" + field.ToString();
+            logoBox.Image = card.logo;
+            //logoBox.Image = Image.FromFile("Resources/images/" + field.ToString());
             priceLabel.Text = "Price: " + card.Cost + "m";
             paymentLabel1.Text = "Payment per bonu cards owned:";
             paymentLabel2.Text = "One card:" + card.GetPayment(1) + "m";

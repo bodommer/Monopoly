@@ -146,7 +146,7 @@
             this.Name = "NewGameDialog";
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
-            this.Text = "Form1";
+            this.Text = "Game Settings";
             ((System.ComponentModel.ISupportInitialize)(this.moneyTrackBar)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.playerCount)).EndInit();
             this.ResumeLayout(false);
