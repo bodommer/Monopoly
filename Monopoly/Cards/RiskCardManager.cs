@@ -38,7 +38,8 @@ namespace Monopoly
 
         public RiskCard GetRiskCard()
         {
-            cardPointer = cardPointer++ % NUMBER_OF_CARDS;
+            cardPointer++;
+            cardPointer = cardPointer % NUMBER_OF_CARDS;
             return riskCards[cardPointer];
         }
     }

@@ -7,22 +7,25 @@ using System.Threading.Tasks;
 
 namespace Monopoly.Main
 {
-    public class PropertyCard : IField, IPurchasable
+    public class PropertyCard : Card
     {
-        public string Name { get; private set; }
         public string Description { get; private set; }
-        public float Cost { get; private set; }
         public int Apartments { get; private set; }
         private float[] payments;
         public float ApartmentCost { get; private set; }
-        public float MortgageValue { get; private set; }
-        public int Group { get; private set; }
         // public Image image { get; private set; }
 
         public PropertyCard(string data)
         {
             string[] details = data.Split(';');
-            Name = details[0];
+            if (details[0] == "ATT")
+            {
+                Name = "AT&&T";
+            }
+            else
+            {
+                Name = details[0];
+            }
             Description = details[1];
             Cost = float.Parse(details[2]);
             Apartments = 0;
@@ -41,9 +44,14 @@ namespace Monopoly.Main
             Apartments++;
         }
 
-        public float GetPayment()
+        public override float GetPayment()
         {
             return payments[Apartments];
+        }
+
+        public float GetPayment(int apt)
+        {
+            return payments[apt];
         }
     }
 }

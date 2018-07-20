@@ -11,13 +11,11 @@ namespace Monopoly.Main
     {
         private static Dice dice;
         private Random randomizer;
-        private int lastThrow;
-        private const int diceSleep = 300;
+        private const int DICE_SLEEP = 150;
 
         private Dice()
         {
             randomizer = new Random();
-            lastThrow = 4;
         }
 
         public static Dice Instance
@@ -35,11 +33,21 @@ namespace Monopoly.Main
         public int Roll(Monopoly window)
         {
             //draw the dice and randomising
-
-            lastThrow = randomizer.Next(1, 7);
-            Thread.Sleep(diceSleep);
-            return lastThrow;
+            int rolls = randomizer.Next(5, 10);
+            int result = 0;
+            for(int i=0; i<rolls;i++)
+            {
+                result = randomizer.Next(1, 7);
+                window.ShowDiceNumber(result);
+                Thread.Sleep(DICE_SLEEP);
+            }
+            Thread.Sleep(1500);
+            if (result == 6)
+            {
+                result += Roll(window);
+            }
+            //return result;
+            return 8; //for testing!
         }
-
     }
 }

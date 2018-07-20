@@ -32,7 +32,8 @@ namespace Monopoly.Cards
 
         public TreasureCard GetTreasureCard()
         {
-            cardPointer = cardPointer++ % NUMBER_OF_CARDS;
+            cardPointer++;
+            cardPointer = cardPointer % NUMBER_OF_CARDS;
             return TreasureCards[cardPointer];
         }
     }

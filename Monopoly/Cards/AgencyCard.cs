@@ -6,22 +6,24 @@ using System.Threading.Tasks;
 
 namespace Monopoly.Cards
 {
-    public class AgencyCard : IPurchasable
+    public class AgencyCard : Card
     {
-        public string Name { get; private set; }
         public string Description { get; private set; }
-        public float Cost { get; private set; }
-        public float MortgageValue { get; private set; }
 
         private const float ONE_BONUS = 0.4F;
         private const float TWO_BONUS = 1;
 
         public AgencyCard(string data)
         {
-
+            string[] info = data.Split(';');
+            Name = info[0];
+            Cost = float.Parse(info[2]);
+            MortgageValue = float.Parse(info[3]);
+            Payment = 0F;
+            Group = 0;
         }
 
-        public float GetPayment()
+        public new float GetPayment()
         {
             throw new NotImplementedException();
         }
@@ -36,6 +38,15 @@ namespace Monopoly.Cards
                 return ONE_BONUS * dice;
             }
             return TWO_BONUS * dice;
+        }
+
+        public float GetBonus(int which)
+        {
+            if (which == 1)
+            {
+                return ONE_BONUS;
+            }
+            return TWO_BONUS;
         }
     }
 }

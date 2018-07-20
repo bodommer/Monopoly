@@ -34,7 +34,9 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.DirectoryServices" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Messaging" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -46,40 +48,83 @@
   <ItemGroup>
     <Compile Include="Cards\AgencyCard.cs" />
     <Compile Include="Cards\BonusCard.cs" />
+    <Compile Include="Cards\Card.cs" />
     <Compile Include="Cards\IField.cs" />
     <Compile Include="Cards\IPurchasable.cs" />
     <Compile Include="Cards\PropertyCard.cs" />
     <Compile Include="Cards\PropertyManager.cs" />
     <Compile Include="Cards\TreasureCardManager.cs" />
+    <Compile Include="Forms\NewGameDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\NewGameDialog.Designer.cs">
+      <DependentUpon>NewGameDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\PlayersChoosing.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\PlayersChoosing.Designer.cs">
+      <DependentUpon>PlayersChoosing.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GameSettings.cs" />
     <Compile Include="Main\Dice.cs" />
+    <Compile Include="Forms\MainMenu.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\MainMenu.Designer.cs">
+      <DependentUpon>MainMenu.cs</DependentUpon>
+    </Compile>
     <Compile Include="Main\Game.cs" />
     <Compile Include="Main\Gameplan.cs" />
     <Compile Include="Cards\RiskCard.cs" />
     <Compile Include="Cards\TreasureCard.cs" />
-    <Compile Include="Main\MainWindow.cs">
+    <Compile Include="Forms\GameWindow.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Main\MainWindow.Designer.cs">
-      <DependentUpon>MainWindow.cs</DependentUpon>
+    <Compile Include="Forms\GameWindow.Designer.cs">
+      <DependentUpon>GameWindow.cs</DependentUpon>
     </Compile>
+    <Compile Include="Main\ImageManipulator.cs" />
     <Compile Include="Players\AIPlayer.cs" />
     <Compile Include="Players\HumanPlayer.cs" />
     <Compile Include="Players\Player.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Cards\RiskCardManager.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="Properties\DataSources\Monopoly.Cards.IPurchasable.datasource" />
+    <None Include="Properties\DataSources\Monopoly.Main.PropertyCard.datasource" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Exceptions\" />
-    <Folder Include="Forms\" />
     <Folder Include="Resources\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Main\MainWIndow.resx">
-      <DependentUpon>MainWindow.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\MainMenu.resx">
+      <DependentUpon>MainMenu.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\GameWindow.resx">
+      <DependentUpon>GameWindow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\NewGameDialog.resx">
+      <DependentUpon>NewGameDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\PlayersChoosing.resx">
+      <DependentUpon>PlayersChoosing.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Main\Game.resx">
+      <DependentUpon>Game.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
