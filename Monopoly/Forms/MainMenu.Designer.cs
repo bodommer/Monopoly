@@ -36,14 +36,17 @@
             // 
             // newGameButton
             // 
+            this.newGameButton.BackColor = System.Drawing.Color.SteelBlue;
             this.newGameButton.DialogResult = System.Windows.Forms.DialogResult.OK;
+            this.newGameButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.newGameButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F);
+            this.newGameButton.ForeColor = System.Drawing.SystemColors.ButtonFace;
             this.newGameButton.Location = new System.Drawing.Point(60, 60);
             this.newGameButton.Name = "newGameButton";
             this.newGameButton.Size = new System.Drawing.Size(200, 70);
             this.newGameButton.TabIndex = 0;
             this.newGameButton.Text = "New Game";
-            this.newGameButton.UseVisualStyleBackColor = true;
+            this.newGameButton.UseVisualStyleBackColor = false;
             this.newGameButton.Click += new System.EventHandler(this.newGameButton_Click);
             // 
             // loadGameButton
@@ -83,6 +86,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.SystemColors.ScrollBar;
             this.CancelButton = this.exitButton;
             this.ClientSize = new System.Drawing.Size(584, 321);
             this.ControlBox = false;
@@ -90,6 +94,7 @@
             this.Controls.Add(this.settingsButton);
             this.Controls.Add(this.loadGameButton);
             this.Controls.Add(this.newGameButton);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "MainMenu";

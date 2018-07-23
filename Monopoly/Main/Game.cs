@@ -56,6 +56,20 @@ namespace Monopoly.Main
             window.gameButton3.Click += B3Callback;
             window.saveGameButton.Click += SBCallback;
             window.KeyPress += KeyPressed;
+            window.exitButton.Click += EBCallback;
+        }
+
+        private void ExitProcedure()
+        {
+            DialogResult dr = MessageBox.Show("Are you sure you want to quit? All unsaved progress will be lost!", "Quit", MessageBoxButtons.YesNo);
+            if (dr == DialogResult.Yes)
+            {
+                Environment.Exit(0);
+            }
+        }
+
+        private void SaveProcedure()
+        {
         }
 
         private void B1Callback (object sender, EventArgs ea)
@@ -97,17 +111,26 @@ namespace Monopoly.Main
                     Button3_action();
                     break;
 
-                case 'S':
+                case 's':
                     SaveButton_action();
                     break;
 
-                case 'L':
-                    Environment.Exit(0);
+                case 'l':
+                    ExitProcedure();
+                    break;
+
+                case 'm':
+                    window.mainMenuButton.PerformClick();
                     break;
 
                 default:
                     break;
             }
+        }
+
+        private void EBCallback(object sender, EventArgs ea)
+        {
+            ExitProcedure();
         }
 
         private void PrepareGame(GameSettings settings)
@@ -132,6 +155,7 @@ namespace Monopoly.Main
             switch (GameState)
             {
                 case GameStage.DICE:
+                    window.HideButton();
                     GameState = GameStage.NO_ACTION;
                     RollDice();
                     break;
@@ -154,12 +178,12 @@ namespace Monopoly.Main
                 case GameStage.AWAITING_UPGRADE:
                     GameState = GameStage.NO_ACTION;
                     PropertyCard c2 = (PropertyCard)card;
-                    c2.AddApartment();
-                    p.Money -= c2.ApartmentCost;
                     window.DrawApartment(
                         gameplan.GetCoordsOfNextApartment(
                             gameplan.PlayerPosition(
                                 players[playerTurnPointer]), c2.Apartments));
+                    c2.AddApartment();
+                    p.Money -= c2.ApartmentCost;
                     ShowWhatNext(p);
                     break;
 
@@ -359,7 +383,13 @@ namespace Monopoly.Main
                 field = gameplan.Move(player);
                 window.MovePlayer(playerTurnPointer, 
                     gameplan.GetCoordsOfNextField(player, playerTurnPointer));
-                Thread.Sleep(350);
+                if (gameplan.PlayerPosition(player) == 0)
+                {
+                    player.Money += START_BONUS;
+                    window.ShowPlayerInfo(player);
+                    MessageBox.Show("You have passed the start and 30m have been added to your account");
+                }
+                Thread.Sleep(200);
             }
             Action(field, roll, player);
         }
@@ -379,6 +409,11 @@ namespace Monopoly.Main
                             if (player.Money < card.Cost)
                             {
                                 window.ShowMessage("You have not got enough money to buy this property");
+                                window.DisplayPropertyCard(card, Color.FromArgb(
+                                colorGroups[card.Group, 0],
+                                colorGroups[card.Group, 1],
+                                colorGroups[card.Group, 2]),
+                                gameplan.PlayerPosition(player));
                                 GameState = GameStage.NO_FUNDS_BUY;
                                 return;
                             }
@@ -405,6 +440,11 @@ namespace Monopoly.Main
                                 else
                                 {
                                     window.ShowUpgradeOptions(card.Name, card.ApartmentCost);
+                                    window.DisplayPropertyCard(card, Color.FromArgb(
+                                            colorGroups[card.Group, 0],
+                                            colorGroups[card.Group, 1],
+                                            colorGroups[card.Group, 2]),
+                                            gameplan.PlayerPosition(player));
                                     GameState = GameStage.AWAITING_UPGRADE;
                                 }
                             }
@@ -433,6 +473,11 @@ namespace Monopoly.Main
                                     return;
                                 }
                                 window.ShowPayment(owner.name, card.GetPayment());
+                                window.DisplayPropertyCard(card, Color.FromArgb(
+                                colorGroups[card.Group, 0],
+                                colorGroups[card.Group, 1],
+                                colorGroups[card.Group, 2]), 
+                                gameplan.PlayerPosition(player));
                                 GameState = GameStage.AWAITING_RENT;
                                 return;
                             }

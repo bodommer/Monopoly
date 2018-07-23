@@ -173,11 +173,13 @@ namespace Monopoly.Main
             this.textBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F);
             this.textBox.ForeColor = System.Drawing.SystemColors.ButtonFace;
             this.textBox.Location = new System.Drawing.Point(20, 200);
+            this.textBox.Margin = new System.Windows.Forms.Padding(0);
             this.textBox.Name = "textBox";
             this.textBox.Size = new System.Drawing.Size(385, 50);
             this.textBox.TabIndex = 8;
             this.textBox.Text = "textBox";
             this.textBox.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.textBox.Click += new System.EventHandler(this.textBox_Click);
             // 
             // mainMenuButton
             // 
@@ -217,9 +219,9 @@ namespace Monopoly.Main
             // playerDetail
             // 
             this.playerDetail.BackColor = System.Drawing.Color.White;
-            this.playerDetail.Location = new System.Drawing.Point(0, 0);
+            this.playerDetail.Location = new System.Drawing.Point(-14, 0);
             this.playerDetail.Name = "playerDetail";
-            this.playerDetail.Size = new System.Drawing.Size(425, 177);
+            this.playerDetail.Size = new System.Drawing.Size(424, 177);
             this.playerDetail.TabIndex = 13;
             this.playerDetail.TabStop = false;
             // 
@@ -229,7 +231,7 @@ namespace Monopoly.Main
             this.playerMoneyLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F);
             this.playerMoneyLabel.Location = new System.Drawing.Point(0, 90);
             this.playerMoneyLabel.Name = "playerMoneyLabel";
-            this.playerMoneyLabel.Size = new System.Drawing.Size(425, 90);
+            this.playerMoneyLabel.Size = new System.Drawing.Size(424, 90);
             this.playerMoneyLabel.TabIndex = 15;
             this.playerMoneyLabel.Text = "playerMoneyLabel";
             this.playerMoneyLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -241,7 +243,7 @@ namespace Monopoly.Main
             this.playerPanel.Controls.Add(this.playerDetail);
             this.playerPanel.Location = new System.Drawing.Point(0, 0);
             this.playerPanel.Name = "playerPanel";
-            this.playerPanel.Size = new System.Drawing.Size(425, 180);
+            this.playerPanel.Size = new System.Drawing.Size(424, 180);
             this.playerPanel.TabIndex = 7;
             // 
             // playerNameLabel
@@ -250,7 +252,7 @@ namespace Monopoly.Main
             this.playerNameLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F);
             this.playerNameLabel.Location = new System.Drawing.Point(0, 0);
             this.playerNameLabel.Name = "playerNameLabel";
-            this.playerNameLabel.Size = new System.Drawing.Size(425, 90);
+            this.playerNameLabel.Size = new System.Drawing.Size(424, 90);
             this.playerNameLabel.TabIndex = 16;
             this.playerNameLabel.Text = "playerNameLabel";
             this.playerNameLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -476,10 +478,11 @@ namespace Monopoly.Main
             // 
             // cardNameLabel
             // 
+            this.cardNameLabel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.cardNameLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F);
             this.cardNameLabel.Location = new System.Drawing.Point(20, 560);
             this.cardNameLabel.Name = "cardNameLabel";
-            this.cardNameLabel.Size = new System.Drawing.Size(385, 25);
+            this.cardNameLabel.Size = new System.Drawing.Size(385, 28);
             this.cardNameLabel.TabIndex = 38;
             this.cardNameLabel.Text = "cardNameLabel";
             this.cardNameLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -487,10 +490,11 @@ namespace Monopoly.Main
             // 
             // cardContentLabel
             // 
+            this.cardContentLabel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.cardContentLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.cardContentLabel.Location = new System.Drawing.Point(20, 585);
+            this.cardContentLabel.Location = new System.Drawing.Point(20, 587);
             this.cardContentLabel.Name = "cardContentLabel";
-            this.cardContentLabel.Size = new System.Drawing.Size(385, 90);
+            this.cardContentLabel.Size = new System.Drawing.Size(385, 89);
             this.cardContentLabel.TabIndex = 39;
             this.cardContentLabel.Text = "cardContentLabel";
             this.cardContentLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -555,7 +559,8 @@ namespace Monopoly.Main
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.playerPanel);
             this.Controls.Add(this.drawArea);
-            this.Margin = new System.Windows.Forms.Padding(2);
+            this.KeyPreview = true;
+            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "Monopoly";

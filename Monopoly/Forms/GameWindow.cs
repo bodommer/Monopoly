@@ -50,7 +50,7 @@ namespace Monopoly.Main
             player4.BackColor = Color.Tomato;
             player5.BackColor = Color.Purple;
             player6.BackColor = Color.Peru;
-            for (int i=5; i >= numberOfPlayers; i--)
+            for (int i = 5; i >= numberOfPlayers; i--)
             {
                 player[i].Hide();
             }
@@ -95,7 +95,6 @@ namespace Monopoly.Main
 
         private void exitButton_Click(object sender, EventArgs e)
         {
-            Environment.Exit(0);
         }
 
         public void PrepareForDice(Color color)
@@ -121,7 +120,7 @@ namespace Monopoly.Main
             string resName = field.ToString() + ".png";
             Image img = card.logo;
             //Image img = Image.FromFile("Resources/images/" + field.ToString());
-            logoBox.Padding = new Padding((298 - img.Width)/2, (140 - img.Height)/2, 0, 0);
+            logoBox.Padding = new Padding((298 - img.Width) / 2, (140 - img.Height) / 2, 0, 0);
             logoBox.Image = img;
             priceLabel.Text = "Price: " + card.Cost + "m";
             paymentLabel1.Text = "Payment 1: " + card.GetPayment(0) + "m";
@@ -139,9 +138,10 @@ namespace Monopoly.Main
             CardTitle.BackColor = Color.White;
             CardTitle.ForeColor = Color.Black;
             string resName = $"_1";
-            logoBox.Image = card.logo;
+            Image logo = card.logo;
+            logoBox.Image = logo;
             //logoBox.Image = Resource1."_1"; ;
-
+            logoBox.Padding = new Padding((298 - logo.Width) / 2, (140 - logo.Height) / 2, 0, 0);
             priceLabel.Text = "Price: " + card.Cost + "m";
             paymentLabel1.Text = "One agency owned payment: ";
             paymentLabel2.Text = card.GetBonus(1) + "m * dice roll value";
@@ -159,8 +159,9 @@ namespace Monopoly.Main
             CardTitle.ForeColor = Color.Black;
 
             string resName = $"_" + field.ToString();
-            logoBox.Image = card.logo;
-            //logoBox.Image = Image.FromFile("Resources/images/" + field.ToString());
+            Image logo = card.logo;
+            logoBox.Image = logo;
+            logoBox.Padding = new Padding((298 - logo.Width) / 2, (140 - logo.Height) / 2, 0, 0);
             priceLabel.Text = "Price: " + card.Cost + "m";
             paymentLabel1.Text = "Payment per bonu cards owned:";
             paymentLabel2.Text = "One card:" + card.GetPayment(1) + "m";
@@ -176,6 +177,8 @@ namespace Monopoly.Main
             HideElements();
             detailBox.Show();
             cardNameLabel.Text = "Risk Card";
+            cardNameLabel.BorderStyle = BorderStyle.FixedSingle;
+            cardContentLabel.BorderStyle = BorderStyle.FixedSingle;
             cardContentLabel.Text = card.Description;
             textBox.Text = "You played a risk card!";
             gameButton1.Text = "Continue";
@@ -188,6 +191,8 @@ namespace Monopoly.Main
         {
             HideElements();
             detailBox.Show();
+            cardNameLabel.BorderStyle = BorderStyle.FixedSingle;
+            cardContentLabel.BorderStyle = BorderStyle.FixedSingle;
             cardNameLabel.Text = "Treasure Card";
             cardContentLabel.Text = card.Description;
             textBox.Text = "You played a trasure card!";
@@ -244,6 +249,11 @@ namespace Monopoly.Main
             gameButton1.Show();
         }
 
+        public void HideButton()
+        {
+            gameButton1.Hide();
+        }
+
         private void HideElements()
         {
             textBox.Text = "";
@@ -252,6 +262,8 @@ namespace Monopoly.Main
             gameButton2.Hide();
             gameButton3.Hide();
             HideCard();
+            cardNameLabel.BorderStyle = BorderStyle.None;
+            cardContentLabel.BorderStyle = BorderStyle.None;
             cardNameLabel.Text = "";
             cardContentLabel.Text = "";
             moneyTrackBar.Hide();
@@ -335,6 +347,11 @@ namespace Monopoly.Main
             this.Update();
         }
 
+        public void ShowStartPassInfo()
+        {
+            cardContentLabel.Text = "";
+        }
+
         public ListViewItem GetSelectedItem()
         {
             if (tradeViewer.SelectedItems.Count > 0)
@@ -401,7 +418,7 @@ namespace Monopoly.Main
             else
             {
                 textBox.Text = "Which mortgages do you want to pay off?";
-                gameButton1.Text = "Pay mortgage back";
+                gameButton1.Text = "Pay off mortgage";
             }
             gameButton2.Text = "Back";
             gameButton1.Show();
@@ -445,7 +462,6 @@ namespace Monopoly.Main
 
         private void cardNameLabel_Click(object sender, EventArgs e)
         {
-
         }
 
         private void MoneyTrackBarChanged(object sender, EventArgs e)
@@ -455,10 +471,11 @@ namespace Monopoly.Main
 
         public void WindowKeyPress(object sender, KeyPressEventArgs e)
         {
-            if (e.KeyChar == 'M')
-            {
-                mainMenuButton.PerformClick();
-            }
+        }
+
+        private void textBox_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

@@ -32,7 +32,8 @@ namespace Monopoly.Main
                 image.Dispose();
 
                 string fileRelativePath = "Resources/resized/" + i;
-                newImage.Save("Resources/resized/" + i.ToString());
+                //Console.Write(image.RawFormat);
+                newImage.Save(fileRelativePath);
             }
         }
     }

@@ -38,16 +38,17 @@ namespace Monopoly.Main
             for(int i=0; i<rolls;i++)
             {
                 result = randomizer.Next(1, 7);
+                //result = randomizer.Next(5, 7);
                 window.ShowDiceNumber(result);
                 Thread.Sleep(DICE_SLEEP);
             }
-            Thread.Sleep(1500);
+            Thread.Sleep(1200);
             if (result == 6)
             {
                 result += Roll(window);
             }
-            return result;
-            //return 8; //for testing!
+            //return result;
+            return 12; //for testing!
         }
     }
 }
