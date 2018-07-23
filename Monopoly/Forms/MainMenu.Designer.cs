@@ -59,6 +59,7 @@
             this.loadGameButton.TabIndex = 1;
             this.loadGameButton.Text = "Load Game";
             this.loadGameButton.UseVisualStyleBackColor = true;
+            this.loadGameButton.Click += new System.EventHandler(this.loadGameButton_Click);
             // 
             // settingsButton
             // 

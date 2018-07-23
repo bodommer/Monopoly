@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace Monopoly.Main
 {
+    [Serializable()]
     public class Dice
     {
         private static Dice dice;
@@ -47,8 +48,8 @@ namespace Monopoly.Main
             {
                 result += Roll(window);
             }
-            //return result;
-            return 12; //for testing!
+            return result;
+            //return 12; //for testing!
         }
     }
 }

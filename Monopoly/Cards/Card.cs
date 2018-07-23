@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace Monopoly.Cards
 {
+    [Serializable()]
     public abstract class Card : IPurchasable
     {
         public string Name { get; protected set; }

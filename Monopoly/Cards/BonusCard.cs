@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace Monopoly.Cards
 {
+    [Serializable()]
     public class BonusCard : Card
     {
         private const float ONE_BONUS = 3;

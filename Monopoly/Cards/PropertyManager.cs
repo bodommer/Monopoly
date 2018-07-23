@@ -12,6 +12,7 @@ using System.Windows.Forms;
 
 namespace Monopoly.Cards
 {
+    [Serializable()]
     public class PropertyManager
     {
         private const int NUMBER_OF_PROPERTY_CARDS = 22;

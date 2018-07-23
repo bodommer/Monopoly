@@ -11,6 +11,7 @@ using System.Drawing;
 
 namespace Monopoly.Main
 {
+    [Serializable()]
     public class Gameplan
     {
         public enum FieldType { PROPERTY, TREASURE, RISK, PARKING, START, PRISON, VISIT, TAX, AGENCY, TAX_FINE, BONUS_PROPERTY }
@@ -25,7 +26,6 @@ namespace Monopoly.Main
         public List<int> bonusFields;
 
         private Random randomizer = new Random();
-        private Monopoly window;
         private FieldType[] fieldMap;
 
         Dictionary<Player, int> playerFields;

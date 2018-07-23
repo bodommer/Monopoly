@@ -8,6 +8,7 @@ using System.Drawing;
 
 namespace Monopoly.Players
 {
+    [Serializable()]
     public abstract class Player
     {
         public int Blocked { get; set; }

@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace Monopoly.Main
 {
+    [Serializable()]
     public class RiskCard : IField
     {
         public string Description { get; private set; }

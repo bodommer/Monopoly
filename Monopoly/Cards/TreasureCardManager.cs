@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 
 namespace Monopoly.Cards
 {
+    [Serializable]
     public class TreasureCardManager
     {
         private const int NUMBER_OF_CARDS = 10;

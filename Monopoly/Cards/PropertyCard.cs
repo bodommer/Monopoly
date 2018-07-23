@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace Monopoly.Main
 {
+    [Serializable()]
     public class PropertyCard : Card
     {
         public string Description { get; private set; }

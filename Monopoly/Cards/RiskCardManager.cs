@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 
 namespace Monopoly
 {
+    [Serializable()]
     public class RiskCardManager
     {
         private const int NUMBER_OF_CARDS = 10;

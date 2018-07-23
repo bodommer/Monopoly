@@ -13,6 +13,7 @@ using static Monopoly.Main.Game;
 
 namespace Monopoly.Main
 {
+    [Serializable]
     public partial class Monopoly : Form
     {
         Graphics gamePlan;
@@ -20,7 +21,6 @@ namespace Monopoly.Main
         PictureBox[] player;
         int numberOfPlayers;
         public int button;
-        Image[] logos;
 
         public Monopoly(Player[] players)
         {
@@ -37,8 +37,7 @@ namespace Monopoly.Main
             //playerDetail.Image = Image.FromFile("Resources/images/playerHub.png", true);
             //drawArea.Image = Image.FromFile("Resources/images/image-drawn.png", true);
             gamePlan.DrawEllipse(new Pen(Brushes.Black, 3), 20, 20, 20, 20);
-            new Game(players, this);
-            logos = new Image[40];
+            //Game g = new Game(players, this);
         }
 
         private void MainWindow_Load(object sender, EventArgs e)

@@ -9,9 +9,14 @@ using static Monopoly.Main.Gameplan;
 using System.Drawing;
 using System.Threading;
 using System.Windows.Forms;
+using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
+using System.Reflection;
+using System.Diagnostics;
 
 namespace Monopoly.Main
 {
+    [Serializable()]
     public class Game
     {
         public enum GameStage { DICE, NO_FUNDS, NO_ACTION, AWAITING_PURCHASE,
@@ -25,6 +30,7 @@ namespace Monopoly.Main
         private const float START_BONUS = 30;
 
         public GameStage GameState { get; private set; }
+        [field:NonSerialized()]
         private Monopoly window;
 
         int[,] colorGroups;
@@ -36,6 +42,7 @@ namespace Monopoly.Main
         int playerTurnPointer = 0;
         Player[] players;
         IPurchasable selectedItem = null;
+        private const string FileName = "serialized.bin";
 
         public Game(Player[] players, Monopoly window)
         {
@@ -49,7 +56,30 @@ namespace Monopoly.Main
             window.Load += OnLoad;
         }
 
+
+        public Game()
+        {
+            if (File.Exists(FileName))
+            {
+                Console.WriteLine("Reading saved file");
+                Stream openFileStream = File.OpenRead(FileName);
+                BinaryFormatter deserializer = new BinaryFormatter();
+                Game game = (Game)deserializer.Deserialize(openFileStream);
+                openFileStream.Close();
+            }
+        }
+
         private void OnLoad(object s, EventArgs ea)
+        {
+            window.gameButton1.Click += B1Callback;
+            window.gameButton2.Click += B2Callback;
+            window.gameButton3.Click += B3Callback;
+            window.saveGameButton.Click += SBCallback;
+            window.KeyPress += KeyPressed;
+            window.exitButton.Click += EBCallback;
+        }
+
+        private void ReloadCallBacks()
         {
             window.gameButton1.Click += B1Callback;
             window.gameButton2.Click += B2Callback;
@@ -370,7 +400,12 @@ namespace Monopoly.Main
 
         private void SaveButton_action()
         {
-            // save current state of the game
+            object someObject = Process.GetCurrentProcess();
+            Dump(someObject);
+            Stream SaveFileStream = File.Create(FileName);
+            BinaryFormatter serializer = new BinaryFormatter();
+            serializer.Serialize(SaveFileStream, this);
+            SaveFileStream.Close();
         }
 
         public void RollDice()
@@ -735,6 +770,62 @@ namespace Monopoly.Main
             window.ShowNextOptions();
             window.ShowPlayerProperties(propertyManager.GetPlayerProperties(p));
             GameState = GameStage.WHAT_NEXT;
+        }
+
+        public void SetWindow(Monopoly gw)
+        {
+            window = gw;
+        }
+
+        public Player[] GetPlayers()
+        {
+            return players;
+        }
+
+        public void UpdateWindow()
+        {
+            window.ShowPlayerInfo(players[playerTurnPointer]);
+            int i = 0;
+            foreach (Player p in players)
+            {
+                window.MovePlayer(i, gameplan.GetCoordsOfNextField(p, i));
+                i+=1;
+            }
+            ReloadCallBacks();
+        }
+
+        static void Dump(object x)
+        {
+            Game.Dump(x, 0, new HashSet<object>());
+        }
+
+        static void Dump(object x, int indent, HashSet<object> seen)
+        {
+            if (seen.Contains(x)) // stop cycles
+                Console.WriteLine("(saw this already)");
+            else
+            {
+                seen.Add(x);
+                var bindingFlags = BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Static;
+                foreach (var f in x.GetType().GetFields(bindingFlags))
+                {
+                    var value = f.GetValue(x);
+                    var valueTypeStr = value == null ? "null" : value.GetType().Name;
+                    Console.WriteLine("{0}{1} {2} = [{3}]", new string(' ', indent), f.FieldType, f.Name, valueTypeStr);
+                    if (value != null && !value.GetType().IsPrimitive && !(value is string))
+                        if (value is IEnumerable<object>)
+                        {
+                            int index = 0;
+                            foreach (var item in (IEnumerable<object>)value)
+                            {
+                                Console.WriteLine("{0}[{1}]", new string(' ', indent + 2), index++);
+                                Game.Dump(item, indent + 4, seen);
+                            }
+                        }
+                        else
+                            Dump(value, indent + 2, seen);
+                }
+            }
         }
     }
 }

@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace Monopoly.Players
 {
+    [Serializable()]
     public class AIPlayer : Player
     {
         public AIPlayer(string name, float money, Color color)

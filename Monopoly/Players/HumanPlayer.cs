@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace Monopoly.Players
 {
+    [Serializable()]
     public class HumanPlayer : Player
     {
         public HumanPlayer(string name, float money, Color color)
