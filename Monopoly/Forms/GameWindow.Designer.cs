@@ -40,7 +40,6 @@ namespace Monopoly.Main
             this.exitButton = new System.Windows.Forms.Button();
             this.textBox = new System.Windows.Forms.Label();
             this.mainMenuButton = new System.Windows.Forms.Button();
-            this.saveGameButton = new System.Windows.Forms.Button();
             this.detailBox = new System.Windows.Forms.PictureBox();
             this.playerDetail = new System.Windows.Forms.PictureBox();
             this.playerMoneyLabel = new System.Windows.Forms.Label();
@@ -119,7 +118,7 @@ namespace Monopoly.Main
             this.gameButton1.Location = new System.Drawing.Point(20, 270);
             this.gameButton1.Name = "gameButton1";
             this.gameButton1.Size = new System.Drawing.Size(115, 50);
-            this.gameButton1.TabIndex = 2;
+            this.gameButton1.TabIndex = 3;
             this.gameButton1.Text = "gameButton1";
             this.gameButton1.UseVisualStyleBackColor = false;
             this.gameButton1.Click += new System.EventHandler(this.gameButton1_click);
@@ -134,7 +133,7 @@ namespace Monopoly.Main
             this.gameButton2.Location = new System.Drawing.Point(155, 270);
             this.gameButton2.Name = "gameButton2";
             this.gameButton2.Size = new System.Drawing.Size(115, 50);
-            this.gameButton2.TabIndex = 3;
+            this.gameButton2.TabIndex = 4;
             this.gameButton2.Text = "gameButton2";
             this.gameButton2.UseVisualStyleBackColor = false;
             this.gameButton2.Click += new System.EventHandler(this.gameButton2_Click);
@@ -148,7 +147,7 @@ namespace Monopoly.Main
             this.gameButton3.Location = new System.Drawing.Point(290, 270);
             this.gameButton3.Name = "gameButton3";
             this.gameButton3.Size = new System.Drawing.Size(115, 50);
-            this.gameButton3.TabIndex = 4;
+            this.gameButton3.TabIndex = 5;
             this.gameButton3.Text = "gameButton3";
             this.gameButton3.UseVisualStyleBackColor = false;
             this.gameButton3.Click += new System.EventHandler(this.gameButton3_Click);
@@ -158,9 +157,9 @@ namespace Monopoly.Main
             this.exitButton.BackColor = System.Drawing.Color.Gainsboro;
             this.exitButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.exitButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 13F);
-            this.exitButton.Location = new System.Drawing.Point(290, 690);
+            this.exitButton.Location = new System.Drawing.Point(230, 690);
             this.exitButton.Name = "exitButton";
-            this.exitButton.Size = new System.Drawing.Size(115, 50);
+            this.exitButton.Size = new System.Drawing.Size(175, 50);
             this.exitButton.TabIndex = 5;
             this.exitButton.Text = "Exit";
             this.exitButton.UseVisualStyleBackColor = false;
@@ -187,26 +186,13 @@ namespace Monopoly.Main
             this.mainMenuButton.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.mainMenuButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.mainMenuButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 13F);
-            this.mainMenuButton.Location = new System.Drawing.Point(155, 690);
+            this.mainMenuButton.Location = new System.Drawing.Point(20, 690);
             this.mainMenuButton.Name = "mainMenuButton";
-            this.mainMenuButton.Size = new System.Drawing.Size(115, 50);
+            this.mainMenuButton.Size = new System.Drawing.Size(175, 50);
             this.mainMenuButton.TabIndex = 9;
             this.mainMenuButton.Text = "Main Menu";
             this.mainMenuButton.UseVisualStyleBackColor = false;
             this.mainMenuButton.Click += new System.EventHandler(this.mainMenuButton_Click);
-            // 
-            // saveGameButton
-            // 
-            this.saveGameButton.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.saveGameButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.saveGameButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 13F);
-            this.saveGameButton.Location = new System.Drawing.Point(20, 690);
-            this.saveGameButton.Name = "saveGameButton";
-            this.saveGameButton.Size = new System.Drawing.Size(115, 50);
-            this.saveGameButton.TabIndex = 10;
-            this.saveGameButton.Text = "Save Game";
-            this.saveGameButton.UseVisualStyleBackColor = false;
-            this.saveGameButton.Click += new System.EventHandler(this.saveGameButton_Click);
             // 
             // detailBox
             // 
@@ -273,7 +259,7 @@ namespace Monopoly.Main
             this.tradeViewer.MultiSelect = false;
             this.tradeViewer.Name = "tradeViewer";
             this.tradeViewer.Size = new System.Drawing.Size(385, 150);
-            this.tradeViewer.TabIndex = 13;
+            this.tradeViewer.TabIndex = 1;
             this.tradeViewer.UseCompatibleStateImageBehavior = false;
             this.tradeViewer.View = System.Windows.Forms.View.Details;
             // 
@@ -507,7 +493,7 @@ namespace Monopoly.Main
             this.moneyTrackBar.Location = new System.Drawing.Point(20, 495);
             this.moneyTrackBar.Name = "moneyTrackBar";
             this.moneyTrackBar.Size = new System.Drawing.Size(345, 45);
-            this.moneyTrackBar.TabIndex = 40;
+            this.moneyTrackBar.TabIndex = 2;
             this.moneyTrackBar.ValueChanged += new System.EventHandler(this.MoneyTrackBarChanged);
             // 
             // trackBarShower
@@ -549,7 +535,6 @@ namespace Monopoly.Main
             this.Controls.Add(this.player1);
             this.Controls.Add(this.tradeViewer);
             this.Controls.Add(this.detailBox);
-            this.Controls.Add(this.saveGameButton);
             this.Controls.Add(this.mainMenuButton);
             this.Controls.Add(this.textBox);
             this.Controls.Add(this.exitButton);
@@ -560,7 +545,7 @@ namespace Monopoly.Main
             this.Controls.Add(this.playerPanel);
             this.Controls.Add(this.drawArea);
             this.KeyPreview = true;
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "Monopoly";
@@ -631,7 +616,6 @@ namespace Monopoly.Main
         public System.Windows.Forms.Button gameButton3;
         public System.Windows.Forms.Button exitButton;
         public System.Windows.Forms.Button mainMenuButton;
-        public System.Windows.Forms.Button saveGameButton;
     }
 #endregion
 }

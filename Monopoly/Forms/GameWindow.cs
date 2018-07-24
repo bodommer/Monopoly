@@ -59,12 +59,6 @@ namespace Monopoly.Main
 
         private void PaintWindowMethod(object sender, PaintEventArgs e)
         {
-            /*player1.CreateGraphics().DrawEllipse(new Pen(Color.Red), 0, 0, 20, 20);
-            player2.CreateGraphics().DrawEllipse(new Pen(Color.Red), 0, 0, 20, 20);
-            player3.CreateGraphics().DrawEllipse(new Pen(Color.Red), 0, 0, 20, 20);
-            player4.CreateGraphics().DrawEllipse(new Pen(Color.Red), 0, 0, 20, 20);
-            player5.CreateGraphics().DrawEllipse(new Pen(Color.Red), 0, 0, 20, 20);
-            player6.CreateGraphics().DrawEllipse(new Pen(Color.Red), 0, 0, 20, 20);*/
         }
 
         private void DrawPlan()
@@ -100,9 +94,11 @@ namespace Monopoly.Main
         {
             HideElements();
             gameButton1.Text = "Roll";
+            gameButton2.Text = "Save game";
             playerNameLabel.BackColor = color;
             textBox.Text = "Click on the button to start your turn.";
             gameButton1.Show();
+            gameButton2.Show();
         }
 
         public void ShowDiceNumber(int i)
@@ -246,11 +242,13 @@ namespace Monopoly.Main
             textBox.Text = msg;
             gameButton1.Text = "Ok";
             gameButton1.Show();
+            this.Update();
         }
 
         public void HideButton()
         {
             gameButton1.Hide();
+            gameButton2.Hide();
         }
 
         private void HideElements()

@@ -58,22 +58,48 @@ namespace Monopoly.Main
 
         private void loadGameButton_Click(object sender, EventArgs e)
         {
-            if (File.Exists("Serialized.bin"))
+            OpenFileDialog ofd = new OpenFileDialog
             {
-                Console.WriteLine("Reading saved file");
-                Stream openFileStream = File.OpenRead("Serialized.bin");
-                BinaryFormatter deserializer = new BinaryFormatter();
-                Game g = (Game)deserializer.Deserialize(openFileStream);
-                openFileStream.Close();
-                Hide();
-                using (Monopoly gw = new Monopoly(g.GetPlayers()))
+                AddExtension = true,
+                DefaultExt = "mon",
+                CheckPathExists = true,
+                //sfd.FileName = "game.mon";
+                Filter = "Monopoly saved games (*.mon)|*.mon",
+                InitialDirectory = AppDomain.CurrentDomain.BaseDirectory,
+                Title = "Choose a game to load",
+                ValidateNames = true
+                
+            };
+
+            if (ofd.ShowDialog() == DialogResult.OK)
+            {
+                if (File.Exists(ofd.FileName))
                 {
-                    gw.Show();
-                    g.SetWindow(gw);
-                    g.UpdateWindow();
-                    gw.Hide();
-                    if (gw.ShowDialog() == DialogResult.OK) Show();
-                };
+                    Game g;
+                    try
+                    {
+                        Stream openFileStream = File.OpenRead(ofd.FileName);
+                        BinaryFormatter deserializer = new BinaryFormatter();
+                        g = (Game)deserializer.Deserialize(openFileStream);
+                        openFileStream.Close();
+
+                    Hide();
+                    using (Monopoly gw = new Monopoly(g.GetPlayers()))
+                    {
+                        gw.Show();
+                        g.SetWindow(gw);
+                        g.UpdateWindow();
+                        gw.Hide();
+                        if (gw.ShowDialog() == DialogResult.OK) Show();
+                    };
+                    }
+                    catch (IOException ex)
+                    {
+                        Console.WriteLine(ex.StackTrace);
+                        MessageBox.Show("Failed to load game.");
+                    }
+                }
+
             }
         }
     }

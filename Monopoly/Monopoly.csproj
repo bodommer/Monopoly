@@ -5,7 +5,7 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{B9922401-012E-4BE3-8A66-E59478EE573D}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <OutputType>WinExe</OutputType>
     <RootNamespace>Monopoly</RootNamespace>
     <AssemblyName>Monopoly</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
@@ -67,6 +67,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AI\AIDecider.cs" />
     <Compile Include="Cards\AgencyCard.cs" />
     <Compile Include="Cards\BonusCard.cs" />
     <Compile Include="Cards\Card.cs" />
@@ -87,7 +88,7 @@
     <Compile Include="Forms\PlayersChoosing.Designer.cs">
       <DependentUpon>PlayersChoosing.cs</DependentUpon>
     </Compile>
-    <Compile Include="GameSettings.cs" />
+    <Compile Include="Main\GameSettings.cs" />
     <Compile Include="Main\Dice.cs" />
     <Compile Include="Forms\MainMenu.cs">
       <SubType>Form</SubType>
@@ -156,9 +157,7 @@
     <None Include="Properties\DataSources\Monopoly.Cards.IPurchasable.datasource" />
     <None Include="Properties\DataSources\Monopoly.Main.PropertyCard.datasource" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Exceptions\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <EmbeddedResource Include="Forms\MainMenu.resx">
       <DependentUpon>MainMenu.cs</DependentUpon>

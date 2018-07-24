@@ -13,6 +13,8 @@ using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Reflection;
 using System.Diagnostics;
+using Monopoly.Forms;
+using Monopoly.AI;
 
 namespace Monopoly.Main
 {
@@ -41,6 +43,7 @@ namespace Monopoly.Main
         public Gameplan gameplan;
         int playerTurnPointer = 0;
         Player[] players;
+        Player currentPlayer;
         IPurchasable selectedItem = null;
         private const string FileName = "serialized.bin";
 
@@ -52,10 +55,11 @@ namespace Monopoly.Main
             colorGroups = new int[,] { { 0, 0, 0 }, { 255, 51, 51 }, { 0, 128, 255 }, { 152, 76, 0 },
                                              {255, 153, 51 }, {255, 102, 255 }, {0, 0, 204 },
                                              {0, 204, 102 }, {255, 255, 51 } };
+            currentPlayer = players[playerTurnPointer];
             PrepareGame(new GameSettings());
             window.Load += OnLoad;
+            window.Enabled = true;
         }
-
 
         public Game()
         {
@@ -74,7 +78,6 @@ namespace Monopoly.Main
             window.gameButton1.Click += B1Callback;
             window.gameButton2.Click += B2Callback;
             window.gameButton3.Click += B3Callback;
-            window.saveGameButton.Click += SBCallback;
             window.KeyPress += KeyPressed;
             window.exitButton.Click += EBCallback;
         }
@@ -84,7 +87,6 @@ namespace Monopoly.Main
             window.gameButton1.Click += B1Callback;
             window.gameButton2.Click += B2Callback;
             window.gameButton3.Click += B3Callback;
-            window.saveGameButton.Click += SBCallback;
             window.KeyPress += KeyPressed;
             window.exitButton.Click += EBCallback;
         }
@@ -115,14 +117,6 @@ namespace Monopoly.Main
         private void B3Callback(object sender, EventArgs ea)
         {
             Button3_action();
-        }
-
-        /*
-         * SaveButton Callback
-         */
-        private void SBCallback(object sender, EventArgs ea)
-        {
-            SaveButton_action();
         }
 
         private void KeyPressed(object sender, KeyPressEventArgs ea)
@@ -170,7 +164,7 @@ namespace Monopoly.Main
             treasureCardManager = new TreasureCardManager("treasureCards.txt");
             propertyManager = new Cards.PropertyManager("properties.txt");
             gameplan = new Gameplan(players, propertyManager.GetFieldTypes());
-            window.ShowPlayerInfo(players[playerTurnPointer]);
+            window.ShowPlayerInfo(currentPlayer);
         }
 
         private void Button1_action()
@@ -178,8 +172,7 @@ namespace Monopoly.Main
             if (GameState == GameStage.NO_ACTION) { return; }
 
             Card card = (Card)propertyManager
-                  .CardAt(gameplan.PlayerPosition(players[playerTurnPointer]));
-            Player p = players[playerTurnPointer];
+                  .CardAt(gameplan.PlayerPosition(currentPlayer));
             Player owner = propertyManager.WhoOwns(card);
 
             switch (GameState)
@@ -192,17 +185,17 @@ namespace Monopoly.Main
 
                 case GameStage.AWAITING_PURCHASE:
                     GameState = GameStage.NO_ACTION;
-                    propertyManager.AddOwnership(card, p);
-                    p.Money -= card.Cost;
-                    ShowWhatNext(p);
+                    propertyManager.AddOwnership(card, currentPlayer);
+                    currentPlayer.Money -= card.Cost;
+                    ShowWhatNext(currentPlayer);
                     break;
 
                 case GameStage.AWAITING_RENT:
                     GameState = GameStage.NO_ACTION;
                     float money = card.GetPayment();
-                    p.Money -= money;
+                    currentPlayer.Money -= money;
                     owner.Money += money;
-                    ShowWhatNext(p);
+                    ShowWhatNext(currentPlayer);
                     break;
 
                 case GameStage.AWAITING_UPGRADE:
@@ -211,22 +204,22 @@ namespace Monopoly.Main
                     window.DrawApartment(
                         gameplan.GetCoordsOfNextApartment(
                             gameplan.PlayerPosition(
-                                players[playerTurnPointer]), c2.Apartments));
+                                currentPlayer), c2.Apartments));
                     c2.AddApartment();
-                    p.Money -= c2.ApartmentCost;
-                    ShowWhatNext(p);
+                    currentPlayer.Money -= c2.ApartmentCost;
+                    ShowWhatNext(currentPlayer);
                     break;
 
                 case GameStage.CANNOT_UPGRADE:
-                    ShowWhatNext(p);
+                    ShowWhatNext(currentPlayer);
                     break;
 
                 case GameStage.SPECIAL_CARD:
-                    ShowWhatNext(p);
+                    ShowWhatNext(currentPlayer);
                     break;
 
                 case GameStage.SPECIAL_FIELD:
-                    ShowWhatNext(p);
+                    ShowWhatNext(currentPlayer);
                     break;
 
                 case GameStage.NO_FUNDS_PAY:
@@ -234,7 +227,7 @@ namespace Monopoly.Main
                     int i = 0;
                     foreach (Player player in players)
                     {
-                        if (player != p)
+                        if (player != currentPlayer)
                         {
                             newArray[i] = player;
                             i++;
@@ -245,14 +238,14 @@ namespace Monopoly.Main
                     break;
 
                 case GameStage.NO_FUNDS_BUY:
-                    ShowWhatNext(p);
+                    ShowWhatNext(currentPlayer);
                     break;
 
                 case GameStage.WHAT_NEXT:
                     GameState = GameStage.NO_ACTION;
                     window.ShowTradeOptions(propertyManager
-                        .GetTradeOptions(players[playerTurnPointer]),
-                        players[playerTurnPointer]);
+                        .GetTradeOptions(currentPlayer),
+                        currentPlayer);
                     GameState = GameStage.TRADE_OFFER;
                     break;
 
@@ -263,7 +256,7 @@ namespace Monopoly.Main
                         ListViewItem lvi = window.GetSelectedItem();
                         selectedItem = (IPurchasable)lvi.Tag;
                         float offeredMoney = window.GetOfferedMoney();
-                        window.ShowTradeOffer(lvi.Name, offeredMoney, 
+                        window.ShowTradeOffer(((Card)selectedItem).Name, offeredMoney, 
                             propertyManager.WhoOwns(selectedItem));
                         GameState = GameStage.TRADE_CONFIRM;
                     }
@@ -271,16 +264,16 @@ namespace Monopoly.Main
 
                 case GameStage.TRADE_CONFIRM:
                     GameState = GameStage.NO_ACTION;
-                    propertyManager.ChangeOwner(players[playerTurnPointer], 
+                    propertyManager.ChangeOwner(currentPlayer, 
                         selectedItem, window.GetOfferedMoney());
-                    ShowWhatNext(p);
-                    return;
+                    ShowWhatNext(currentPlayer);
+                    break;
 
                 case GameStage.MORTGAGE_MENU:
                     GameState = GameStage.NO_ACTION;
-                    window.ShowMortgagedProperties(propertyManager.GetMortgagedProperties(players[playerTurnPointer], false), true);
+                    window.ShowMortgagedProperties(propertyManager.GetMortgagedProperties(currentPlayer, false), true);
                     GameState = GameStage.MORTGAGE_TAKE;
-                    return;
+                    break;
 
                 case GameStage.MORTGAGE_TAKE:
                     if (window.GetSelectedItem() != null)
@@ -289,54 +282,59 @@ namespace Monopoly.Main
                         foreach (ListViewItem lvi in window.GetSelectedItems())
                         {
                             Card mortgagedCard = (Card)lvi.Tag;
-                            p.Money += mortgagedCard.MortgageValue;
+                            currentPlayer.Money += mortgagedCard.MortgageValue;
                             mortgagedCard.Mortgaged = true;
                         }
-                        ShowWhatNext(p);
+                        ShowWhatNext(currentPlayer);
                     }
-                    return;
+                    break;
 
                 case GameStage.MORTGAGE_PAY:
                     if (window.GetSelectedItem() != null)
                     {
                         GameState = GameStage.NO_ACTION;
                         Card mortgagedCard = (Card)window.GetSelectedItem().Tag;
-                        p.Money -= mortgagedCard.Cost;
+                        currentPlayer.Money -= mortgagedCard.Cost;
                         mortgagedCard.Mortgaged = false;
-                        ShowWhatNext(p);
+                        ShowWhatNext(currentPlayer);
                     }
-                    return;
+                    break;
                     
                 case GameStage.HOLIDAY:
                     NextPlayer();
-                    return;
+                    break;
 
                 default:
+                    Console.Write("An unexpected error occurred! " + GameState);
                     break;
             }
+            if (currentPlayer is AIPlayer) AIDecider.PlayTurn(currentPlayer, window, this);
         }
 
         private void Button2_action()
         {
             if (GameState == GameStage.NO_ACTION) { return;  }
             Card card = (Card)propertyManager
-                 .CardAt(gameplan.PlayerPosition(players[playerTurnPointer]));
-            Player p = players[playerTurnPointer];
+                 .CardAt(gameplan.PlayerPosition(currentPlayer));
 
             switch (GameState)
             {
+                case GameStage.DICE:
+                    SaveButton_action();
+                    break;
+
                 case GameStage.AWAITING_PURCHASE:
-                    ShowWhatNext(p);
+                    ShowWhatNext(currentPlayer);
                     break;
 
                 case GameStage.NO_FUNDS_PAY:
                     GameState = GameStage.NO_ACTION;
-                    window.ShowMortgagedProperties(propertyManager.GetMortgagedProperties(players[playerTurnPointer], false), true);
+                    window.ShowMortgagedProperties(propertyManager.GetMortgagedProperties(currentPlayer, false), true);
                     GameState = GameStage.MORTGAGE_TAKE;
                     break;
 
                 case GameStage.AWAITING_UPGRADE:
-                    ShowWhatNext(p);
+                    ShowWhatNext(currentPlayer);
                     break;
 
                 case GameStage.WHAT_NEXT:
@@ -346,28 +344,29 @@ namespace Monopoly.Main
                     break;
 
                 case GameStage.TRADE_OFFER:
-                    ShowWhatNext(p);
+                    ShowWhatNext(currentPlayer);
                     break;
 
                 case GameStage.TRADE_CONFIRM:
                     GameState = GameStage.NO_ACTION;
+                    window.ShowPlayerInfo(currentPlayer);
                     window.ShowMessage("Your offer was declined!");
                     Thread.Sleep(2500);
-                    ShowWhatNext(p);
+                    ShowWhatNext(currentPlayer);
                     break;
 
                 case GameStage.MORTGAGE_MENU:
                     GameState = GameStage.NO_ACTION;
-                    window.ShowMortgagedProperties(propertyManager.GetMortgagedProperties(players[playerTurnPointer], true), false);
+                    window.ShowMortgagedProperties(propertyManager.GetMortgagedProperties(currentPlayer, true), false);
                     GameState = GameStage.MORTGAGE_PAY;
                     break;
 
                 case GameStage.MORTGAGE_TAKE:
-                    ShowWhatNext(p);
+                    ShowWhatNext(currentPlayer);
                     break;
 
                 case GameStage.MORTGAGE_PAY:
-                    ShowWhatNext(p);
+                    ShowWhatNext(currentPlayer);
                     break;
 
                 default:
@@ -377,17 +376,15 @@ namespace Monopoly.Main
 
         private void Button3_action()
         {
-            Player p = players[playerTurnPointer];
-
             switch (GameState)
             {
                 case GameStage.WHAT_NEXT:
                     NextPlayer();
-                    return;
+                    break;
 
                 case GameStage.MORTGAGE_MENU:
                     GameState = GameStage.NO_ACTION;
-                    window.ShowPlayerInfo(p);
+                    window.ShowPlayerInfo(currentPlayer);
                     window.ShowNextOptions();
                     GameState = GameStage.WHAT_NEXT;
                     break;
@@ -400,55 +397,82 @@ namespace Monopoly.Main
 
         private void SaveButton_action()
         {
-            object someObject = Process.GetCurrentProcess();
-            Dump(someObject);
-            Stream SaveFileStream = File.Create(FileName);
-            BinaryFormatter serializer = new BinaryFormatter();
-            serializer.Serialize(SaveFileStream, this);
-            SaveFileStream.Close();
+            SaveFileDialog sfd = new SaveFileDialog();
+            sfd.AddExtension = true;
+            sfd.DefaultExt = "mon";
+            sfd.CheckPathExists = true;
+            sfd.FileName = "game.mon";
+            sfd.Filter = "Monopoly saved games (*.mon)|*.mon|All files (*.*)|*.*";
+            sfd.InitialDirectory = AppDomain.CurrentDomain.BaseDirectory;
+            sfd.OverwritePrompt = true;
+            sfd.ShowHelp = true;
+            sfd.Title = "Choose save destination";
+            sfd.ValidateNames = true;
+
+            if (sfd.ShowDialog() == DialogResult.OK)
+            {
+                try
+                {
+                    object someObject = Process.GetCurrentProcess();
+                    //Dump(someObject);
+                    using (Stream SaveFileStream = File.Create(sfd.FileName))
+                    {
+                        BinaryFormatter serializer = new BinaryFormatter();
+                        serializer.Serialize(SaveFileStream, this);
+                        SaveFileStream.Close();
+                    }
+                }
+                catch (IOException e)
+                {
+                    MessageBox.Show("Failed to save the game. Try again!");
+                    Console.WriteLine(e.StackTrace);
+                }
+            }
         }
 
         public void RollDice()
         {
             int roll = Dice.Instance.Roll(window);
-            Player player = players[playerTurnPointer];
             FieldType field = FieldType.VISIT;
             for (int i=0; i < roll; i++)
             {
-                field = gameplan.Move(player);
+                field = gameplan.Move(currentPlayer);
                 window.MovePlayer(playerTurnPointer, 
-                    gameplan.GetCoordsOfNextField(player, playerTurnPointer));
-                if (gameplan.PlayerPosition(player) == 0)
+                    gameplan.GetCoordsOfNextField(currentPlayer, playerTurnPointer));
+                if (gameplan.PlayerPosition(currentPlayer) == 0)
                 {
-                    player.Money += START_BONUS;
-                    window.ShowPlayerInfo(player);
-                    MessageBox.Show("You have passed the start and 30m have been added to your account");
+                    currentPlayer.Money += START_BONUS;
+                    window.ShowPlayerInfo(currentPlayer);
+                    if (currentPlayer is HumanPlayer)
+                    {
+                        MessageBox.Show("You have passed the start and 30m have been added to your account");
+                    }
                 }
                 Thread.Sleep(200);
             }
-            Action(field, roll, player);
+            Action(field, roll);
         }
          
-        private void Action(FieldType fieldType, int diceRoll, Player player)
+        private void Action(FieldType fieldType, int diceRoll)
         {
             switch (fieldType)
             {
                 case FieldType.PROPERTY:
                     PropertyCard card = (PropertyCard)propertyManager
-                        .CardAt(gameplan.PlayerPosition(player));
+                        .CardAt(gameplan.PlayerPosition(currentPlayer));
                     if (card != null)
                     {
                         Player owner = propertyManager.WhoOwns(card);
                         if (owner == null)
                         {
-                            if (player.Money < card.Cost)
+                            if (currentPlayer.Money < card.Cost)
                             {
                                 window.ShowMessage("You have not got enough money to buy this property");
                                 window.DisplayPropertyCard(card, Color.FromArgb(
                                 colorGroups[card.Group, 0],
                                 colorGroups[card.Group, 1],
                                 colorGroups[card.Group, 2]),
-                                gameplan.PlayerPosition(player));
+                                gameplan.PlayerPosition(currentPlayer));
                                 GameState = GameStage.NO_FUNDS_BUY;
                                 return;
                             }
@@ -457,20 +481,19 @@ namespace Monopoly.Main
                                 colorGroups[card.Group, 0], 
                                 colorGroups[card.Group, 1], 
                                 colorGroups[card.Group, 2]), 
-                                gameplan.PlayerPosition(player));
+                                gameplan.PlayerPosition(currentPlayer));
                             GameState = GameStage.AWAITING_PURCHASE;
                             return;
                         }
-                        else if (owner == player)
+                        else if (owner == currentPlayer)
                         {
                             //check if he has all other from group
-                            if (propertyManager.OwnsWholeGroup(card.Group, player))
+                            if (propertyManager.OwnsWholeGroup(card.Group, currentPlayer))
                             {
-                                if (card.ApartmentCost > player.Money)
+                                if (card.ApartmentCost > currentPlayer.Money)
                                 {
                                     window.ShowMessage("You have not got enough money to upgrade this property");
                                     GameState = GameStage.NO_FUNDS_BUY;
-                                    return;
                                 }
                                 else
                                 {
@@ -479,7 +502,7 @@ namespace Monopoly.Main
                                             colorGroups[card.Group, 0],
                                             colorGroups[card.Group, 1],
                                             colorGroups[card.Group, 2]),
-                                            gameplan.PlayerPosition(player));
+                                            gameplan.PlayerPosition(currentPlayer));
                                     GameState = GameStage.AWAITING_UPGRADE;
                                 }
                             }
@@ -501,7 +524,7 @@ namespace Monopoly.Main
                             }
                             else
                             {
-                                if (card.GetPayment() > player.Money)
+                                if (card.GetPayment() > currentPlayer.Money)
                                 {
                                     window.ShowNoMoneyPay();
                                     GameState = GameStage.NO_FUNDS_PAY;
@@ -512,7 +535,7 @@ namespace Monopoly.Main
                                 colorGroups[card.Group, 0],
                                 colorGroups[card.Group, 1],
                                 colorGroups[card.Group, 2]), 
-                                gameplan.PlayerPosition(player));
+                                gameplan.PlayerPosition(currentPlayer));
                                 GameState = GameStage.AWAITING_RENT;
                                 return;
                             }
@@ -524,7 +547,7 @@ namespace Monopoly.Main
                 case FieldType.TREASURE:
                     TreasureCard treasureCard = treasureCardManager.GetTreasureCard();
                     window.DisplayTreasureCard(treasureCard);
-                    player.Money += treasureCard.MoneyChange;
+                    currentPlayer.Money += treasureCard.MoneyChange;
                     GameState = GameStage.SPECIAL_CARD;
                     return;
 
@@ -533,13 +556,13 @@ namespace Monopoly.Main
                     window.DisplayRiskCard(riskCard);
                     if (riskCard.MoneyPlusMinus == "plus")
                     {
-                        player.Money += riskCard.MoneyChange;
+                        currentPlayer.Money += riskCard.MoneyChange;
                     }
                     else
                     {
-                        player.Money -= riskCard.MoneyChange;
+                        currentPlayer.Money -= riskCard.MoneyChange;
                     }
-                    player.Blocked += riskCard.TurnsStop;
+                    currentPlayer.Blocked += riskCard.TurnsStop;
                     if (riskCard.TurnsStop > 0)
                     {
                         NextPlayer();
@@ -548,15 +571,15 @@ namespace Monopoly.Main
                     return;
 
                 case FieldType.START:
-                    player.Money += START_BONUS;
+                    currentPlayer.Money += START_BONUS;
                     NextPlayer();
                     return;
 
                 case FieldType.PRISON:
                     GameState = GameStage.NO_ACTION;
-                    player.Blocked += 3;
-                    player.Prison = true;
-                    gameplan.GoToPrison(player);
+                    currentPlayer.Blocked += 3;
+                    currentPlayer.Prison = true;
+                    gameplan.GoToPrison(currentPlayer);
                     window.ShowMessage("You are imprisoned for 3 turns!");
                     Thread.Sleep(3000);
                     NextPlayer();
@@ -564,24 +587,24 @@ namespace Monopoly.Main
 
                 case FieldType.PARKING:
                     window.ShowMessage("You are parking for 1 turn");
-                    player.Blocked += 1;
+                    currentPlayer.Blocked += 1;
                     GameState = GameStage.SPECIAL_FIELD;
                     return;
 
                 case FieldType.TAX:
                     window.ShowMessage("Each of us has to pay taxes!");
-                    player.Money -= TAX_PRICE;
+                    currentPlayer.Money -= TAX_PRICE;
                     GameState = GameStage.SPECIAL_FIELD;
                     break;
 
                 case FieldType.AGENCY:
-                    Player agencyOwner = GetOwner(player);
+                    Player agencyOwner = GetOwner(currentPlayer);
                     AgencyCard agencyCard = (AgencyCard)propertyManager
-                            .CardAt(gameplan.PlayerPosition(player));
+                            .CardAt(gameplan.PlayerPosition(currentPlayer));
 
                     if (agencyOwner == null)
                     {
-                        if (player.Money < agencyCard.Cost)
+                        if (currentPlayer.Money < agencyCard.Cost)
                         {
                             window.ShowMessage("You have not got enough money to buy this property");
                             GameState = GameStage.NO_FUNDS_BUY;
@@ -589,11 +612,11 @@ namespace Monopoly.Main
                         }
                         window.PurchaseButtons(agencyCard.Name);
                         window.DisplayAgencyCard(agencyCard,
-                            gameplan.PlayerPosition(player));
+                            gameplan.PlayerPosition(currentPlayer));
                         GameState = GameStage.AWAITING_PURCHASE;
                         return;
                     }
-                    else if (agencyOwner == player)
+                    else if (agencyOwner == currentPlayer)
                     {
                         return;
                     }
@@ -615,13 +638,13 @@ namespace Monopoly.Main
                         {
                             int agenciesOwned = PropsOwned(agencyOwner, "agency");
                             float money = agencyCard.GetPayment(diceRoll, agenciesOwned);
-                            if (money > player.Money)
+                            if (money > currentPlayer.Money)
                             {
                                 window.ShowNoMoneyPay();
                                 GameState = GameStage.NO_FUNDS_PAY;
                                 return;
                             }
-                            player.Money -= money;
+                            currentPlayer.Money -= money;
                             agencyOwner.Money += money;
                             window.ShowPayment(agencyOwner.name, money);
                             GameState = GameStage.AWAITING_RENT;
@@ -631,18 +654,18 @@ namespace Monopoly.Main
 
                 case FieldType.TAX_FINE:
                     window.ShowMessage("You have to pay taxes!");
-                    player.Money -= TAX_FINE_COST;
+                    currentPlayer.Money -= TAX_FINE_COST;
                     GameState = GameStage.SPECIAL_FIELD;
                     break;
 
                 case FieldType.BONUS_PROPERTY:
-                    Player bonusOwner = GetOwner(player);
+                    Player bonusOwner = GetOwner(currentPlayer);
                     BonusCard bonusCard = (BonusCard)propertyManager
-                        .CardAt(gameplan.PlayerPosition(player));
+                        .CardAt(gameplan.PlayerPosition(currentPlayer));
 
                     if (bonusOwner == null)
                     {
-                        if (player.Money < bonusCard.Cost)
+                        if (currentPlayer.Money < bonusCard.Cost)
                         {
                             window.ShowMessage("You have not got enough money to buy this property");
                             GameState = GameStage.NO_FUNDS_BUY;
@@ -650,11 +673,11 @@ namespace Monopoly.Main
                         }
                         window.PurchaseButtons(bonusCard.Name);
                         window.DisplayBonusCard(bonusCard,
-                            gameplan.PlayerPosition(player));
+                            gameplan.PlayerPosition(currentPlayer));
                         GameState = GameStage.AWAITING_PURCHASE;
                         return;
                     }
-                    else if (bonusOwner == player)
+                    else if (bonusOwner == currentPlayer)
                     {
                         return;
                     }
@@ -676,13 +699,13 @@ namespace Monopoly.Main
                         {
                             int bonusesOwned = PropsOwned(bonusOwner, "bonus");
                             float money = bonusCard.GetPayment(bonusesOwned);
-                            if (money > player.Money)
+                            if (money > currentPlayer.Money)
                             {
                                 window.ShowNoMoneyPay();
                                 GameState = GameStage.NO_FUNDS_PAY;
                                 return;
                             }
-                            player.Money -= money;
+                            currentPlayer.Money -= money;
                             bonusOwner.Money += money;
                             window.ShowPayment(bonusOwner.name, money);
                             GameState = GameStage.AWAITING_RENT;
@@ -745,17 +768,20 @@ namespace Monopoly.Main
             } while (players[playerTurnPointer].Blocked > 0);
             window.PrepareForDice(players[playerTurnPointer].Color);
             window.ShowPlayerInfo(players[playerTurnPointer]);
+            currentPlayer = players[playerTurnPointer];
+            if (currentPlayer is AIPlayer) window.Enabled = false;
+            else window.Enabled = true;
             GameState = GameStage.DICE;
         }
 
         public string GetPlayerName()
         {
-            return players[playerTurnPointer].name;
+            return currentPlayer.name;
         }
 
         public float GetPlayerMoney()
         {
-            return players[playerTurnPointer].Money;
+            return currentPlayer.Money;
         }
 
         private void DrawApartment(Point coords)
@@ -784,7 +810,7 @@ namespace Monopoly.Main
 
         public void UpdateWindow()
         {
-            window.ShowPlayerInfo(players[playerTurnPointer]);
+            window.ShowPlayerInfo(currentPlayer);
             int i = 0;
             foreach (Player p in players)
             {
