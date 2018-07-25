@@ -14,52 +14,110 @@ namespace Monopoly.AI
 {
     static class AIDecider
     {
-        public static void PlayTurn(Player player, Main.Monopoly window, Game game)
+        public static void PlayTurn(AIPlayer player, Main.Monopoly window, Game game, IPurchasable card)
         {
             switch (game.GameState)
             {
                 case Game.GameStage.DICE:
-                    AIDecider.PerformButtonClick(window.gameButton1);
+                    PerformButtonClick(window.gameButton1);
                     break;
 
                 case Game.GameStage.NO_FUNDS:
-                    AIDecider.PerformButtonClick(window.gameButton1);
+                    PerformButtonClick(window.gameButton1);
                     break;
 
                 case Game.GameStage.NO_ACTION:
-                    AIDecider.PerformButtonClick(window.gameButton1);
+                    PerformButtonClick(window.gameButton1);
                     break;
 
                 case Game.GameStage.AWAITING_PURCHASE:
-
+                    if (ShallBuy(card, player))
+                    {
+                        PerformButtonClick(window.gameButton1);
+                    }
+                    else
+                    {
+                        PerformButtonClick(window.gameButton2);
+                    }
                     break;
 
                 case Game.GameStage.AWAITING_RENT:
-                    AIDecider.PerformButtonClick(window.gameButton1);
+                    PerformButtonClick(window.gameButton1);
                     break;
 
                 case Game.GameStage.AWAITING_UPGRADE:
-
+                    if (ShallUpgrade(card, player))
+                    {
+                        PerformButtonClick(window.gameButton1);
+                    }
+                    else
+                    {
+                        PerformButtonClick(window.gameButton2);
+                    }
                     break;
 
                 case Game.GameStage.NO_FUNDS_PAY:
-                    AIDecider.PerformButtonClick(window.gameButton1);
+                    PerformButtonClick(window.gameButton1);
                     break;
 
                 case Game.GameStage.NO_FUNDS_BUY:
-                    AIDecider.PerformButtonClick(window.gameButton1);
+                    PerformButtonClick(window.gameButton1);
                     break;
 
                 case Game.GameStage.CANNOT_UPGRADE:
-                    AIDecider.PerformButtonClick(window.gameButton1);
+                    PerformButtonClick(window.gameButton1);
                     break;
 
                 case Game.GameStage.SPECIAL_CARD:
-                    AIDecider.PerformButtonClick(window.gameButton1);
+                    PerformButtonClick(window.gameButton1);
                     break;
 
                 case Game.GameStage.SPECIAL_FIELD:
-                    AIDecider.PerformButtonClick(window.gameButton1);
+                    PerformButtonClick(window.gameButton1);
+                    break;
+                    
+                case Game.GameStage.WHAT_NEXT:
+                    if (player.Trade)
+                    {
+                        player.Trade = false;
+                        IPurchasable c = game.GetTradeCard();
+                        if (c != null)
+                        {
+                            float offeredMoney;
+                            if (player.offers.ContainsKey(c))
+                            {
+                                offeredMoney = player.offers[c] * (1 + player.dangerFactor / 4);
+                            }
+                            else {
+                                offeredMoney = (float)Math.Round(((Card)c).Cost * (1.4 + player.dangerFactor / 2), 2);
+                            }
+                            game.SendTradeOffer(c, offeredMoney);
+                            break;
+                        }
+                    }
+                    else
+                    {
+                        if (player.Money < 20)
+                        {
+                            game.MortgageProperty(player.Money);
+                            break;
+                        }
+                        List<ListViewItem> properties = game.HasMortgagedProperties();
+                        if (properties.Count > 0)
+                        {
+                            foreach (ListViewItem lvi in properties)
+                            {
+                                IPurchasable p = (IPurchasable) lvi.Tag;
+                                Card c = (Card)p;
+                                if (c.Mortgaged && c.Cost + 20 > player.Money)
+                                {
+                                    game.UnMortgage(p);
+                                }
+                            }
+                            break;
+                        }
+                        PerformButtonClick(window.gameButton3);
+                    }
                     break;
 
                 case Game.GameStage.TRADE_OFFER:
@@ -69,11 +127,7 @@ namespace Monopoly.AI
                 case Game.GameStage.TRADE_CONFIRM:
 
                     break;
-
-                case Game.GameStage.WHAT_NEXT:
-
-                    break;
-
+                    
                 case Game.GameStage.MORTGAGE_MENU:
 
                     break;
@@ -81,12 +135,13 @@ namespace Monopoly.AI
                 case Game.GameStage.MORTGAGE_TAKE:
 
                     break;
+
                 case Game.GameStage.MORTGAGE_PAY:
 
                     break;
 
                 case Game.GameStage.HOLIDAY:
-
+                    PerformButtonClick(window.gameButton1);
                     break;
                     
                 default:
@@ -104,14 +159,26 @@ namespace Monopoly.AI
             b.PerformClick();
         }
 
-        public static bool ShallBuy()
+        public static bool ShallBuy(IPurchasable card, AIPlayer player) 
         {
-            return true;
+            Card c = (Card)card;
+            float coeffitient = (float) 3.2 - 3 * player.dangerFactor;
+             if (coeffitient * c.Cost <= player.Money)
+            {
+                return true;
+            }
+            return false;
         }
 
-        public static bool Upgrade()
+        public static bool ShallUpgrade(IPurchasable card, AIPlayer player)
         {
-            return true;
+            Card c = (Card)card;
+            float coeffitient = (float) 2.1 - player.dangerFactor;
+            if (coeffitient * c.Cost <= player.Money)
+            {
+                return true;
+            }
+            return false;
         }
 
         public static Card OfferTrade()

@@ -308,7 +308,7 @@ namespace Monopoly.Main
                     Console.Write("An unexpected error occurred! " + GameState);
                     break;
             }
-            if (currentPlayer is AIPlayer) AIDecider.PlayTurn(currentPlayer, window, this);
+            if (currentPlayer is AIPlayer) AIDecider.PlayTurn((AIPlayer) currentPlayer, window, this, card);
         }
 
         private void Button2_action()
@@ -756,6 +756,7 @@ namespace Monopoly.Main
 
         private void NextPlayer()
         {
+            if (currentPlayer is AIPlayer) ((AIPlayer)currentPlayer).Trade = true; 
             do
             {
                 if (players[playerTurnPointer].Blocked > 0)
@@ -818,6 +819,39 @@ namespace Monopoly.Main
                 i+=1;
             }
             ReloadCallBacks();
+        }
+
+        public IPurchasable GetTradeCard()
+        {
+            return propertyManager.GetTradeCard((AIPlayer) currentPlayer);
+        }
+
+        public void SendTradeOffer(IPurchasable card, float money)
+        {
+            selectedItem = card;
+            float offeredMoney = window.GetOfferedMoney();
+            window.ShowTradeOffer(((Card)selectedItem).Name, offeredMoney,
+                propertyManager.WhoOwns(selectedItem));
+            GameState = GameStage.TRADE_CONFIRM;
+
+        }
+
+        // implement
+        public List<ListViewItem> HasMortgagedProperties()
+        {
+            return propertyManager.GetMortgagedProperties(currentPlayer, true);
+        }
+
+        //implement
+        public void MortgageProperty(float money)
+        {
+            // find such properties that the player would have 20m +
+        }
+
+        //implement
+        public void UnMortgage(IPurchasable p)
+        {
+            // some animation + unmortgaging property
         }
 
         static void Dump(object x)

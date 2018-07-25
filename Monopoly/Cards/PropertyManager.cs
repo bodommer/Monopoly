@@ -142,6 +142,11 @@ namespace Monopoly.Cards
             return size == count;
         }
 
+        public IPurchasable GetTradeCard(AIPlayer player)
+        {
+            return null;
+        }
+
         public List<ListViewItem> GetTradeOptions(Player player)
         {
             List<ListViewItem> ret = new List<ListViewItem>();
