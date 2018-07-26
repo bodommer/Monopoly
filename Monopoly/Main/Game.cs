@@ -91,6 +91,15 @@ namespace Monopoly.Main
             window.exitButton.Click += EBCallback;
         }
 
+        private void RemoveCallBacks()
+        {
+            window.gameButton1.Click -= B1Callback;
+            window.gameButton2.Click -= B2Callback;
+            window.gameButton3.Click -= B3Callback;
+            window.KeyPress -= KeyPressed;
+            window.exitButton.Click -= EBCallback;
+        }
+
         private void ExitProcedure()
         {
             DialogResult dr = MessageBox.Show("Are you sure you want to quit? All unsaved progress will be lost!", "Quit", MessageBoxButtons.YesNo);
@@ -167,9 +176,28 @@ namespace Monopoly.Main
             window.ShowPlayerInfo(currentPlayer);
         }
 
+        public void ClickButton(int number)
+        {
+            if (number == 1)
+            {
+                Button1_action();
+            }
+            else if (number == 2)
+            {
+                Button2_action();
+            }
+            else
+            {
+                Button3_action();
+            }
+        }
+
+
         private void Button1_action()
         {
             if (GameState == GameStage.NO_ACTION) { return; }
+
+            window.Enabled = false;
 
             Card card = (Card)propertyManager
                   .CardAt(gameplan.PlayerPosition(currentPlayer));
@@ -259,6 +287,27 @@ namespace Monopoly.Main
                         window.ShowTradeOffer(((Card)selectedItem).Name, offeredMoney, 
                             propertyManager.WhoOwns(selectedItem));
                         GameState = GameStage.TRADE_CONFIRM;
+                        if (propertyManager.WhoOwns(selectedItem) is AIPlayer)
+                        {
+                            window.SetTextBox("");
+                            Thread.Sleep(500);
+                            window.Update();
+                            if (AIDecider.TradeOfferDecide((Card) selectedItem, offeredMoney, propertyManager, (AIPlayer) propertyManager.WhoOwns(selectedItem)))
+                            {
+                                window.SetTextBox("Your trade offer was accepted.");
+                                Thread.Sleep(700);
+                                propertyManager.ChangeOwner(currentPlayer,
+                                    selectedItem, window.GetOfferedMoney());
+                            }
+                            else
+                            {
+                                window.SetTextBox("Your trade offer was declined.");
+                                Thread.Sleep(700);
+                            }
+                            ShowWhatNext(currentPlayer);
+                            GameState = GameStage.WHAT_NEXT;
+                            return;
+                        }
                     }
                     break;
 
@@ -308,12 +357,16 @@ namespace Monopoly.Main
                     Console.Write("An unexpected error occurred! " + GameState);
                     break;
             }
-            if (currentPlayer is AIPlayer) AIDecider.PlayTurn((AIPlayer) currentPlayer, window, this, card);
+            window.Update();
+            if (currentPlayer is AIPlayer) AIDecider.PlayTurn((AIPlayer) currentPlayer, window, this, propertyManager
+                  .CardAt(gameplan.PlayerPosition(currentPlayer)));
+            window.Enabled = true;
         }
 
         private void Button2_action()
         {
             if (GameState == GameStage.NO_ACTION) { return;  }
+
             Card card = (Card)propertyManager
                  .CardAt(gameplan.PlayerPosition(currentPlayer));
 
@@ -372,6 +425,9 @@ namespace Monopoly.Main
                 default:
                     break;
             }
+
+            if (currentPlayer is AIPlayer) AIDecider.PlayTurn((AIPlayer)currentPlayer, window, this, propertyManager
+                  .CardAt(gameplan.PlayerPosition(currentPlayer)));
         }
 
         private void Button3_action()
@@ -392,7 +448,6 @@ namespace Monopoly.Main
                 default:
                     break;
             }
-
         }
 
         private void SaveButton_action()
@@ -764,15 +819,15 @@ namespace Monopoly.Main
                     players[playerTurnPointer].Blocked -= 1;
                 }
                 playerTurnPointer++;
-                Console.Write(players.Length);
-                playerTurnPointer = playerTurnPointer++ % players.Length;
+                playerTurnPointer = playerTurnPointer % players.Length;
             } while (players[playerTurnPointer].Blocked > 0);
-            window.PrepareForDice(players[playerTurnPointer].Color);
-            window.ShowPlayerInfo(players[playerTurnPointer]);
             currentPlayer = players[playerTurnPointer];
-            if (currentPlayer is AIPlayer) window.Enabled = false;
-            else window.Enabled = true;
+            window.ShowPlayerInfo(currentPlayer);
+            window.PrepareForDice(currentPlayer.Color);
+            if (currentPlayer is AIPlayer) window.gameButton2.Hide();
+            window.Update();
             GameState = GameStage.DICE;
+            if (currentPlayer is AIPlayer) AIDecider.PerformButtonClick(window.gameButton1);
         }
 
         public string GetPlayerName()
@@ -843,15 +898,32 @@ namespace Monopoly.Main
         }
 
         //implement
-        public void MortgageProperty(float money)
+        public void MortgageProperty()
         {
-            // find such properties that the player would have 20m +
+            List<ListViewItem> items = propertyManager.GetMortgagedProperties(currentPlayer, false);
+            foreach (ListViewItem lvi in items)
+            {
+                if (currentPlayer.Money > 20)
+                {
+                    break;
+                }
+                Card c = (Card)lvi.Tag;
+                currentPlayer.Money += c.MortgageValue;
+                c.Mortgaged = true;
+                window.SetTextBox(currentPlayer.name + " mortgaged " + c.Name);
+                Thread.Sleep(1000);
+            }
+            
         }
 
         //implement
         public void UnMortgage(IPurchasable p)
         {
-            // some animation + unmortgaging property
+            Card c = (Card)p;
+            currentPlayer.Money -= c.Cost;
+            c.Mortgaged = false;
+            window.SetTextBox(currentPlayer.name + " unmortgaged " + c.Name);
+            Thread.Sleep(1000);
         }
 
         static void Dump(object x)

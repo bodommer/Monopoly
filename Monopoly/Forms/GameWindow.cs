@@ -389,7 +389,7 @@ namespace Monopoly.Main
             textBox.Text = "What do you want to do?";
             gameButton1.Text = "Take Mortgage";
             gameButton2.Text = "Pay off a mortgage";
-            gameButton3.Text = "back";
+            gameButton3.Text = "Back";
             gameButton1.Show();
             gameButton2.Show();
             gameButton3.Show();
@@ -468,6 +468,13 @@ namespace Monopoly.Main
 
         public void WindowKeyPress(object sender, KeyPressEventArgs e)
         {
+        }
+
+        public void SetTextBox(string text)
+        {
+            HideElements();
+            textBox.Text = text;
+            textBox.Update();
         }
 
         private void textBox_Click(object sender, EventArgs e)
