@@ -80,6 +80,7 @@
             this.name1.Name = "name1";
             this.name1.Size = new System.Drawing.Size(132, 20);
             this.name1.TabIndex = 2;
+            this.name1.TextChanged += new System.EventHandler(this.updateButton);
             // 
             // name2
             // 
@@ -88,6 +89,7 @@
             this.name2.Name = "name2";
             this.name2.Size = new System.Drawing.Size(132, 20);
             this.name2.TabIndex = 3;
+            this.name2.TextChanged += new System.EventHandler(this.updateButton);
             // 
             // name3
             // 
@@ -96,6 +98,7 @@
             this.name3.Name = "name3";
             this.name3.Size = new System.Drawing.Size(132, 20);
             this.name3.TabIndex = 4;
+            this.name3.TextChanged += new System.EventHandler(this.updateButton);
             // 
             // name4
             // 
@@ -104,6 +107,7 @@
             this.name4.Name = "name4";
             this.name4.Size = new System.Drawing.Size(132, 20);
             this.name4.TabIndex = 5;
+            this.name4.TextChanged += new System.EventHandler(this.updateButton);
             // 
             // name5
             // 
@@ -112,6 +116,7 @@
             this.name5.Name = "name5";
             this.name5.Size = new System.Drawing.Size(132, 20);
             this.name5.TabIndex = 6;
+            this.name5.TextChanged += new System.EventHandler(this.updateButton);
             // 
             // name6
             // 
@@ -120,6 +125,7 @@
             this.name6.Name = "name6";
             this.name6.Size = new System.Drawing.Size(132, 20);
             this.name6.TabIndex = 7;
+            this.name6.TextChanged += new System.EventHandler(this.updateButton);
             // 
             // label1
             // 

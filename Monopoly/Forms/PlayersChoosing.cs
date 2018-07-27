@@ -36,6 +36,7 @@ namespace Monopoly.Forms
                 textboxes[i].Enabled = false;
                 checkboxes[i].Enabled = false;
             }
+            button1.Enabled = false;
         }
 
 
@@ -59,6 +60,34 @@ namespace Monopoly.Forms
                     players[i] = new AIPlayer(textboxes[i].Text, money, colors[i]);
                 }
             }
+        }
+
+        private void updateButton(object sender, EventArgs e)
+        {
+            if (AllFieldsOK())
+            {
+                button1.Enabled = true;
+                return;
+            }
+            button1.Enabled = false;
+        }
+
+        private bool AllFieldsOK()
+        {
+            if (name1.Text != "" && name2.Text != "" && FieldOK(2) && FieldOK(3) && FieldOK(4) && FieldOK(5))
+            {
+                return true;
+            }
+            return false;
+        }
+
+        private bool FieldOK(int i)
+        {
+            if (textboxes[i].Text != "" || textboxes[i].Enabled == false)
+            {
+                return true;
+            }
+            return false;
         }
     }
 }
