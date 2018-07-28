@@ -35,6 +35,8 @@ namespace Monopoly.Main
         [field:NonSerialized()]
         private Monopoly window;
 
+        private bool process = true;
+
         int[,] colorGroups;
         Dice dice = Dice.Instance;
         RiskCardManager riskCardManager;
@@ -115,7 +117,14 @@ namespace Monopoly.Main
 
         private void B1Callback (object sender, EventArgs ea)
         {
-            Button1_action();
+            if (process)
+            {
+                process = false;
+                Application.DoEvents();
+                Button1_action();
+                
+                process = true;
+            }
         }
 
         private void B2Callback(object sender, EventArgs ea)
@@ -133,7 +142,14 @@ namespace Monopoly.Main
            switch (ea.KeyChar)
             {
                 case '1':
-                    Button1_action();
+                    if (process)
+                    {
+                        process = false;
+                        Application.DoEvents();
+                        Button1_action();
+                        process = true;
+                        break;
+                    }
                     break;
 
                 case '2':
@@ -827,7 +843,11 @@ namespace Monopoly.Main
             if (currentPlayer is AIPlayer) window.gameButton2.Hide();
             window.Update();
             GameState = GameStage.DICE;
-            if (currentPlayer is AIPlayer) AIDecider.PerformButtonClick(window.gameButton1);
+            if (currentPlayer is AIPlayer)
+            {
+                AIDecider.PerformButtonClick(window.gameButton1);
+                ClickButton(1);
+            }
         }
 
         public string GetPlayerName()
@@ -891,13 +911,11 @@ namespace Monopoly.Main
 
         }
 
-        // implement
         public List<ListViewItem> HasMortgagedProperties()
         {
             return propertyManager.GetMortgagedProperties(currentPlayer, true);
         }
 
-        //implement
         public void MortgageProperty()
         {
             List<ListViewItem> items = propertyManager.GetMortgagedProperties(currentPlayer, false);
@@ -916,7 +934,6 @@ namespace Monopoly.Main
             
         }
 
-        //implement
         public void UnMortgage(IPurchasable p)
         {
             Card c = (Card)p;

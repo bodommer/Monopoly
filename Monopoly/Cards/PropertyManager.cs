@@ -38,7 +38,7 @@ namespace Monopoly.Cards
         {
             groups = new int[][]
             {
-                new int[] {0}, // placeholder, no item has group 0
+                new int[] {}, // placeholder, no item has group 0
                 new int[] {1, 3 },
                 new int[] {6, 8, 9},
                 new int[] {11, 13, 14},
@@ -144,6 +144,106 @@ namespace Monopoly.Cards
 
         public IPurchasable GetTradeCard(AIPlayer player)
         {
+            AgencyCard agency = WantsAgency(player);
+            if (agency != null && agency.Cost < player.Money)
+            {
+                return agency;
+            }
+            BonusCard bonus = WantsBonus(player);
+            if (bonus != null && bonus.Cost < player.Money)
+            {
+                return bonus;
+            }
+            PropertyCard property = WantsProperty(player);
+            if (property != null && property.Cost < player.Money)
+            {
+                return (IPurchasable) property;
+            }
+            return null;
+        }
+
+        private AgencyCard WantsAgency(AIPlayer player)
+        {
+            if (ownership.ContainsKey(propertyCards[12]) && ownership[propertyCards[12]] == player)
+            {
+                if (ownership.ContainsKey(propertyCards[28]) && !(ownership[propertyCards[28]] == player))
+                {
+                    return (AgencyCard) propertyCards[28];
+                }
+                return null;
+            }
+            if (ownership.ContainsKey(propertyCards[28]) && ownership[propertyCards[28]] == player)
+            {
+                return (AgencyCard)propertyCards[12];
+            }
+            return null;
+        }
+
+        private BonusCard WantsBonus(AIPlayer player)
+        {
+            int[] bonusFields = { 5, 15, 25, 35 };
+            int owned = CountGroup(bonusFields, player);
+            if (owned > 2)
+            {
+                foreach (int j in bonusFields)
+                {
+                    if (ownership.ContainsKey(propertyCards[j]))
+                    {
+                        if (!(ownership[propertyCards[j]] == player && ((BonusCard)propertyCards[j]).Cost < player.Money))
+                            return (BonusCard)propertyCards[j];
+                    }
+                }
+            }
+            return null;
+        }
+
+        private PropertyCard WantsProperty(AIPlayer player)
+        {
+            int[] owned = new int[9];
+            int pointer = -1;
+            foreach (int[] group in groups)
+            {
+                pointer++;
+                owned[pointer] = CountGroup(group, player);
+                
+            }
+            for (; pointer > 0; pointer--)
+            {
+                if (owned[pointer] + 1 == groups[pointer].Length)
+                {
+                    return GetNotOwned(groups[pointer], player);
+                }
+            }
+            return null;
+        }
+
+        private int CountGroup(int[] group, AIPlayer player)
+        {
+            int ret = 0;
+            foreach(int i in group)
+            {
+                if (ownership.ContainsKey(propertyCards[i]))
+                {
+                    if (ownership[propertyCards[i]] == player)
+                    {
+                        ret++;
+                    }
+                }
+            }
+            return ret;
+        }
+
+        private PropertyCard GetNotOwned(int[] group, AIPlayer player)
+        {
+            foreach (int i in group)
+            {
+                if (!(ownership.ContainsKey(propertyCards[i])))
+                {
+                    return (PropertyCard) propertyCards[i];
+                }
+                if (!(ownership[propertyCards[i]] == player))
+                    return (PropertyCard) propertyCards[i];
+            }
             return null;
         }
 

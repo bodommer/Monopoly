@@ -34,10 +34,12 @@ namespace Monopoly.AI
                     if (ShallBuy(card, player))
                     {
                         PerformButtonClick(window.gameButton1);
+                        game.ClickButton(1);
                     }
                     else
                     {
                         PerformButtonClick(window.gameButton2);
+                        game.ClickButton(2);
                     }
                     break;
 
@@ -45,16 +47,19 @@ namespace Monopoly.AI
                     if (ShallUpgrade(card, player))
                     {
                         PerformButtonClick(window.gameButton1);
+                        game.ClickButton(1);
                     }
                     else
                     {
                         PerformButtonClick(window.gameButton2);
+                        game.ClickButton(2);
                     }
                     break;
 
 
                 case Game.GameStage.SPECIAL_FIELD:
                     PerformButtonClick(window.gameButton1);
+                    game.ClickButton(1);
                     break;
                     
                 case Game.GameStage.WHAT_NEXT:
@@ -98,6 +103,7 @@ namespace Monopoly.AI
                     }
                     player.Trade = true;
                     PerformButtonClick(window.gameButton3);
+                    game.ClickButton(3);
                     break;
 
                 case Game.GameStage.NO_FUNDS_PAY:

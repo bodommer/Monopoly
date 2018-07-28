@@ -12,8 +12,18 @@ namespace Monopoly.Cards
     {
         public string Description { get; private set; }
 
+        /*
+         * the "dice throw" modifiers for payment when stepping onto this Agency field.
+         * ONE_BONUS - when the player owns only one of the agencies
+         * TWO_BONUS - when the player owns both agencies
+         */
         private const float ONE_BONUS = 0.4F;
         private const float TWO_BONUS = 1;
+
+        /*
+         * The constructor.
+         * Arguments: data 
+         */ 
 
         public AgencyCard(string data, Image img)
         {
@@ -28,12 +38,9 @@ namespace Monopoly.Cards
 
         public new float GetPayment()
         {
-            throw new NotImplementedException();
+            return 0F;
         }
 
-        /*
-         * Gets the value thrown on the dice as the first argument, the amount of agencies owned as the second one (1 or 2).
-         */
         public float GetPayment(int dice, int numberOfAgenciesOwned)
         {
             if (numberOfAgenciesOwned == 1)
