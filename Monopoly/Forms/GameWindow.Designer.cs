@@ -242,6 +242,7 @@ namespace Monopoly.Main
             this.playerNameLabel.TabIndex = 16;
             this.playerNameLabel.Text = "playerNameLabel";
             this.playerNameLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.playerNameLabel.Click += new System.EventHandler(this.playerNameLabel_Click);
             // 
             // tradeViewer
             // 

@@ -9,11 +9,16 @@ using System.Threading.Tasks;
 
 namespace Monopoly.Main
 {
+    /**
+     * A deprecated static class used for adjust the wanted comapny logos to match the dimensions
+     * needed in the gameWindow.
+     */
     public static class ImageManipulator
     {
         public static void CreateThumbnails()
         {
-            int[] order = { 1, 3, 6, 8, 9, 11, 13, 14, 16, 18, 19, 21, 23, 24, 26, 27, 29, 31, 32, 34, 37, 39, 12, 28, 5, 15, 25, 35 };
+            int[] order = { 1, 3, 6, 8, 9, 11, 13, 14, 16, 18, 19, 21, 23,
+                24, 26, 27, 29, 31, 32, 34, 37, 39, 12, 28, 5, 15, 25, 35 };
             foreach (int i in order) {
                 var image = System.Drawing.Image.FromFile("Resources/logos/" + i + ".png");
                 var ratioX = (double)292 / image.Width;
@@ -26,13 +31,11 @@ namespace Monopoly.Main
 
                 thumbGraph.CompositingQuality = CompositingQuality.HighQuality;
                 thumbGraph.SmoothingMode = SmoothingMode.HighQuality;
-                //thumbGraph.InterpolationMode = InterpolationMode.HighQualityBicubic;
 
                 thumbGraph.DrawImage(image, 0, 0, newWidth, newHeight);
                 image.Dispose();
 
                 string fileRelativePath = "Resources/resized/" + i;
-                //Console.Write(image.RawFormat);
                 newImage.Save(fileRelativePath);
             }
         }

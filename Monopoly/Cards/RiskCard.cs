@@ -7,14 +7,18 @@ using System.Threading.Tasks;
 
 namespace Monopoly.Main
 {
+    /**
+     * The data container for one RiskCard.
+     */
     [Serializable()]
-    public class RiskCard : IField
+    public class RiskCard : SpecialCard
     {
-        public string Description { get; private set; }
         public string MoneyPlusMinus { get; private set; }
-        public float MoneyChange { get; private set; }
         public int TurnsStop { get; private set; }
 
+        /**
+         * The constructor.
+         */
         public RiskCard(string data)
         {
             try

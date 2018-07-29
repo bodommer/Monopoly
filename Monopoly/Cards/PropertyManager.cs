@@ -12,6 +12,16 @@ using System.Windows.Forms;
 
 namespace Monopoly.Cards
 {
+    /**
+     * A very important class when it comes to handling Card class' successors. All Card processes
+     * are executed by this class. It is 'the right hand' of the controller - Game class.
+     * 
+     * It's main tasks are:
+     *  - keep the relation between the field number (0-39) and the Card associated to the field
+     *  - keep the ownership data (which card is owned by whom)
+     *  - create datasets of the Card successors - for ListViews,...
+     *  - provides the decision logic for trades of AIPlayer
+     */
     [Serializable()]
     public class PropertyManager
     {
@@ -19,9 +29,12 @@ namespace Monopoly.Cards
         private const int NUMBER_OF_AGENCIES = 2;
         private const int NUMBER_OF_BONUS_CARDS = 4;
 
-        private Dictionary<int, IPurchasable> propertyCards;
-        private Dictionary<IPurchasable, Player> ownership;
+        // links the gameplan field's number to a certain Card.
+        private Dictionary<int, Card> propertyCards;
+        // keeps the data of ownership of each Card.
+        private Dictionary<Card, Player> ownership;
 
+        // information about logos 
         private Image[] logos = {null, Resource1._1, null, Resource1._3, null, Resource1._5,
                                 Resource1._6, null, Resource1._8, Resource1._9, null, Resource1._11,
                                 Resource1._12, Resource1._13, Resource1._14, Resource1._15,
@@ -33,12 +46,12 @@ namespace Monopoly.Cards
 
         private int[][] groups;
         
-        // source is usually "properties.txt"
-        public PropertyManager(string source)
+        public PropertyManager()
         {
+            // The field numbers of cards of the ame group - for PropertyCard groups only (1-8)
             groups = new int[][]
             {
-                new int[] {}, // placeholder, no item has group 0
+                new int[] {}, // placeholder, no PropertyCard item has group 0
                 new int[] {1, 3 },
                 new int[] {6, 8, 9},
                 new int[] {11, 13, 14},
@@ -50,23 +63,26 @@ namespace Monopoly.Cards
             };
 
             // initialise all the property cards
-            propertyCards = new Dictionary<int, IPurchasable>();
-            ownership = new Dictionary<IPurchasable, Player>();
+            propertyCards = new Dictionary<int, Card>();
+            ownership = new Dictionary<Card, Player>();
 
+            // Something like "ReadAllLines(), but with Resources
             string details = Resource1.properties;
             string[] cardDetails = Regex.Split(details, @"\r?\n|\r");
 
-            //string[] cardDetails = File.ReadAllLines(source);
+            // Initialise PropertyCards
             for (int i = 0; i < NUMBER_OF_PROPERTY_CARDS; i++)
             {
                 string[] numberAndData = cardDetails[i].Split(' ');
                 propertyCards.Add(int.Parse(numberAndData[0]), new PropertyCard(numberAndData[1], logos[int.Parse(numberAndData[0])]));
             }
+            // Initialise AgencyCards
             for (int i = NUMBER_OF_PROPERTY_CARDS; i < NUMBER_OF_PROPERTY_CARDS + NUMBER_OF_AGENCIES; i++)
             {
                 string[] numberAndData = cardDetails[i].Split(' ');
                 propertyCards.Add(int.Parse(numberAndData[0]), new AgencyCard(numberAndData[1], logos[int.Parse(numberAndData[0])]));
             }
+            // Initialise BonusCards
             for (int i = NUMBER_OF_PROPERTY_CARDS + NUMBER_OF_AGENCIES; i < NUMBER_OF_PROPERTY_CARDS + NUMBER_OF_AGENCIES + NUMBER_OF_BONUS_CARDS; i++)
             {
                 string[] numberAndData = cardDetails[i].Split(' ');
@@ -74,6 +90,9 @@ namespace Monopoly.Cards
             }
         }
 
+        /**
+         * Returns a Dictionary of Fieldtypes - for Gameplan to initialise the types of each gamefield.
+         */
         public Dictionary<string, List<int>> GetFieldTypes()
         {
             Dictionary<string, List<int>> ret = new Dictionary<string, List<int>>();
@@ -99,7 +118,11 @@ namespace Monopoly.Cards
             return ret;
         }
 
-        public Player WhoOwns(IPurchasable card)
+        /**
+         * Returns the owner of a Card.
+         * Returns null if there is no owner.
+         */
+        public Player WhoOwns(Card card)
         {
             if (card != null)
             {
@@ -111,7 +134,11 @@ namespace Monopoly.Cards
             return null;
         }
 
-        public IPurchasable CardAt(int position)
+        /**
+         * Returns the card that is located at specified field.
+         * Returns null if the field is not a Card field.
+         */
+        public Card CardAt(int position)
         {
             if (propertyCards.ContainsKey(position))
             {
@@ -120,29 +147,36 @@ namespace Monopoly.Cards
             return null;
         }
 
-        public void AddOwnership (IPurchasable card, Player player)
+        /**
+         * Assigns or re-assigns the ownership of the Card in the ownership dictionary.
+         */
+        public void AddOwnership (Card card, Player player)
         {
             ownership[card] = player;
         }
 
+        /**
+         * Returns the answer to question "Does player own all the PropertyCards of groupNumber"?
+         */
         public bool OwnsWholeGroup(int groupNumber, Player player)
         {
-            int size = groups[groupNumber].Length;
             int count = 0;
             foreach (int i in groups[groupNumber])
             {
-                if (ownership.ContainsKey(propertyCards[i]))
-                {
-                    if (player == ownership[propertyCards[i]])
-                    {
-                        count++;
-                    }
-                }
+                if (WhoOwns(propertyCards[i]) == player) count++;
             }
-            return size == count;
+            return groups[groupNumber].Length == count;
         }
 
-        public IPurchasable GetTradeCard(AIPlayer player)
+        /**
+         * AIPlayer deciding logics. It evaluates which card is the AIPlayer most likely to want to buy. 
+         * It takes into consideration, that:
+         *  - Agency Cards are the most wanted
+         *  - Bonus Cards have 2nd highest priority
+         *  - PropertyCards of Highest (most expensive group) have higher priority than the cheaper ones
+         *            (unless they cannot afford the expensive ones)
+         */
+        public Card GetTradeCard(AIPlayer player)
         {
             AgencyCard agency = WantsAgency(player);
             if (agency != null && agency.Cost < player.Money)
@@ -157,11 +191,17 @@ namespace Monopoly.Cards
             PropertyCard property = WantsProperty(player);
             if (property != null && property.Cost < player.Money)
             {
-                return (IPurchasable) property;
+                return (Card) property;
             }
             return null;
         }
 
+        /**
+         * Helper method.
+         * Returns AgencyCard, if a player owns exactly one AgencyCard. Returns the NOT owned one. 
+         * That is the card that the player would eventually want to buy to complete the duo.
+         * It does not make sense to buy AgencyCard if the player doesn't own at least one. 
+         */
         private AgencyCard WantsAgency(AIPlayer player)
         {
             if (ownership.ContainsKey(propertyCards[12]) && ownership[propertyCards[12]] == player)
@@ -179,6 +219,13 @@ namespace Monopoly.Cards
             return null;
         }
 
+        /**
+         * Helper method.
+         * Returns BonusCard, if a player owns at least 2 BonusCards, but not all. 
+         * Returns the NOT owned one - it picks the one with lowest field number that can be bught.
+         * 
+         * It does not make sense to buy BonusCard if the player doesn't own at least two. 
+         */
         private BonusCard WantsBonus(AIPlayer player)
         {
             int[] bonusFields = { 5, 15, 25, 35 };
@@ -197,6 +244,12 @@ namespace Monopoly.Cards
             return null;
         }
 
+        /**
+         * Helper method.
+         * Returns a PropertyCard if the player owns all but one PropertyCards of a group.
+         * Therefore the AIPlayer, given he/she has sufficient funds, would want to complete
+         * the group ownership that'd let him upgrade PropertyCard once he steps on it.
+         */
         private PropertyCard WantsProperty(AIPlayer player)
         {
             int[] owned = new int[9];
@@ -217,22 +270,25 @@ namespace Monopoly.Cards
             return null;
         }
 
-        private int CountGroup(int[] group, AIPlayer player)
+        /**
+         * Helper method.
+         * Counts the number of properties owned of a given group by the player.
+         */
+        public int CountGroup(int[] group, Player player)
         {
             int ret = 0;
             foreach(int i in group)
             {
-                if (ownership.ContainsKey(propertyCards[i]))
-                {
-                    if (ownership[propertyCards[i]] == player)
-                    {
-                        ret++;
-                    }
-                }
+                if (WhoOwns(propertyCards[i]) == player) ret++;
             }
             return ret;
         }
 
+        /**
+         * Helper method.
+         * Returns the first card of the group that is not owned by the given player.
+         * If the player owns all the properties, returns null.
+         */
         private PropertyCard GetNotOwned(int[] group, AIPlayer player)
         {
             foreach (int i in group)
@@ -247,35 +303,47 @@ namespace Monopoly.Cards
             return null;
         }
 
+        /**
+         * This method prepares data for the gameWindow's TradeViewer.
+         * It lists all the items not owned by the player, but someone else.
+         * Therefore the list contains the trade options for the player.
+         */
         public List<ListViewItem> GetTradeOptions(Player player)
         {
             List<ListViewItem> ret = new List<ListViewItem>();
-            foreach (IPurchasable card in ownership.Keys)
+            foreach (Card card in ownership.Keys)
             {
-                if (ownership[card] != player)
+                if (WhoOwns(card) != player)
                 {
-                    Card card2 = (Card)card;
-                    ret.Add(CreateListItem(card2, card));
+                    ret.Add(CreateListItem(card));
                 }
             }
             return ret;
         }
 
+        /**
+         * Prepares data for gameWindow's TradeViewer. Lists all the Cards
+         * that are in the ownership of the given player.
+         */
         public List<ListViewItem> GetPlayerProperties(Player player)
         {
             List<ListViewItem> ret = new List<ListViewItem>();
-            foreach (IPurchasable card in ownership.Keys)
+            foreach (Card card in ownership.Keys)
             {
-                if (ownership[card] == player)
+                if (WhoOwns(card) == player)
                 {
-                    Card card2 = (Card)card;
-                    ret.Add(CreateListItem(card2, card));
+                    ret.Add(CreateListItem(card));
                 }
             }
             return ret;
         }
 
-        public void ChangeOwner(Player newOwner, IPurchasable property, float money)
+        /**
+         * Effectively performs 'trade' between two players. The old owner gets
+         * the agreed money and the newOwner is assigned ownership 
+         * of the traded Card.
+         */
+        public void ChangeOwner(Player newOwner, Card property, float money)
         {
             newOwner.Money -= money;
             ownership[property].Money += money;
@@ -292,21 +360,30 @@ namespace Monopoly.Cards
         public List<ListViewItem> GetMortgagedProperties(Player player, bool mortgaged)
         {
             List<ListViewItem> list = new List<ListViewItem>();
-            foreach (IPurchasable ip in ownership.Keys)
+            foreach (Card card in ownership.Keys)
             {
-                if (ownership[ip] == player)
+                if (ownership[card] == player)
                 {
-                    Card card = (Card) ip;
                     if (card.Mortgaged == mortgaged)
                     {
-                        list.Add(CreateListItem(card, ip));
+                        list.Add(CreateListItem(card));
                     }
                 }
             }
             return list;
         }
 
-        private ListViewItem CreateListItem(Card card, IPurchasable ip)
+        /**
+         * Creates a GameWindow's TradeViewer list item.
+         * Subitems:
+         *  - name
+         *  - cost
+         *  - mortgaged (bool to string yes/no)
+         *  - group (Agencies as "A", BonusCard as "B")
+         *  - owner
+         *  Tag: Listed card (type Card)
+         */
+        private ListViewItem CreateListItem(Card card)
         {
             ListViewItem item = new ListViewItem(card.Name);
             item.SubItems.Add(card.Cost.ToString());
@@ -319,7 +396,7 @@ namespace Monopoly.Cards
             {
                 item.SubItems.Add("No");
             }
-            item.Tag = ip;
+            item.Tag = card;
             int gr = card.Group;
             if (gr > 0)
             {
@@ -333,11 +410,15 @@ namespace Monopoly.Cards
             {
                 item.SubItems.Add("B");
             }
-            item.SubItems.Add(ownership[card].name);
+            item.SubItems.Add(WhoOwns(card).name);
             return item;
         }
 
-        public Dictionary<int, IPurchasable>.KeyCollection GetKeyCollection()
+        /**
+         * Returns the Collection of keys of propertyCards dictionary.
+         * It displays allt he numbers of Card fields.
+         */
+        public Dictionary<int, Card>.KeyCollection GetKeyCollection()
         {
             return propertyCards.Keys;
         }

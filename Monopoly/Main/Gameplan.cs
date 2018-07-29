@@ -11,6 +11,9 @@ using System.Drawing;
 
 namespace Monopoly.Main
 {
+    /**
+     * The main contianer that stores the gameplan's data - types of fields, dimensions,...
+     */
     [Serializable()]
     public class Gameplan
     {
@@ -83,10 +86,10 @@ namespace Monopoly.Main
             bonusFields = fields["bonus"];
         }
 
-        public void GoToPrison(Player player)
+        public Point GoToPrison(Player player, decimal playerNumber)
         {
             playerFields[player] = 10;
-            //window.redraw(player);
+            return GetCoordsOfNextField(player, playerNumber);
         }
 
         private void Draw()

@@ -7,12 +7,17 @@ using System.Threading.Tasks;
 
 namespace Monopoly.Main
 {
+    /**
+     * The data container for a Treasure Card.
+     */
     [Serializable]
-    public class TreasureCard : IField
+    public class TreasureCard : SpecialCard
     {
-        public string Description { get; private set; }
-        public float MoneyChange { get; private set; }
 
+
+        /**
+         * The constructor.
+         */
         public TreasureCard(string data)
         {
             try

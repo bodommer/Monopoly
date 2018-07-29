@@ -8,18 +8,27 @@ using System.Threading.Tasks;
 
 namespace Monopoly.Main
 {
+    /**
+     * A type of Card class. It represents a set of properties that can be upgraded (ApartmentCost attribute).
+     * All properties of groups 1-8 are of this type.
+     */
     [Serializable()]
     public class PropertyCard : Card
     {
-        public string Description { get; private set; }
+        // number of apartments built on the field
         public int Apartments { get; private set; }
+        // the array of payments for each of purchased apartments - 0 to 3
         private float[] payments;
+        // the cost of upgrade (does not increase with more apartments)
         public float ApartmentCost { get; private set; }
-        // public Image image { get; private set; }
 
+        /**
+         * The constructor.
+         */
         public PropertyCard(string data, Image img)
         {
             string[] details = data.Split(';');
+            // fixing interpreting & as an ecape character
             if (details[0] == "ATT")
             {
                 Name = "AT&&T";
@@ -28,7 +37,6 @@ namespace Monopoly.Main
             {
                 Name = details[0];
             }
-            Description = details[1];
             Cost = float.Parse(details[2]);
             Apartments = 0;
             payments = new float[4];
@@ -48,11 +56,17 @@ namespace Monopoly.Main
             Apartments++;
         }
 
+        /**
+         * Returns current payment amount.
+         */
         public override float GetPayment()
         {
             return payments[Apartments];
         }
 
+        /**
+         * Returns the payment amount for a specified apartment count.
+         */
         public float GetPayment(int apt)
         {
             return payments[apt];

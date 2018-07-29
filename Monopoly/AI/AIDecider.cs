@@ -20,7 +20,7 @@ namespace Monopoly.AI
             Game.GameStage.NO_FUNDS_BUY, Game.GameStage.SPECIAL_CARD, Game.GameStage.HOLIDAY,
             Game.GameStage.CANNOT_UPGRADE, Game.GameStage.SPECIAL_FIELD };
 
-        public static void PlayTurn(AIPlayer player, Main.Monopoly window, Game game, IPurchasable card)
+        public static void PlayTurn(AIPlayer player, Main.Monopoly window, Game game, Card card)
         {
             if (defaultActions.Contains(game.GameState))
             {
@@ -64,7 +64,7 @@ namespace Monopoly.AI
                     
                 case Game.GameStage.WHAT_NEXT:
                     Console.Write("WHAT NEXT");
-                    IPurchasable c = game.GetTradeCard();
+                    Card c = game.GetTradeCard();
                     if (player.Trade)
                     {
                         if (c != null)
@@ -88,7 +88,7 @@ namespace Monopoly.AI
                     {
                         foreach (ListViewItem lvi in properties)
                         {
-                            IPurchasable p = (IPurchasable) lvi.Tag;
+                            Card p = (Card) lvi.Tag;
                             Card ca = (Card)p;
                             if (ca.Mortgaged && ca.Cost + 20 > player.Money)
                             {
@@ -124,7 +124,7 @@ namespace Monopoly.AI
                 float requiredMoney = (3 + player.dangerFactor) * propCard.Cost;
                 if (!(pm.OwnsWholeGroup(item.Group, player)))
                 {
-                    if (money > requiredMoney);
+                    if (money > requiredMoney)
                     {
                         return true;
                     }
@@ -160,7 +160,7 @@ namespace Monopoly.AI
             Thread.Sleep(300);
         }
 
-        public static bool ShallBuy(IPurchasable card, AIPlayer player) 
+        public static bool ShallBuy(Card card, AIPlayer player) 
         {
             Card c = (Card)card;
             float coeffitient = (float) 3.2 - 3 * player.dangerFactor;
@@ -171,7 +171,7 @@ namespace Monopoly.AI
             return false;
         }
 
-        public static bool ShallUpgrade(IPurchasable card, AIPlayer player)
+        public static bool ShallUpgrade(Card card, AIPlayer player)
         {
             Card c = (Card)card;
             float coeffitient = (float) 2.1 - player.dangerFactor;
@@ -192,12 +192,12 @@ namespace Monopoly.AI
             return false;
         }
 
-        public static IPurchasable TakeMortgage()
+        public static Card TakeMortgage()
         {
             return null;
         }
 
-        public static IPurchasable PayOffMortgage()
+        public static Card PayOffMortgage()
         {
             return null;
         }

@@ -6,8 +6,9 @@ using System.Threading.Tasks;
 
 namespace Monopoly.Cards
 {
-    public interface IPurchasable
+    public class SpecialCard
     {
-        float GetPayment();
+        public string Description { get; protected set; }
+        public float MoneyChange { get; protected set; }
     }
 }

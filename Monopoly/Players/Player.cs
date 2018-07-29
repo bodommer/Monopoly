@@ -8,6 +8,10 @@ using System.Drawing;
 
 namespace Monopoly.Players
 {
+    /**
+     * A base container for both HumanPlayer and AIPlayer. Contains basic attributes the two types
+     * of players have in common.
+     */
     [Serializable()]
     public abstract class Player
     {

@@ -11,6 +11,9 @@ using System.Threading.Tasks;
 
 namespace Monopoly
 {
+    /**
+     * The RiskCard manipulator, creator and overlord.
+     */
     [Serializable()]
     public class RiskCardManager
     {
@@ -19,15 +22,18 @@ namespace Monopoly
         private RiskCard[] riskCards;
         private int cardPointer = 0;
 
-        public RiskCardManager(string source)
+        /**
+         * The constructor.
+         */
+        public RiskCardManager()
         {
             HashSet<RiskCard> riskCardSet = new HashSet<RiskCard>();
             string[] cardDetails;
             // initialise all the risk cards
             try
             {
+                // like ReadAllLines() in typical text file
                 string details = Resource1.riskCards;
-
                 cardDetails = Regex.Split(details, @"\r?\n|\r");
             } catch
             {
@@ -42,6 +48,9 @@ namespace Monopoly
             riskCards = riskCardSet.ToArray<RiskCard>();
         }
 
+        /**
+         * Returns the card "on top of current RiskCard stack" and puts it to last spot.
+         */
         public RiskCard GetRiskCard()
         {
             cardPointer++;

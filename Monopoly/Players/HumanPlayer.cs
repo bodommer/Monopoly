@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace Monopoly.Players
 {
+    /**
+     * The human implementation of Player class.
+     */
     [Serializable()]
     public class HumanPlayer : Player
     {

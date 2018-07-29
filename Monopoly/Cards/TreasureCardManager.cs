@@ -9,6 +9,9 @@ using System.Threading.Tasks;
 
 namespace Monopoly.Cards
 {
+    /**
+     * The RiskCard manipulator, creator and overlord.
+     */
     [Serializable]
     public class TreasureCardManager
     {
@@ -17,12 +20,16 @@ namespace Monopoly.Cards
         private TreasureCard[] TreasureCards;
         private int cardPointer = 0;
 
-        public TreasureCardManager(string source)
+        /**
+         * The cosntructor.
+         */
+        public TreasureCardManager()
         {
             HashSet<TreasureCard> TreasureCardSet = new HashSet<TreasureCard>();
 
             // initialise all the Treasure cards
-            //string[] cardDetails = File.ReadAllLines(source);
+
+            // like ReadAllLines() in typical text file
             string details = Resource1.treasureCards;
             string[] cardDetails = Regex.Split(details, @"\r?\n|\r");
 
@@ -35,6 +42,9 @@ namespace Monopoly.Cards
             TreasureCards = TreasureCardSet.ToArray<TreasureCard>();
         }
 
+        /**
+         * Returns the card "on top of current RiskCard stack" and puts it to last spot.
+         */
         public TreasureCard GetTreasureCard()
         {
             cardPointer++;

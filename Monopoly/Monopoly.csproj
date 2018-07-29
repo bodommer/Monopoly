@@ -71,10 +71,9 @@
     <Compile Include="Cards\AgencyCard.cs" />
     <Compile Include="Cards\BonusCard.cs" />
     <Compile Include="Cards\Card.cs" />
-    <Compile Include="Cards\IField.cs" />
-    <Compile Include="Cards\IPurchasable.cs" />
     <Compile Include="Cards\PropertyCard.cs" />
     <Compile Include="Cards\PropertyManager.cs" />
+    <Compile Include="Cards\SpecialCard.cs" />
     <Compile Include="Cards\TreasureCardManager.cs" />
     <Compile Include="Forms\NewGameDialog.cs">
       <SubType>Form</SubType>

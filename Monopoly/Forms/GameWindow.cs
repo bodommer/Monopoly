@@ -107,95 +107,76 @@ namespace Monopoly.Main
             this.Update();
         }
 
-        public void DisplayPropertyCard(PropertyCard card, Color color, int field)
+        private void DisplayCard(Card card, Color foreColor, Color backColor)
         {
             CardTitle.Text = card.Name;
-            CardTitle.BackColor = color;
-            CardTitle.ForeColor = Color.WhiteSmoke;
-            string resName = field.ToString() + ".png";
-            Image img = card.logo;
-            //Image img = Image.FromFile("Resources/images/" + field.ToString());
-            logoBox.Padding = new Padding((298 - img.Width) / 2, (140 - img.Height) / 2, 0, 0);
-            logoBox.Image = img;
+            CardTitle.BackColor = Color.White;
+            CardTitle.ForeColor = Color.Black;
+            Image logo = card.logo;
+            logoBox.Padding = new Padding((298 - logo.Width) / 2, (140 - logo.Height) / 2, 0, 0);
+            logoBox.Image = logo;
             priceLabel.Text = "Price: " + card.Cost + "m";
+            ShowCard();
+        }
+
+        public void DisplayCard(PropertyCard card, Color color)
+        {
             paymentLabel1.Text = "Payment 1: " + card.GetPayment(0) + "m";
             paymentLabel2.Text = "Payment 2: " + card.GetPayment(1) + "m";
             paymentLabel3.Text = "Payment 3: " + card.GetPayment(2) + "m";
             paymentLabel4.Text = "Payment 4: " + card.GetPayment(3) + "m";
             apartmentCostLabel.Text = "Improvement cost: " + card.ApartmentCost + "m";
             mortgageLabel.Text = "Mortgage: " + card.MortgageValue + "m";
-            ShowCard();
+            DisplayCard(card, Color.WhiteSmoke, color);
         }
 
-        public void DisplayAgencyCard(AgencyCard card, int field)
+        public void DisplayCard(AgencyCard card)
         {
-            CardTitle.Text = card.Name;
-            CardTitle.BackColor = Color.White;
-            CardTitle.ForeColor = Color.Black;
-            string resName = $"_1";
-            Image logo = card.logo;
-            logoBox.Image = logo;
-            //logoBox.Image = Resource1."_1"; ;
-            logoBox.Padding = new Padding((298 - logo.Width) / 2, (140 - logo.Height) / 2, 0, 0);
-            priceLabel.Text = "Price: " + card.Cost + "m";
             paymentLabel1.Text = "One agency owned payment: ";
             paymentLabel2.Text = card.GetBonus(1) + "m * dice roll value";
             paymentLabel3.Text = "Both agencies owned payment:";
             paymentLabel4.Text = card.GetBonus(2) + "m * dice roll value";
             apartmentCostLabel.Text = "";
             mortgageLabel.Text = "Mortgage: " + card.MortgageValue + "m";
-            ShowCard();
+            DisplayCard(card, Color.Black, Color.White);
         }
 
-        public void DisplayBonusCard(BonusCard card, int field)
+        public void DisplayCard(BonusCard card)
         {
-            CardTitle.Text = card.Name;
-            CardTitle.BackColor = Color.White;
-            CardTitle.ForeColor = Color.Black;
-
-            string resName = $"_" + field.ToString();
-            Image logo = card.logo;
-            logoBox.Image = logo;
-            logoBox.Padding = new Padding((298 - logo.Width) / 2, (140 - logo.Height) / 2, 0, 0);
-            priceLabel.Text = "Price: " + card.Cost + "m";
             paymentLabel1.Text = "Payment per bonu cards owned:";
             paymentLabel2.Text = "One card:" + card.GetPayment(1) + "m";
             paymentLabel3.Text = "Two cards:" + card.GetPayment(2) + "m";
             paymentLabel4.Text = "Three cards:" + card.GetPayment(3) + "m";
             apartmentCostLabel.Text = "Four cards:" + card.GetPayment(4) + "m";
             mortgageLabel.Text = "Mortgage: " + card.MortgageValue + "m";
-            ShowCard();
+            DisplayCard(card, Color.Black, Color.White);
+        }
+
+        private void DisplaySpecialCard(SpecialCard card)
+        {
+            HideElements();
+            detailBox.Show();
+            cardNameLabel.BorderStyle = BorderStyle.FixedSingle;
+            cardContentLabel.BorderStyle = BorderStyle.FixedSingle;
+            cardContentLabel.Text = card.Description;
+            gameButton1.Text = "Continue";
+            gameButton1.Show();
+            cardNameLabel.Show();
+            cardContentLabel.Show();
         }
 
         public void DisplayRiskCard(RiskCard card)
         {
-            HideElements();
-            detailBox.Show();
             cardNameLabel.Text = "Risk Card";
-            cardNameLabel.BorderStyle = BorderStyle.FixedSingle;
-            cardContentLabel.BorderStyle = BorderStyle.FixedSingle;
-            cardContentLabel.Text = card.Description;
             textBox.Text = "You played a risk card!";
-            gameButton1.Text = "Continue";
-            gameButton1.Show();
-            cardNameLabel.Show();
-            cardContentLabel.Show();
+            DisplaySpecialCard(card);
         }
 
         public void DisplayTreasureCard(TreasureCard card)
         {
-            HideElements();
-            detailBox.Show();
-            cardNameLabel.BorderStyle = BorderStyle.FixedSingle;
-            cardContentLabel.BorderStyle = BorderStyle.FixedSingle;
             cardNameLabel.Text = "Treasure Card";
-            cardContentLabel.Text = card.Description;
             textBox.Text = "You played a trasure card!";
-            gameButton1.Text = "Continue";
-            gameButton1.Show();
-            cardNameLabel.Show();
-            cardContentLabel.Show();
-
+            DisplaySpecialCard(card);
         }
 
         public void ShowUpgradeOptions(string name, float price)
@@ -478,6 +459,11 @@ namespace Monopoly.Main
         }
 
         private void textBox_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void playerNameLabel_Click(object sender, EventArgs e)
         {
 
         }

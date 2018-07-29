@@ -7,9 +7,11 @@ using System.Threading.Tasks;
 
 namespace Monopoly
 {
+    /**
+     * A class prepared for future, should there be more starting game preferences, this is the 
+     * object that will be able to get these to Game initalisation. 
+     */
     class GameSettings
     {
-        public Player[] players;
-        float startingMoney;
     }
 }

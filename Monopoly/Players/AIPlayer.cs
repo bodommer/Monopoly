@@ -8,23 +8,26 @@ using System.Threading.Tasks;
 
 namespace Monopoly.Players
 {
+    /**
+     * This class represents the AIPlayer - some additional attributes it could need to remember.
+     */
     [Serializable()]
     public class AIPlayer : Player
     {
         public float dangerFactor;
         public bool Trade;
-        public Dictionary<IPurchasable, float> offers;
+        public Dictionary<Card, float> offers;
 
         public AIPlayer(string name, float money, Color color)
         {
-            offers = new Dictionary<IPurchasable, float>();
+            offers = new Dictionary<Card, float>();
             Trade = true;
             dangerFactor = (float) new Random().NextDouble(); 
             Money = money;
             this.name = name;
             Blocked = 0;
             Prison = false;
-            this.Color = color;
+            Color = color;
         }
     }
 }
