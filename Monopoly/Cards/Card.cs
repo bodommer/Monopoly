@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 
 namespace Monopoly.Cards
 {
-    [Serializable()]
     /**
      * Default class of Card, which is the base of: PropertyCard, BonusCard, AgencyCard
      * 
      * The class provides the basic common attributes of all successor cards.
      */
+    [Serializable()]
     public abstract class Card
     {
         public string Name { get; protected set; }

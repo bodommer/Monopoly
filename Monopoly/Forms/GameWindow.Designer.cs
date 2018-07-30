@@ -577,7 +577,7 @@ namespace Monopoly.Main
         private System.Windows.Forms.ColumnHeader Property;
         private System.Windows.Forms.ColumnHeader Cost;
         private System.Windows.Forms.ColumnHeader Mortgage;
-        private System.Windows.Forms.ColumnHeader Owner;
+        private new System.Windows.Forms.ColumnHeader Owner;
         private System.Windows.Forms.PictureBox player1;
         private System.Windows.Forms.PictureBox player2;
         private System.Windows.Forms.PictureBox player3;

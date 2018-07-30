@@ -1,0 +1,260 @@
+\hypertarget{namespaceplan_drawing}{}\section{plan\+Drawing Namespace Reference}
+\label{namespaceplan_drawing}\index{plan\+Drawing@{plan\+Drawing}}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{namespaceplan_drawing_a24a9f6fc7a9b6b3d6f1d1b8e0dd33e5d}{quota}} = 119
+\item 
+int \mbox{\hyperlink{namespaceplan_drawing_a514306bc74067f7281091ab310589e78}{width}} = 58
+\item 
+\mbox{\hyperlink{namespaceplan_drawing_af4e3df3fcff8b46fd59536de55f1a4c9}{image}} = Image.\+new(\textquotesingle{}R\+G\+BA\textquotesingle{}, (760, 760), \textquotesingle{}white\textquotesingle{})
+\begin{DoxyCompactList}\small\item\em create image and canvas \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespaceplan_drawing_a139a52c2f0375bb4e8072d73c20041e3}{canvas}} = Image\+Draw.\+Draw(\mbox{\hyperlink{namespaceplan_drawing_af4e3df3fcff8b46fd59536de55f1a4c9}{image}})
+\item 
+\mbox{\hyperlink{namespaceplan_drawing_a19c8949ae2db8517ca8e83961816549d}{fill}}
+\begin{DoxyCompactList}\small\item\em draw corner fields -\/ basic lines \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{namespaceplan_drawing_a9b507814fb99be9c876ea329f40fc0f1}{i}} = \mbox{\hyperlink{namespaceplan_drawing_a24a9f6fc7a9b6b3d6f1d1b8e0dd33e5d}{quota}} + k$\ast$\mbox{\hyperlink{namespaceplan_drawing_a514306bc74067f7281091ab310589e78}{width}}
+\begin{DoxyCompactList}\small\item\em draw mid-\/board fields \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespaceplan_drawing_a427e8900e35f26469209eec6cca37289}{outline}}
+\begin{DoxyCompactList}\small\item\em side border \end{DoxyCompactList}\item 
+tuple \mbox{\hyperlink{namespaceplan_drawing_aaf34615559207ed0d1b747c94b27b5ba}{colors}} = ((255, 51, 51), (0, 128, 255), (152, 76, 0), (255, 153, 51), (255, 102, 255), (0, 0, 204), (0, 204, 102), (255, 255, 51))
+\item 
+list \mbox{\hyperlink{namespaceplan_drawing_a061361823314d5f75e70a0e9282f34ee}{points}}
+\item 
+list \mbox{\hyperlink{namespaceplan_drawing_a622e05718ba4ee2b68d34059300226c1}{data}}
+\item 
+tuple \mbox{\hyperlink{namespaceplan_drawing_a2d58998a47907d9eeb4172cb389143d8}{color}} = (148, 0, 211)
+\item 
+\mbox{\hyperlink{namespaceplan_drawing_afddf021a6859fba763e2c602b49ad744}{font}} = Image\+Font.\+truetype(\char`\"{}fonts/font1.\+otf\char`\"{}, data\mbox{[}\mbox{\hyperlink{namespaceplan_drawing_a9b507814fb99be9c876ea329f40fc0f1}{i}}\mbox{]}\mbox{[}3\mbox{]})
+\item 
+\mbox{\hyperlink{namespaceplan_drawing_a6353872188dfcfa8978c7abce9af330f}{txt}} = Image.\+new(\textquotesingle{}L\textquotesingle{}, (100, 55))
+\item 
+\mbox{\hyperlink{namespaceplan_drawing_ae766d314d267c74a5be2ebb84fffce5c}{draw}} = Image\+Draw.\+Draw(\mbox{\hyperlink{namespaceplan_drawing_a6353872188dfcfa8978c7abce9af330f}{txt}})
+\item 
+\mbox{\hyperlink{namespaceplan_drawing_a227f71f6f7d861c2ef06f8315e9037a7}{anchor}}
+\item 
+\mbox{\hyperlink{namespaceplan_drawing_ad7a76c8ceac3b7ee1e99ff482407c1af}{w}}
+\item 
+\mbox{\hyperlink{namespaceplan_drawing_ae4861d93282ebc625dbbc2f1676f3baf}{h}}
+\item 
+\mbox{\hyperlink{namespaceplan_drawing_adf3ffc21a30cc208673fb4f39fd77c5a}{write}} = txt.\+rotate(\mbox{\hyperlink{namespaceplan_drawing_a622e05718ba4ee2b68d34059300226c1}{data}}\mbox{[}\mbox{\hyperlink{namespaceplan_drawing_a9b507814fb99be9c876ea329f40fc0f1}{i}}\mbox{]}\mbox{[}2\mbox{]}, expand=1)
+\item 
+tuple \mbox{\hyperlink{namespaceplan_drawing_adfaadcdef85cf3cd5d7bd077de6f2339}{extraW}} = (58 -\/ \mbox{\hyperlink{namespaceplan_drawing_ae4861d93282ebc625dbbc2f1676f3baf}{h}})//2
+\item 
+tuple \mbox{\hyperlink{namespaceplan_drawing_af7d5ee628341623ec3f58c89c4c58162}{extraH}} = (104-\/\mbox{\hyperlink{namespaceplan_drawing_ad7a76c8ceac3b7ee1e99ff482407c1af}{w}})//2
+\item 
+tuple \mbox{\hyperlink{namespaceplan_drawing_a0a2455d5a72f1d606af897f753ad35b6}{imgs}} = (\char`\"{}police.\+jpg\char`\"{}, \char`\"{}arrow.\+jpg\char`\"{}, \char`\"{}parking.\+jpg\char`\"{}, \char`\"{}holiday.\+jpg\char`\"{})
+\item 
+tuple \mbox{\hyperlink{namespaceplan_drawing_a2f2b30547094e0b1fdc9a9b6696d0083}{resize}} = ((115, 115), (100, 50), (115, 68), (80, 74))
+\item 
+tuple \mbox{\hyperlink{namespaceplan_drawing_a3b90674828b47bcf73fc9253ce7e5b8e}{paste\+\_\+pos}} = ((2, 643), (9,1), (642, 652), (665, 40))
+\item 
+\mbox{\hyperlink{namespaceplan_drawing_ae0a78429cc8ba7006c65f1f11ec99084}{image2}} = Image.\+open(\mbox{\hyperlink{namespaceplan_drawing_a0a2455d5a72f1d606af897f753ad35b6}{imgs}}\mbox{[}\mbox{\hyperlink{namespaceplan_drawing_a9b507814fb99be9c876ea329f40fc0f1}{i}}\mbox{]})
+\end{DoxyCompactItemize}
+
+
+\subsection{Variable Documentation}
+\mbox{\Hypertarget{namespaceplan_drawing_a227f71f6f7d861c2ef06f8315e9037a7}\label{namespaceplan_drawing_a227f71f6f7d861c2ef06f8315e9037a7}} 
+\index{plan\+Drawing@{plan\+Drawing}!anchor@{anchor}}
+\index{anchor@{anchor}!plan\+Drawing@{plan\+Drawing}}
+\subsubsection{\texorpdfstring{anchor}{anchor}}
+{\footnotesize\ttfamily plan\+Drawing.\+anchor}
+
+\mbox{\Hypertarget{namespaceplan_drawing_a139a52c2f0375bb4e8072d73c20041e3}\label{namespaceplan_drawing_a139a52c2f0375bb4e8072d73c20041e3}} 
+\index{plan\+Drawing@{plan\+Drawing}!canvas@{canvas}}
+\index{canvas@{canvas}!plan\+Drawing@{plan\+Drawing}}
+\subsubsection{\texorpdfstring{canvas}{canvas}}
+{\footnotesize\ttfamily plan\+Drawing.\+canvas = Image\+Draw.\+Draw(\mbox{\hyperlink{namespaceplan_drawing_af4e3df3fcff8b46fd59536de55f1a4c9}{image}})}
+
+\mbox{\Hypertarget{namespaceplan_drawing_a2d58998a47907d9eeb4172cb389143d8}\label{namespaceplan_drawing_a2d58998a47907d9eeb4172cb389143d8}} 
+\index{plan\+Drawing@{plan\+Drawing}!color@{color}}
+\index{color@{color}!plan\+Drawing@{plan\+Drawing}}
+\subsubsection{\texorpdfstring{color}{color}}
+{\footnotesize\ttfamily tuple plan\+Drawing.\+color = (148, 0, 211)}
+
+\mbox{\Hypertarget{namespaceplan_drawing_aaf34615559207ed0d1b747c94b27b5ba}\label{namespaceplan_drawing_aaf34615559207ed0d1b747c94b27b5ba}} 
+\index{plan\+Drawing@{plan\+Drawing}!colors@{colors}}
+\index{colors@{colors}!plan\+Drawing@{plan\+Drawing}}
+\subsubsection{\texorpdfstring{colors}{colors}}
+{\footnotesize\ttfamily tuple plan\+Drawing.\+colors = ((255, 51, 51), (0, 128, 255), (152, 76, 0), (255, 153, 51), (255, 102, 255), (0, 0, 204), (0, 204, 102), (255, 255, 51))}
+
+\mbox{\Hypertarget{namespaceplan_drawing_a622e05718ba4ee2b68d34059300226c1}\label{namespaceplan_drawing_a622e05718ba4ee2b68d34059300226c1}} 
+\index{plan\+Drawing@{plan\+Drawing}!data@{data}}
+\index{data@{data}!plan\+Drawing@{plan\+Drawing}}
+\subsubsection{\texorpdfstring{data}{data}}
+{\footnotesize\ttfamily list plan\+Drawing.\+data}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+1 =  [(\textcolor{stringliteral}{"Oracle"}, (119, 0), 270, 32), (\textcolor{stringliteral}{"SalesForce"}, (111+2*width, 0), 270, 22),
+2         (\textcolor{stringliteral}{"Eclipse"}, (119+5*width, 0), 270, 32), (\textcolor{stringliteral}{"Apache"}, (119+7*width, 0), 270, 32), (\textcolor{stringliteral}{"JetBrains"}, (114+8
+      *width, 0), 270, 26),
+3         (\textcolor{stringliteral}{"W3"}, (689, 97), 0, 32), (\textcolor{stringliteral}{"RedHat"}, (663, 119+2*width), 0, 32), (\textcolor{stringliteral}{"Mozilla"}, (664, 122+3*width), 0,
+       32),
+4         (\textcolor{stringliteral}{"Alibaba"}, (665, 121+5*width), 0, 28), (\textcolor{stringliteral}{"Ebay"}, (676, 108+7*width), 0, 32), (\textcolor{stringliteral}{"Amazon"}, (666, 120+8
+      *width), 0, 28),
+5         (\textcolor{stringliteral}{"Virgin"}, (649-width, 630), 90, 28), (\textcolor{stringliteral}{"Verizon"}, (653-3*width, 644), 90, 28), (\textcolor{stringliteral}{"AT&T"}, (650-4*
+      width, 625), 90, 32),
+6         (\textcolor{stringliteral}{"CA Technologies"}, (660-6*width, 654), 90, 15), (\textcolor{stringliteral}{"Accenture"}, (653-7*width, 644), 90, 22), (\textcolor{stringliteral}{"IBM"},
+       (650-9*width, 611), 90, 32),
+7         (\textcolor{stringliteral}{"Alphabet"}, (9, 646-width), 0, 24), (\textcolor{stringliteral}{"Apple"}, (17, 631-2*width), 0, 28), (\textcolor{stringliteral}{"Microsoft"}, (5, 648-4*
+      width), 0, 24),
+8         (\textcolor{stringliteral}{"AMD"}, (21, 627-7*width), 0, 32), (\textcolor{stringliteral}{"Intel"}, (22, 626-9*width), 0, 32),
+9         (\textcolor{stringliteral}{"Holiday"}, (660, -7), 0, 28), (\textcolor{stringliteral}{"START"}, (11, 48), 0, 40), (\textcolor{stringliteral}{"Parking"}, (658, 710), 0, 28),
+10 
+11         (\textcolor{stringliteral}{"Treasure"}, (114+width, 7), 270, 26), (\textcolor{stringliteral}{"TAX"}, (113+3*width, 7), 270, 26), (\textcolor{stringliteral}{"RISK"}, (113+6*width, 7
+      ), 270, 26),
+12         (\textcolor{stringliteral}{"RISK"}, (655-2*width, 605), 90, 26), (\textcolor{stringliteral}{"Treasure"}, (12, 647-3*width), 0, 26), (\textcolor{stringliteral}{"RISK"}, (38, 624-6*
+      width),0, 26),
+13         (\textcolor{stringliteral}{"LUXURY TAX"}, (13, 654-8*width), 0, 20),(\textcolor{stringliteral}{"Treasure"}, (657, 647-3*width), 0, 26),
+14 
+15         (\textcolor{stringliteral}{"Qualcomm"}, (651, 130+width), 0, 24), (\textcolor{stringliteral}{"Foxconn"}, (130+width, 630), 90, 24),
+16 
+17         (\textcolor{stringliteral}{"Spotify"}, (116+4*width, 10), 270, 26), (\textcolor{stringliteral}{"Uber"}, (677, 106+4*width), 0, 26),
+18         (\textcolor{stringliteral}{"Netflix"}, (129+4*width, 620), 90, 26), (\textcolor{stringliteral}{"Airbnb"}, (20, 116+4*width), 0, 26)]
+\end{DoxyCode}
+\mbox{\Hypertarget{namespaceplan_drawing_ae766d314d267c74a5be2ebb84fffce5c}\label{namespaceplan_drawing_ae766d314d267c74a5be2ebb84fffce5c}} 
+\index{plan\+Drawing@{plan\+Drawing}!draw@{draw}}
+\index{draw@{draw}!plan\+Drawing@{plan\+Drawing}}
+\subsubsection{\texorpdfstring{draw}{draw}}
+{\footnotesize\ttfamily plan\+Drawing.\+draw = Image\+Draw.\+Draw(\mbox{\hyperlink{namespaceplan_drawing_a6353872188dfcfa8978c7abce9af330f}{txt}})}
+
+\mbox{\Hypertarget{namespaceplan_drawing_af7d5ee628341623ec3f58c89c4c58162}\label{namespaceplan_drawing_af7d5ee628341623ec3f58c89c4c58162}} 
+\index{plan\+Drawing@{plan\+Drawing}!extraH@{extraH}}
+\index{extraH@{extraH}!plan\+Drawing@{plan\+Drawing}}
+\subsubsection{\texorpdfstring{extraH}{extraH}}
+{\footnotesize\ttfamily tuple plan\+Drawing.\+extraH = (104-\/\mbox{\hyperlink{namespaceplan_drawing_ad7a76c8ceac3b7ee1e99ff482407c1af}{w}})//2}
+
+\mbox{\Hypertarget{namespaceplan_drawing_adfaadcdef85cf3cd5d7bd077de6f2339}\label{namespaceplan_drawing_adfaadcdef85cf3cd5d7bd077de6f2339}} 
+\index{plan\+Drawing@{plan\+Drawing}!extraW@{extraW}}
+\index{extraW@{extraW}!plan\+Drawing@{plan\+Drawing}}
+\subsubsection{\texorpdfstring{extraW}{extraW}}
+{\footnotesize\ttfamily tuple plan\+Drawing.\+extraW = (58 -\/ \mbox{\hyperlink{namespaceplan_drawing_ae4861d93282ebc625dbbc2f1676f3baf}{h}})//2}
+
+\mbox{\Hypertarget{namespaceplan_drawing_a19c8949ae2db8517ca8e83961816549d}\label{namespaceplan_drawing_a19c8949ae2db8517ca8e83961816549d}} 
+\index{plan\+Drawing@{plan\+Drawing}!fill@{fill}}
+\index{fill@{fill}!plan\+Drawing@{plan\+Drawing}}
+\subsubsection{\texorpdfstring{fill}{fill}}
+{\footnotesize\ttfamily plan\+Drawing.\+fill}
+
+
+
+draw corner fields -\/ basic lines 
+
+\mbox{\Hypertarget{namespaceplan_drawing_afddf021a6859fba763e2c602b49ad744}\label{namespaceplan_drawing_afddf021a6859fba763e2c602b49ad744}} 
+\index{plan\+Drawing@{plan\+Drawing}!font@{font}}
+\index{font@{font}!plan\+Drawing@{plan\+Drawing}}
+\subsubsection{\texorpdfstring{font}{font}}
+{\footnotesize\ttfamily plan\+Drawing.\+font = Image\+Font.\+truetype(\char`\"{}fonts/font1.\+otf\char`\"{}, data\mbox{[}\mbox{\hyperlink{namespaceplan_drawing_a9b507814fb99be9c876ea329f40fc0f1}{i}}\mbox{]}\mbox{[}3\mbox{]})}
+
+\mbox{\Hypertarget{namespaceplan_drawing_ae4861d93282ebc625dbbc2f1676f3baf}\label{namespaceplan_drawing_ae4861d93282ebc625dbbc2f1676f3baf}} 
+\index{plan\+Drawing@{plan\+Drawing}!h@{h}}
+\index{h@{h}!plan\+Drawing@{plan\+Drawing}}
+\subsubsection{\texorpdfstring{h}{h}}
+{\footnotesize\ttfamily plan\+Drawing.\+h}
+
+\mbox{\Hypertarget{namespaceplan_drawing_a9b507814fb99be9c876ea329f40fc0f1}\label{namespaceplan_drawing_a9b507814fb99be9c876ea329f40fc0f1}} 
+\index{plan\+Drawing@{plan\+Drawing}!i@{i}}
+\index{i@{i}!plan\+Drawing@{plan\+Drawing}}
+\subsubsection{\texorpdfstring{i}{i}}
+{\footnotesize\ttfamily int plan\+Drawing.\+i = \mbox{\hyperlink{namespaceplan_drawing_a24a9f6fc7a9b6b3d6f1d1b8e0dd33e5d}{quota}} + k$\ast$\mbox{\hyperlink{namespaceplan_drawing_a514306bc74067f7281091ab310589e78}{width}}}
+
+
+
+draw mid-\/board fields 
+
+\mbox{\Hypertarget{namespaceplan_drawing_af4e3df3fcff8b46fd59536de55f1a4c9}\label{namespaceplan_drawing_af4e3df3fcff8b46fd59536de55f1a4c9}} 
+\index{plan\+Drawing@{plan\+Drawing}!image@{image}}
+\index{image@{image}!plan\+Drawing@{plan\+Drawing}}
+\subsubsection{\texorpdfstring{image}{image}}
+{\footnotesize\ttfamily plan\+Drawing.\+image = Image.\+new(\textquotesingle{}R\+G\+BA\textquotesingle{}, (760, 760), \textquotesingle{}white\textquotesingle{})}
+
+
+
+create image and canvas 
+
+put field names to their positions
+
+colour same-\/group fields \mbox{\Hypertarget{namespaceplan_drawing_ae0a78429cc8ba7006c65f1f11ec99084}\label{namespaceplan_drawing_ae0a78429cc8ba7006c65f1f11ec99084}} 
+\index{plan\+Drawing@{plan\+Drawing}!image2@{image2}}
+\index{image2@{image2}!plan\+Drawing@{plan\+Drawing}}
+\subsubsection{\texorpdfstring{image2}{image2}}
+{\footnotesize\ttfamily tuple plan\+Drawing.\+image2 = Image.\+open(\mbox{\hyperlink{namespaceplan_drawing_a0a2455d5a72f1d606af897f753ad35b6}{imgs}}\mbox{[}\mbox{\hyperlink{namespaceplan_drawing_a9b507814fb99be9c876ea329f40fc0f1}{i}}\mbox{]})}
+
+\mbox{\Hypertarget{namespaceplan_drawing_a0a2455d5a72f1d606af897f753ad35b6}\label{namespaceplan_drawing_a0a2455d5a72f1d606af897f753ad35b6}} 
+\index{plan\+Drawing@{plan\+Drawing}!imgs@{imgs}}
+\index{imgs@{imgs}!plan\+Drawing@{plan\+Drawing}}
+\subsubsection{\texorpdfstring{imgs}{imgs}}
+{\footnotesize\ttfamily tuple plan\+Drawing.\+imgs = (\char`\"{}police.\+jpg\char`\"{}, \char`\"{}arrow.\+jpg\char`\"{}, \char`\"{}parking.\+jpg\char`\"{}, \char`\"{}holiday.\+jpg\char`\"{})}
+
+\mbox{\Hypertarget{namespaceplan_drawing_a427e8900e35f26469209eec6cca37289}\label{namespaceplan_drawing_a427e8900e35f26469209eec6cca37289}} 
+\index{plan\+Drawing@{plan\+Drawing}!outline@{outline}}
+\index{outline@{outline}!plan\+Drawing@{plan\+Drawing}}
+\subsubsection{\texorpdfstring{outline}{outline}}
+{\footnotesize\ttfamily plan\+Drawing.\+outline}
+
+
+
+side border 
+
+\mbox{\Hypertarget{namespaceplan_drawing_a3b90674828b47bcf73fc9253ce7e5b8e}\label{namespaceplan_drawing_a3b90674828b47bcf73fc9253ce7e5b8e}} 
+\index{plan\+Drawing@{plan\+Drawing}!paste\+\_\+pos@{paste\+\_\+pos}}
+\index{paste\+\_\+pos@{paste\+\_\+pos}!plan\+Drawing@{plan\+Drawing}}
+\subsubsection{\texorpdfstring{paste\+\_\+pos}{paste\_pos}}
+{\footnotesize\ttfamily tuple plan\+Drawing.\+paste\+\_\+pos = ((2, 643), (9,1), (642, 652), (665, 40))}
+
+\mbox{\Hypertarget{namespaceplan_drawing_a061361823314d5f75e70a0e9282f34ee}\label{namespaceplan_drawing_a061361823314d5f75e70a0e9282f34ee}} 
+\index{plan\+Drawing@{plan\+Drawing}!points@{points}}
+\index{points@{points}!plan\+Drawing@{plan\+Drawing}}
+\subsubsection{\texorpdfstring{points}{points}}
+{\footnotesize\ttfamily list plan\+Drawing.\+points}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+1 =  [((quota + 3, quota -3), (quota+2*width+2, quota-3)),
+2           ((quota + 5 * width + 3, quota - 3), (quota + 7 * width + 3, quota - 3), (quota + 8 * width + 3, 
+      quota - 3)),
+3           ((763-quota, quota + 3), (763-quota, quota + 2*width + 3), (763-quota, quota + 3*width + 3)),
+4           ((763-quota, quota + 5*width + 3), (763-quota, quota + 7*width + 3), (763-quota, quota + 8*width 
+      + 3)),
+5           ((757-quota, 763-quota), (757-quota-2*width, 763-quota), (757-quota-3*width, 763-quota)),
+6           ((757-quota-5*width, 763-quota), (757-quota-6*width, 763-quota), (757-quota-8*width, 763-quota)),
+7           ((quota-3, 757-quota), (quota-3, 757-quota-1*width), (quota-3, 757-quota-3*width)),
+8           ((quota-3, 757-quota-6*width), (quota-3, 757-quota-8*width))]
+\end{DoxyCode}
+\mbox{\Hypertarget{namespaceplan_drawing_a24a9f6fc7a9b6b3d6f1d1b8e0dd33e5d}\label{namespaceplan_drawing_a24a9f6fc7a9b6b3d6f1d1b8e0dd33e5d}} 
+\index{plan\+Drawing@{plan\+Drawing}!quota@{quota}}
+\index{quota@{quota}!plan\+Drawing@{plan\+Drawing}}
+\subsubsection{\texorpdfstring{quota}{quota}}
+{\footnotesize\ttfamily int plan\+Drawing.\+quota = 119}
+
+\mbox{\Hypertarget{namespaceplan_drawing_a2f2b30547094e0b1fdc9a9b6696d0083}\label{namespaceplan_drawing_a2f2b30547094e0b1fdc9a9b6696d0083}} 
+\index{plan\+Drawing@{plan\+Drawing}!resize@{resize}}
+\index{resize@{resize}!plan\+Drawing@{plan\+Drawing}}
+\subsubsection{\texorpdfstring{resize}{resize}}
+{\footnotesize\ttfamily tuple plan\+Drawing.\+resize = ((115, 115), (100, 50), (115, 68), (80, 74))}
+
+\mbox{\Hypertarget{namespaceplan_drawing_a6353872188dfcfa8978c7abce9af330f}\label{namespaceplan_drawing_a6353872188dfcfa8978c7abce9af330f}} 
+\index{plan\+Drawing@{plan\+Drawing}!txt@{txt}}
+\index{txt@{txt}!plan\+Drawing@{plan\+Drawing}}
+\subsubsection{\texorpdfstring{txt}{txt}}
+{\footnotesize\ttfamily plan\+Drawing.\+txt = Image.\+new(\textquotesingle{}L\textquotesingle{}, (100, 55))}
+
+\mbox{\Hypertarget{namespaceplan_drawing_ad7a76c8ceac3b7ee1e99ff482407c1af}\label{namespaceplan_drawing_ad7a76c8ceac3b7ee1e99ff482407c1af}} 
+\index{plan\+Drawing@{plan\+Drawing}!w@{w}}
+\index{w@{w}!plan\+Drawing@{plan\+Drawing}}
+\subsubsection{\texorpdfstring{w}{w}}
+{\footnotesize\ttfamily plan\+Drawing.\+w}
+
+\mbox{\Hypertarget{namespaceplan_drawing_a514306bc74067f7281091ab310589e78}\label{namespaceplan_drawing_a514306bc74067f7281091ab310589e78}} 
+\index{plan\+Drawing@{plan\+Drawing}!width@{width}}
+\index{width@{width}!plan\+Drawing@{plan\+Drawing}}
+\subsubsection{\texorpdfstring{width}{width}}
+{\footnotesize\ttfamily int plan\+Drawing.\+width = 58}
+
+\mbox{\Hypertarget{namespaceplan_drawing_adf3ffc21a30cc208673fb4f39fd77c5a}\label{namespaceplan_drawing_adf3ffc21a30cc208673fb4f39fd77c5a}} 
+\index{plan\+Drawing@{plan\+Drawing}!write@{write}}
+\index{write@{write}!plan\+Drawing@{plan\+Drawing}}
+\subsubsection{\texorpdfstring{write}{write}}
+{\footnotesize\ttfamily plan\+Drawing.\+write = txt.\+rotate(\mbox{\hyperlink{namespaceplan_drawing_a622e05718ba4ee2b68d34059300226c1}{data}}\mbox{[}\mbox{\hyperlink{namespaceplan_drawing_a9b507814fb99be9c876ea329f40fc0f1}{i}}\mbox{]}\mbox{[}2\mbox{]}, expand=1)}
+

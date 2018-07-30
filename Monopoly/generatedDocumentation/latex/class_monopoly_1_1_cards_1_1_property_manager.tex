@@ -1,0 +1,136 @@
+\hypertarget{class_monopoly_1_1_cards_1_1_property_manager}{}\section{Monopoly.\+Cards.\+Property\+Manager Class Reference}
+\label{class_monopoly_1_1_cards_1_1_property_manager}\index{Monopoly.\+Cards.\+Property\+Manager@{Monopoly.\+Cards.\+Property\+Manager}}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_monopoly_1_1_cards_1_1_property_manager_af8a34b2ad258ef36018b81066a0b3b15}{Property\+Manager}} ()
+\item 
+Dictionary$<$ string, List$<$ int $>$ $>$ \mbox{\hyperlink{class_monopoly_1_1_cards_1_1_property_manager_a941bf380058ea9bb90a30377a3d52ee3}{Get\+Field\+Types}} ()
+\item 
+\mbox{\hyperlink{class_monopoly_1_1_players_1_1_player}{Player}} \mbox{\hyperlink{class_monopoly_1_1_cards_1_1_property_manager_a101662b0cffc7b58e86130c2e53766ce}{Who\+Owns}} (\mbox{\hyperlink{class_monopoly_1_1_cards_1_1_card}{Card}} card)
+\item 
+\mbox{\hyperlink{class_monopoly_1_1_cards_1_1_card}{Card}} \mbox{\hyperlink{class_monopoly_1_1_cards_1_1_property_manager_aea1ea06f71545f89c0eabd0803c87fb2}{Card\+At}} (int position)
+\item 
+void \mbox{\hyperlink{class_monopoly_1_1_cards_1_1_property_manager_a370071bfd378ec8b938419c6ccb23e99}{Add\+Ownership}} (\mbox{\hyperlink{class_monopoly_1_1_cards_1_1_card}{Card}} card, \mbox{\hyperlink{class_monopoly_1_1_players_1_1_player}{Player}} player)
+\item 
+bool \mbox{\hyperlink{class_monopoly_1_1_cards_1_1_property_manager_aca5228c00fd5f7812b754c6c46815d17}{Owns\+Whole\+Group}} (int group\+Number, \mbox{\hyperlink{class_monopoly_1_1_players_1_1_player}{Player}} player)
+\item 
+\mbox{\hyperlink{class_monopoly_1_1_cards_1_1_card}{Card}} \mbox{\hyperlink{class_monopoly_1_1_cards_1_1_property_manager_a412844ef7c911e8084dae7c3f71d37cc}{Get\+Trade\+Card}} (\mbox{\hyperlink{class_monopoly_1_1_players_1_1_a_i_player}{A\+I\+Player}} player)
+\item 
+int \mbox{\hyperlink{class_monopoly_1_1_cards_1_1_property_manager_aee4778ccd330d63746183180a20dfc1d}{Count\+Group}} (int\mbox{[}$\,$\mbox{]} group, \mbox{\hyperlink{class_monopoly_1_1_players_1_1_player}{Player}} player)
+\item 
+List$<$ List\+View\+Item $>$ \mbox{\hyperlink{class_monopoly_1_1_cards_1_1_property_manager_a3e4394937f2067145c8b86addba32c4d}{Get\+Trade\+Options}} (\mbox{\hyperlink{class_monopoly_1_1_players_1_1_player}{Player}} player)
+\item 
+List$<$ List\+View\+Item $>$ \mbox{\hyperlink{class_monopoly_1_1_cards_1_1_property_manager_af1da8a20a41d714ed1eed632c55c26b3}{Get\+Player\+Properties}} (\mbox{\hyperlink{class_monopoly_1_1_players_1_1_player}{Player}} player)
+\item 
+void \mbox{\hyperlink{class_monopoly_1_1_cards_1_1_property_manager_ab5ff75e9b6f073e75774f6e9c2948d27}{Change\+Owner}} (\mbox{\hyperlink{class_monopoly_1_1_players_1_1_player}{Player}} new\+Owner, \mbox{\hyperlink{class_monopoly_1_1_cards_1_1_card}{Card}} property, float money)
+\item 
+List$<$ List\+View\+Item $>$ \mbox{\hyperlink{class_monopoly_1_1_cards_1_1_property_manager_a1ccab2c415aac585d65e6e3cae272474}{Get\+Mortgaged\+Properties}} (\mbox{\hyperlink{class_monopoly_1_1_players_1_1_player}{Player}} player, bool mortgaged)
+\item 
+Dictionary$<$ int, \mbox{\hyperlink{class_monopoly_1_1_cards_1_1_card}{Card}} $>$.Key\+Collection \mbox{\hyperlink{class_monopoly_1_1_cards_1_1_property_manager_a6ee73c066851e81c0f9af200e6f0fb3f}{Get\+Key\+Collection}} ()
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+A very important class when it comes to handling \mbox{\hyperlink{class_monopoly_1_1_cards_1_1_card}{Card}} class\textquotesingle{} successors. All \mbox{\hyperlink{class_monopoly_1_1_cards_1_1_card}{Card}} processes are executed by this class. It is \textquotesingle{}the right hand\textquotesingle{} of the controller -\/ Game class.
+
+It\textquotesingle{}s main tasks are\+:
+\begin{DoxyItemize}
+\item keep the relation between the field number (0-\/39) and the \mbox{\hyperlink{class_monopoly_1_1_cards_1_1_card}{Card}} associated to the field
+\item keep the ownership data (which card is owned by whom)
+\item create datasets of the \mbox{\hyperlink{class_monopoly_1_1_cards_1_1_card}{Card}} successors -\/ for List\+Views,...
+\item provides the decision logic for trades of A\+I\+Player 
+\end{DoxyItemize}
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_monopoly_1_1_cards_1_1_property_manager_af8a34b2ad258ef36018b81066a0b3b15}\label{class_monopoly_1_1_cards_1_1_property_manager_af8a34b2ad258ef36018b81066a0b3b15}} 
+\index{Monopoly\+::\+Cards\+::\+Property\+Manager@{Monopoly\+::\+Cards\+::\+Property\+Manager}!Property\+Manager@{Property\+Manager}}
+\index{Property\+Manager@{Property\+Manager}!Monopoly\+::\+Cards\+::\+Property\+Manager@{Monopoly\+::\+Cards\+::\+Property\+Manager}}
+\subsubsection{\texorpdfstring{Property\+Manager()}{PropertyManager()}}
+{\footnotesize\ttfamily Monopoly.\+Cards.\+Property\+Manager.\+Property\+Manager (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{class_monopoly_1_1_cards_1_1_property_manager_a370071bfd378ec8b938419c6ccb23e99}\label{class_monopoly_1_1_cards_1_1_property_manager_a370071bfd378ec8b938419c6ccb23e99}} 
+\index{Monopoly\+::\+Cards\+::\+Property\+Manager@{Monopoly\+::\+Cards\+::\+Property\+Manager}!Add\+Ownership@{Add\+Ownership}}
+\index{Add\+Ownership@{Add\+Ownership}!Monopoly\+::\+Cards\+::\+Property\+Manager@{Monopoly\+::\+Cards\+::\+Property\+Manager}}
+\subsubsection{\texorpdfstring{Add\+Ownership()}{AddOwnership()}}
+{\footnotesize\ttfamily void Monopoly.\+Cards.\+Property\+Manager.\+Add\+Ownership (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_monopoly_1_1_cards_1_1_card}{Card}}}]{card,  }\item[{\mbox{\hyperlink{class_monopoly_1_1_players_1_1_player}{Player}}}]{player }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Assigns or re-\/assigns the ownership of the \mbox{\hyperlink{class_monopoly_1_1_cards_1_1_card}{Card}} in the ownership dictionary. \mbox{\Hypertarget{class_monopoly_1_1_cards_1_1_property_manager_aea1ea06f71545f89c0eabd0803c87fb2}\label{class_monopoly_1_1_cards_1_1_property_manager_aea1ea06f71545f89c0eabd0803c87fb2}} 
+\index{Monopoly\+::\+Cards\+::\+Property\+Manager@{Monopoly\+::\+Cards\+::\+Property\+Manager}!Card\+At@{Card\+At}}
+\index{Card\+At@{Card\+At}!Monopoly\+::\+Cards\+::\+Property\+Manager@{Monopoly\+::\+Cards\+::\+Property\+Manager}}
+\subsubsection{\texorpdfstring{Card\+At()}{CardAt()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_monopoly_1_1_cards_1_1_card}{Card}} Monopoly.\+Cards.\+Property\+Manager.\+Card\+At (\begin{DoxyParamCaption}\item[{int}]{position }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Returns the card that is located at specified field. Returns null if the field is not a \mbox{\hyperlink{class_monopoly_1_1_cards_1_1_card}{Card}} field. \mbox{\Hypertarget{class_monopoly_1_1_cards_1_1_property_manager_ab5ff75e9b6f073e75774f6e9c2948d27}\label{class_monopoly_1_1_cards_1_1_property_manager_ab5ff75e9b6f073e75774f6e9c2948d27}} 
+\index{Monopoly\+::\+Cards\+::\+Property\+Manager@{Monopoly\+::\+Cards\+::\+Property\+Manager}!Change\+Owner@{Change\+Owner}}
+\index{Change\+Owner@{Change\+Owner}!Monopoly\+::\+Cards\+::\+Property\+Manager@{Monopoly\+::\+Cards\+::\+Property\+Manager}}
+\subsubsection{\texorpdfstring{Change\+Owner()}{ChangeOwner()}}
+{\footnotesize\ttfamily void Monopoly.\+Cards.\+Property\+Manager.\+Change\+Owner (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_monopoly_1_1_players_1_1_player}{Player}}}]{new\+Owner,  }\item[{\mbox{\hyperlink{class_monopoly_1_1_cards_1_1_card}{Card}}}]{property,  }\item[{float}]{money }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Effectively performs \textquotesingle{}trade\textquotesingle{} between two players. The old owner gets the agreed money and the new\+Owner is assigned ownership of the traded \mbox{\hyperlink{class_monopoly_1_1_cards_1_1_card}{Card}}. \mbox{\Hypertarget{class_monopoly_1_1_cards_1_1_property_manager_aee4778ccd330d63746183180a20dfc1d}\label{class_monopoly_1_1_cards_1_1_property_manager_aee4778ccd330d63746183180a20dfc1d}} 
+\index{Monopoly\+::\+Cards\+::\+Property\+Manager@{Monopoly\+::\+Cards\+::\+Property\+Manager}!Count\+Group@{Count\+Group}}
+\index{Count\+Group@{Count\+Group}!Monopoly\+::\+Cards\+::\+Property\+Manager@{Monopoly\+::\+Cards\+::\+Property\+Manager}}
+\subsubsection{\texorpdfstring{Count\+Group()}{CountGroup()}}
+{\footnotesize\ttfamily int Monopoly.\+Cards.\+Property\+Manager.\+Count\+Group (\begin{DoxyParamCaption}\item[{int \mbox{[}$\,$\mbox{]}}]{group,  }\item[{\mbox{\hyperlink{class_monopoly_1_1_players_1_1_player}{Player}}}]{player }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Helper method. Counts the number of properties owned of a given group by the player. \mbox{\Hypertarget{class_monopoly_1_1_cards_1_1_property_manager_a941bf380058ea9bb90a30377a3d52ee3}\label{class_monopoly_1_1_cards_1_1_property_manager_a941bf380058ea9bb90a30377a3d52ee3}} 
+\index{Monopoly\+::\+Cards\+::\+Property\+Manager@{Monopoly\+::\+Cards\+::\+Property\+Manager}!Get\+Field\+Types@{Get\+Field\+Types}}
+\index{Get\+Field\+Types@{Get\+Field\+Types}!Monopoly\+::\+Cards\+::\+Property\+Manager@{Monopoly\+::\+Cards\+::\+Property\+Manager}}
+\subsubsection{\texorpdfstring{Get\+Field\+Types()}{GetFieldTypes()}}
+{\footnotesize\ttfamily Dictionary$<$string, List$<$int$>$ $>$ Monopoly.\+Cards.\+Property\+Manager.\+Get\+Field\+Types (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Returns a Dictionary of Fieldtypes -\/ for Gameplan to initialise the types of each gamefield. \mbox{\Hypertarget{class_monopoly_1_1_cards_1_1_property_manager_a6ee73c066851e81c0f9af200e6f0fb3f}\label{class_monopoly_1_1_cards_1_1_property_manager_a6ee73c066851e81c0f9af200e6f0fb3f}} 
+\index{Monopoly\+::\+Cards\+::\+Property\+Manager@{Monopoly\+::\+Cards\+::\+Property\+Manager}!Get\+Key\+Collection@{Get\+Key\+Collection}}
+\index{Get\+Key\+Collection@{Get\+Key\+Collection}!Monopoly\+::\+Cards\+::\+Property\+Manager@{Monopoly\+::\+Cards\+::\+Property\+Manager}}
+\subsubsection{\texorpdfstring{Get\+Key\+Collection()}{GetKeyCollection()}}
+{\footnotesize\ttfamily Dictionary$<$int, \mbox{\hyperlink{class_monopoly_1_1_cards_1_1_card}{Card}}$>$.Key\+Collection Monopoly.\+Cards.\+Property\+Manager.\+Get\+Key\+Collection (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Returns the Collection of keys of property\+Cards dictionary. It displays allt he numbers of \mbox{\hyperlink{class_monopoly_1_1_cards_1_1_card}{Card}} fields. \mbox{\Hypertarget{class_monopoly_1_1_cards_1_1_property_manager_a1ccab2c415aac585d65e6e3cae272474}\label{class_monopoly_1_1_cards_1_1_property_manager_a1ccab2c415aac585d65e6e3cae272474}} 
+\index{Monopoly\+::\+Cards\+::\+Property\+Manager@{Monopoly\+::\+Cards\+::\+Property\+Manager}!Get\+Mortgaged\+Properties@{Get\+Mortgaged\+Properties}}
+\index{Get\+Mortgaged\+Properties@{Get\+Mortgaged\+Properties}!Monopoly\+::\+Cards\+::\+Property\+Manager@{Monopoly\+::\+Cards\+::\+Property\+Manager}}
+\subsubsection{\texorpdfstring{Get\+Mortgaged\+Properties()}{GetMortgagedProperties()}}
+{\footnotesize\ttfamily List$<$List\+View\+Item$>$ Monopoly.\+Cards.\+Property\+Manager.\+Get\+Mortgaged\+Properties (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_monopoly_1_1_players_1_1_player}{Player}}}]{player,  }\item[{bool}]{mortgaged }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{class_monopoly_1_1_cards_1_1_property_manager_af1da8a20a41d714ed1eed632c55c26b3}\label{class_monopoly_1_1_cards_1_1_property_manager_af1da8a20a41d714ed1eed632c55c26b3}} 
+\index{Monopoly\+::\+Cards\+::\+Property\+Manager@{Monopoly\+::\+Cards\+::\+Property\+Manager}!Get\+Player\+Properties@{Get\+Player\+Properties}}
+\index{Get\+Player\+Properties@{Get\+Player\+Properties}!Monopoly\+::\+Cards\+::\+Property\+Manager@{Monopoly\+::\+Cards\+::\+Property\+Manager}}
+\subsubsection{\texorpdfstring{Get\+Player\+Properties()}{GetPlayerProperties()}}
+{\footnotesize\ttfamily List$<$List\+View\+Item$>$ Monopoly.\+Cards.\+Property\+Manager.\+Get\+Player\+Properties (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_monopoly_1_1_players_1_1_player}{Player}}}]{player }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Prepares data for game\+Window\textquotesingle{}s Trade\+Viewer. Lists all the \mbox{\hyperlink{namespace_monopoly_1_1_cards}{Cards}} that are in the ownership of the given player. \mbox{\Hypertarget{class_monopoly_1_1_cards_1_1_property_manager_a412844ef7c911e8084dae7c3f71d37cc}\label{class_monopoly_1_1_cards_1_1_property_manager_a412844ef7c911e8084dae7c3f71d37cc}} 
+\index{Monopoly\+::\+Cards\+::\+Property\+Manager@{Monopoly\+::\+Cards\+::\+Property\+Manager}!Get\+Trade\+Card@{Get\+Trade\+Card}}
+\index{Get\+Trade\+Card@{Get\+Trade\+Card}!Monopoly\+::\+Cards\+::\+Property\+Manager@{Monopoly\+::\+Cards\+::\+Property\+Manager}}
+\subsubsection{\texorpdfstring{Get\+Trade\+Card()}{GetTradeCard()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_monopoly_1_1_cards_1_1_card}{Card}} Monopoly.\+Cards.\+Property\+Manager.\+Get\+Trade\+Card (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_monopoly_1_1_players_1_1_a_i_player}{A\+I\+Player}}}]{player }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+A\+I\+Player deciding logics. It evaluates which card is the A\+I\+Player most likely to want to buy. It takes into consideration, that\+:
+\begin{DoxyItemize}
+\item Agency \mbox{\hyperlink{namespace_monopoly_1_1_cards}{Cards}} are the most wanted
+\item Bonus \mbox{\hyperlink{namespace_monopoly_1_1_cards}{Cards}} have 2nd highest priority
+\item Property\+Cards of Highest (most expensive group) have higher priority than the cheaper ones (unless they cannot afford the expensive ones) 
+\end{DoxyItemize}\mbox{\Hypertarget{class_monopoly_1_1_cards_1_1_property_manager_a3e4394937f2067145c8b86addba32c4d}\label{class_monopoly_1_1_cards_1_1_property_manager_a3e4394937f2067145c8b86addba32c4d}} 
+\index{Monopoly\+::\+Cards\+::\+Property\+Manager@{Monopoly\+::\+Cards\+::\+Property\+Manager}!Get\+Trade\+Options@{Get\+Trade\+Options}}
+\index{Get\+Trade\+Options@{Get\+Trade\+Options}!Monopoly\+::\+Cards\+::\+Property\+Manager@{Monopoly\+::\+Cards\+::\+Property\+Manager}}
+\subsubsection{\texorpdfstring{Get\+Trade\+Options()}{GetTradeOptions()}}
+{\footnotesize\ttfamily List$<$List\+View\+Item$>$ Monopoly.\+Cards.\+Property\+Manager.\+Get\+Trade\+Options (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_monopoly_1_1_players_1_1_player}{Player}}}]{player }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+This method prepares data for the game\+Window\textquotesingle{}s Trade\+Viewer. It lists all the items not owned by the player, but someone else. Therefore the list contains the trade options for the player. \mbox{\Hypertarget{class_monopoly_1_1_cards_1_1_property_manager_aca5228c00fd5f7812b754c6c46815d17}\label{class_monopoly_1_1_cards_1_1_property_manager_aca5228c00fd5f7812b754c6c46815d17}} 
+\index{Monopoly\+::\+Cards\+::\+Property\+Manager@{Monopoly\+::\+Cards\+::\+Property\+Manager}!Owns\+Whole\+Group@{Owns\+Whole\+Group}}
+\index{Owns\+Whole\+Group@{Owns\+Whole\+Group}!Monopoly\+::\+Cards\+::\+Property\+Manager@{Monopoly\+::\+Cards\+::\+Property\+Manager}}
+\subsubsection{\texorpdfstring{Owns\+Whole\+Group()}{OwnsWholeGroup()}}
+{\footnotesize\ttfamily bool Monopoly.\+Cards.\+Property\+Manager.\+Owns\+Whole\+Group (\begin{DoxyParamCaption}\item[{int}]{group\+Number,  }\item[{\mbox{\hyperlink{class_monopoly_1_1_players_1_1_player}{Player}}}]{player }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Returns the answer to question \char`\"{}\+Does player own all the Property\+Cards of group\+Number\char`\"{}? \mbox{\Hypertarget{class_monopoly_1_1_cards_1_1_property_manager_a101662b0cffc7b58e86130c2e53766ce}\label{class_monopoly_1_1_cards_1_1_property_manager_a101662b0cffc7b58e86130c2e53766ce}} 
+\index{Monopoly\+::\+Cards\+::\+Property\+Manager@{Monopoly\+::\+Cards\+::\+Property\+Manager}!Who\+Owns@{Who\+Owns}}
+\index{Who\+Owns@{Who\+Owns}!Monopoly\+::\+Cards\+::\+Property\+Manager@{Monopoly\+::\+Cards\+::\+Property\+Manager}}
+\subsubsection{\texorpdfstring{Who\+Owns()}{WhoOwns()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_monopoly_1_1_players_1_1_player}{Player}} Monopoly.\+Cards.\+Property\+Manager.\+Who\+Owns (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_monopoly_1_1_cards_1_1_card}{Card}}}]{card }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Returns the owner of a \mbox{\hyperlink{class_monopoly_1_1_cards_1_1_card}{Card}}. Returns null if there is no owner. 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Cards/\mbox{\hyperlink{_property_manager_8cs}{Property\+Manager.\+cs}}\end{DoxyCompactItemize}

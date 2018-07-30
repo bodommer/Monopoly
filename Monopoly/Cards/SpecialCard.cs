@@ -6,7 +6,10 @@ using System.Threading.Tasks;
 
 namespace Monopoly.Cards
 {
-    public class SpecialCard
+    /**
+     * An ancestor card of Treasure Card and Risk Card.
+     */
+    public abstract class SpecialCard
     {
         public string Description { get; protected set; }
         public float MoneyChange { get; protected set; }

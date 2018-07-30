@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace Monopoly.Cards
 {
+    /**
+     * The data structure containing data representing an Agency Card of a gameplan.
+     */
     [Serializable()]
     public class AgencyCard : Card
     {
