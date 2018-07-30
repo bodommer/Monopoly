@@ -219,13 +219,14 @@ namespace Monopoly.Main
 
             window.Enabled = false;
 
-            Card card = (Card)propertyManager
+            Card card = propertyManager
                   .CardAt(gameplan.PlayerPosition(currentPlayer));
             Player owner = propertyManager.WhoOwns(card);
 
+            GameStage state = GameState;
             GameState = GameStage.NO_ACTION;
 
-            switch (GameState)
+            switch (state)
             {
                 case GameStage.DICE:
                     window.HideButton();

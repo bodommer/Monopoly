@@ -105,7 +105,6 @@ namespace Monopoly.Main
             this.drawArea.Size = new System.Drawing.Size(760, 760);
             this.drawArea.TabIndex = 1;
             this.drawArea.TabStop = false;
-            this.drawArea.Click += new System.EventHandler(this.drawArea_Click);
             // 
             // gameButton1
             // 
@@ -121,7 +120,6 @@ namespace Monopoly.Main
             this.gameButton1.TabIndex = 3;
             this.gameButton1.Text = "gameButton1";
             this.gameButton1.UseVisualStyleBackColor = false;
-            this.gameButton1.Click += new System.EventHandler(this.gameButton1_click);
             // 
             // gameButton2
             // 
@@ -136,7 +134,6 @@ namespace Monopoly.Main
             this.gameButton2.TabIndex = 4;
             this.gameButton2.Text = "gameButton2";
             this.gameButton2.UseVisualStyleBackColor = false;
-            this.gameButton2.Click += new System.EventHandler(this.gameButton2_Click);
             // 
             // gameButton3
             // 
@@ -150,7 +147,6 @@ namespace Monopoly.Main
             this.gameButton3.TabIndex = 5;
             this.gameButton3.Text = "gameButton3";
             this.gameButton3.UseVisualStyleBackColor = false;
-            this.gameButton3.Click += new System.EventHandler(this.gameButton3_Click);
             // 
             // exitButton
             // 
@@ -163,7 +159,6 @@ namespace Monopoly.Main
             this.exitButton.TabIndex = 5;
             this.exitButton.Text = "Exit";
             this.exitButton.UseVisualStyleBackColor = false;
-            this.exitButton.Click += new System.EventHandler(this.exitButton_Click);
             // 
             // textBox
             // 
@@ -178,7 +173,6 @@ namespace Monopoly.Main
             this.textBox.TabIndex = 8;
             this.textBox.Text = "textBox";
             this.textBox.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.textBox.Click += new System.EventHandler(this.textBox_Click);
             // 
             // mainMenuButton
             // 
@@ -192,7 +186,6 @@ namespace Monopoly.Main
             this.mainMenuButton.TabIndex = 9;
             this.mainMenuButton.Text = "Main Menu";
             this.mainMenuButton.UseVisualStyleBackColor = false;
-            this.mainMenuButton.Click += new System.EventHandler(this.mainMenuButton_Click);
             // 
             // detailBox
             // 
@@ -242,7 +235,6 @@ namespace Monopoly.Main
             this.playerNameLabel.TabIndex = 16;
             this.playerNameLabel.Text = "playerNameLabel";
             this.playerNameLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.playerNameLabel.Click += new System.EventHandler(this.playerNameLabel_Click);
             // 
             // tradeViewer
             // 
@@ -381,7 +373,6 @@ namespace Monopoly.Main
             this.logoBox.Size = new System.Drawing.Size(298, 140);
             this.logoBox.TabIndex = 28;
             this.logoBox.TabStop = false;
-            this.logoBox.Click += new System.EventHandler(this.logoBox_Click);
             // 
             // CardTitle
             // 
@@ -473,7 +464,6 @@ namespace Monopoly.Main
             this.cardNameLabel.TabIndex = 38;
             this.cardNameLabel.Text = "cardNameLabel";
             this.cardNameLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.cardNameLabel.Click += new System.EventHandler(this.cardNameLabel_Click);
             // 
             // cardContentLabel
             // 
@@ -554,8 +544,6 @@ namespace Monopoly.Main
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
             this.Text = "Monopoly v1.0";
             this.Load += new System.EventHandler(this.MainWindow_Load);
-            this.Paint += new System.Windows.Forms.PaintEventHandler(this.PaintWindowMethod);
-            this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.WindowKeyPress);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.drawArea)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.propertyCardBindingSource)).EndInit();

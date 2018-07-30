@@ -13,15 +13,19 @@ using static Monopoly.Main.Game;
 
 namespace Monopoly.Main
 {
+    /**
+     * THe most important grapical class. This is where the game actually takes place.
+     */
     [Serializable]
     public partial class Monopoly : Form
     {
-        Graphics gamePlan;
-        Graphics playerPart;
         PictureBox[] player;
         int numberOfPlayers;
-        public int button;
 
+        /**
+         * The constructor. Takes one argument - an array of players. These players need to be drawn
+         * onto the start field.
+         */
         public Monopoly(Player[] players)
         {
             numberOfPlayers = players.Length;
@@ -29,17 +33,13 @@ namespace Monopoly.Main
             InitializeComponent();
             this.Height = 800;
             this.Width = 1200;
-            gamePlan = drawArea.CreateGraphics();
-            playerPart = playerDetail.CreateGraphics();
-            DrawPlan();
             playerDetail.Image = Resource1.playerHub;
             drawArea.Image = Resource1.image_drawn;
-            //playerDetail.Image = Image.FromFile("Resources/images/playerHub.png", true);
-            //drawArea.Image = Image.FromFile("Resources/images/image-drawn.png", true);
-            gamePlan.DrawEllipse(new Pen(Brushes.Black, 3), 20, 20, 20, 20);
-            //Game g = new Game(players, this);
         }
 
+        /**
+         * Draws the player characters onto the gameplan.
+         */
         private void MainWindow_Load(object sender, EventArgs e)
         {
             player = new PictureBox[] { player1, player2, player3, player4, player5, player6 };
@@ -54,42 +54,11 @@ namespace Monopoly.Main
                 player[i].Hide();
             }
             PrepareForDice(Color.Green);
-            Console.WriteLine("start");
         }
 
-        private void PaintWindowMethod(object sender, PaintEventArgs e)
-        {
-        }
-
-        private void DrawPlan()
-        {
-            drawArea.CreateGraphics();
-        }
-
-        public void gameButton1_click(object sender, EventArgs e)
-        {
-        }
-
-        private void gameButton2_Click(object sender, EventArgs e)
-        {
-        }
-
-        private void gameButton3_Click(object sender, EventArgs e)
-        {
-        }
-
-        private void saveGameButton_Click(object sender, EventArgs e)
-        {
-        }
-
-        private void mainMenuButton_Click(object sender, EventArgs e)
-        {
-        }
-
-        private void exitButton_Click(object sender, EventArgs e)
-        {
-        }
-
+        /**
+         * Prepares the displayed data for the 'dice-roll' stage if turn.
+         */
         public void PrepareForDice(Color color)
         {
             HideElements();
@@ -101,12 +70,19 @@ namespace Monopoly.Main
             gameButton2.Show();
         }
 
+        /**
+         * Updates the number displayed on the dice.
+         */
         public void ShowDiceNumber(int i)
         {
             diceLabel.Text = i.ToString();
             this.Update();
         }
 
+        /**
+         * Helper method.
+         * Displays part of Card - the common things of PropertyCard, BonusCard and AgencyCard.
+         */
         private void DisplayCard(Card card, Color foreColor, Color backColor)
         {
             CardTitle.Text = card.Name;
@@ -119,6 +95,10 @@ namespace Monopoly.Main
             ShowCard();
         }
 
+        /**
+         * Overloaded method. 
+         * Displays the data unique for PropertyCard.
+         */
         public void DisplayCard(PropertyCard card, Color color)
         {
             paymentLabel1.Text = "Payment 1: " + card.GetPayment(0) + "m";
@@ -130,6 +110,10 @@ namespace Monopoly.Main
             DisplayCard(card, Color.WhiteSmoke, color);
         }
 
+        /**
+         * Overloaded method. 
+         * Displays the data unique for AgencyCard.
+         */
         public void DisplayCard(AgencyCard card)
         {
             paymentLabel1.Text = "One agency owned payment: ";
@@ -141,6 +125,10 @@ namespace Monopoly.Main
             DisplayCard(card, Color.Black, Color.White);
         }
 
+        /**
+         * Overloaded method. 
+         * Displays the data unique for BonusCard.
+         */
         public void DisplayCard(BonusCard card)
         {
             paymentLabel1.Text = "Payment per bonu cards owned:";
@@ -152,6 +140,10 @@ namespace Monopoly.Main
             DisplayCard(card, Color.Black, Color.White);
         }
 
+        /**
+         * Helper method.
+         * Does steps common for displaying SpecialCard - TreasureCard or RiskCard.
+         */
         private void DisplaySpecialCard(SpecialCard card)
         {
             HideElements();
@@ -165,6 +157,9 @@ namespace Monopoly.Main
             cardContentLabel.Show();
         }
 
+        /**
+         * Procedure for displaying the data of the RiskCard properly.
+         */
         public void DisplayRiskCard(RiskCard card)
         {
             cardNameLabel.Text = "Risk Card";
@@ -172,6 +167,9 @@ namespace Monopoly.Main
             DisplaySpecialCard(card);
         }
 
+        /**
+         * Procedure for displaying the data of the TreasureCard properly.
+         */
         public void DisplayTreasureCard(TreasureCard card)
         {
             cardNameLabel.Text = "Treasure Card";
@@ -179,6 +177,9 @@ namespace Monopoly.Main
             DisplaySpecialCard(card);
         }
 
+        /**
+         * Prompts player to upgrade a PropertyCard if it is possible.
+         */
         public void ShowUpgradeOptions(string name, float price)
         {
             HideElements();
@@ -189,6 +190,9 @@ namespace Monopoly.Main
             gameButton2.Show();
         }
 
+        /**
+         * Prompts player to either buy, or not buy a property.
+         */
         public void PurchaseButtons(string name)
         {
             HideElements();
@@ -199,6 +203,9 @@ namespace Monopoly.Main
             gameButton2.Show();
         }
 
+        /**
+         * Show information that the players has to pay "rent" to other player.
+         */
         public void ShowPayment(string name, float payment)
         {
             HideElements();
@@ -207,6 +214,12 @@ namespace Monopoly.Main
             gameButton1.Show();
         }
 
+        /**
+         * When player has not got enough money to make a compulsory payment 
+         * (a tax, rent or risk card), it prompts the player to either 
+         * declare bankruptcy or take a mortgage to have sufficient funds
+         * for payments.
+         */
         public void ShowNoMoneyPay()
         {
             HideElements();
@@ -217,21 +230,35 @@ namespace Monopoly.Main
             gameButton2.Show();
         }
 
+        /**
+         * Shows a provided text message with only one, ok button.
+         */
         public void ShowMessage(string msg)
         {
             HideElements();
             textBox.Text = msg;
-            gameButton1.Text = "Ok";
+            gameButton1.Text = "OK";
             gameButton1.Show();
             this.Update();
         }
 
+        /**
+         * Helper method.
+         * Hides gameButtons.
+         */
         public void HideButton()
         {
             gameButton1.Hide();
             gameButton2.Hide();
+            gameButton3.Hide();
         }
 
+        /**
+         * Helper method.
+         * Hides all the elements of the graphical window that don't need 
+         * to be shown constantly (buttons, card, frames, ...). Erases texts
+         * of textboxes.
+         */
         private void HideElements()
         {
             textBox.Text = "";
@@ -248,6 +275,10 @@ namespace Monopoly.Main
             tradeViewer.Hide();
         }
 
+        /**
+         * Helper method.
+         * Hides a Card.
+         */
         private void HideCard()
         {
             Card.Hide();
@@ -262,6 +293,10 @@ namespace Monopoly.Main
             logoBox.Hide();
         }
 
+        /**
+         * Helper method.
+         * Shows a Card.
+         */
         private void ShowCard()
         {
             Card.Show();
@@ -276,6 +311,9 @@ namespace Monopoly.Main
             logoBox.Show();
         }
 
+        /**
+         * Displays player info - player name and money in the top left corner.
+         */
         public void ShowPlayerInfo(Player p)
         {
             playerNameLabel.Text = p.name;
@@ -283,6 +321,9 @@ namespace Monopoly.Main
             playerMoneyLabel.Text = "\u20AC " + p.Money.ToString() + "m";
         }
 
+        /**
+         * Shows the menu after the first action of turn.
+         */
         public void ShowNextOptions()
         {
             HideElements();
@@ -295,6 +336,9 @@ namespace Monopoly.Main
             gameButton3.Show();
         }
 
+        /**
+         * Diplays the list of properties available for purchase from other players.
+         */
         public void ShowTradeOptions(List<ListViewItem> items, Player player)
         {
             tradeViewer.Items.Clear();
@@ -319,17 +363,18 @@ namespace Monopoly.Main
             gameButton2.Show();
         }
 
+        /**
+         * Moves a player by one field on graphical window.
+         */
         public void MovePlayer(int player, Point position)
         {
             this.player[player].Location = position;
             this.Update();
         }
 
-        public void ShowStartPassInfo()
-        {
-            cardContentLabel.Text = "";
-        }
-
+        /**
+         * Public method - returns the selected ONE item from the tradeViewer. 
+         */
         public ListViewItem GetSelectedItem()
         {
             if (tradeViewer.SelectedItems.Count > 0)
@@ -339,6 +384,9 @@ namespace Monopoly.Main
             return null;
         }
 
+        /**
+         * Public method - returns the selected itemS from the tradeViewer.
+         */
         public ListView.SelectedListViewItemCollection GetSelectedItems()
         {
             if (tradeViewer.SelectedItems.Count > 0)
@@ -348,11 +396,18 @@ namespace Monopoly.Main
             return null;
         }
 
+        /**
+         * Public method - returns the value of the moneyTrackBar.
+         */
         public float GetOfferedMoney()
         {
             return moneyTrackBar.Value;
         }
 
+        /**
+         * Displays the offer that was made to the player that owns the property
+         * to either accept or reject offer.
+         */
         public void ShowTradeOffer(string name, float offeredMoney, Player owner)
         {
             HideElements();
@@ -364,6 +419,10 @@ namespace Monopoly.Main
             gameButton2.Show();
         }
 
+        /**
+         * Shows mortgage menu where player can choose to either pay off a mortgage,
+         * or take a mortgage.
+         */
         public void ShowMortgageMenu()
         {
             HideElements();
@@ -376,6 +435,9 @@ namespace Monopoly.Main
             gameButton3.Show();
         }
 
+        /**
+         * Displays a list of mortgaged properties in the tradeViewer.
+         */
         public void ShowMortgagedProperties(List<ListViewItem> items, bool multiselect)
         {
             tradeViewer.Items.Clear();
@@ -403,6 +465,9 @@ namespace Monopoly.Main
             gameButton2.Show();
         }
 
+        /**
+         * Displays properties owned by the player.
+         */
         public void ShowPlayerProperties(List<ListViewItem> items)
         {
             tradeViewer.Items.Clear();
@@ -413,6 +478,9 @@ namespace Monopoly.Main
             tradeViewer.Show();
         }
 
+        /**
+         * Draws an apartment (a square) onto the given coords. 
+         */
         public void DrawApartment(Point coords)
         {
             PictureBox picture = new PictureBox
@@ -428,44 +496,24 @@ namespace Monopoly.Main
             Update();
         }
 
-        private void logoBox_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void drawArea_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void cardNameLabel_Click(object sender, EventArgs e)
-        {
-        }
-
+        /**
+         * Listener - updates whenever there is a moneyTrackBar change, which then
+         * updates the trackBarShower label that displays the moneyTrackBar value.
+         */
         private void MoneyTrackBarChanged(object sender, EventArgs e)
         {
             trackBarShower.Text = moneyTrackBar.Value.ToString();
         }
 
-        public void WindowKeyPress(object sender, KeyPressEventArgs e)
-        {
-        }
-
+        /**
+         * Public method - allows other classes to modify the textBox content.
+         * This method hides every other element.
+         */
         public void SetTextBox(string text)
         {
             HideElements();
             textBox.Text = text;
             textBox.Update();
-        }
-
-        private void textBox_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void playerNameLabel_Click(object sender, EventArgs e)
-        {
-
         }
     }
 }

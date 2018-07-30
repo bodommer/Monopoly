@@ -17,7 +17,12 @@ namespace Monopoly.Main
     [Serializable()]
     public class Gameplan
     {
-        public enum FieldType { PROPERTY, TREASURE, RISK, PARKING, START, PRISON, VISIT, TAX, AGENCY, TAX_FINE, BONUS_PROPERTY }
+        /**
+         * Field type represents the kind of field that can be found on the gameplan.
+         * According to that, an Action is performed by the Game class.
+         */
+        public enum FieldType { PROPERTY, TREASURE, RISK, PARKING, START,
+            PRISON, VISIT, TAX, AGENCY, TAX_FINE, BONUS_PROPERTY }
 
         private const int GAME_TURN_WAIT = 200;
         private const int GAMEPLAN_WIDTH = 760;
@@ -29,11 +34,18 @@ namespace Monopoly.Main
         public List<int> bonusFields;
 
         private Random randomizer = new Random();
+        /*
+         * Map of all fields in the map - index represents the number of field from start,
+         * where 0 is start and maximum value is 39.
+         */
         private FieldType[] fieldMap;
 
         Dictionary<Player, int> playerFields;
         int[] cornerPositions = { 0, 10, 20, 30 };
 
+        /**
+         * The constructor.
+         */
         public Gameplan(Player[] players, Dictionary<string, List<int>> fields)
         {
             playerFields = new Dictionary<Player, int>();
@@ -47,11 +59,16 @@ namespace Monopoly.Main
             AssignFields(fields);
         }
 
+        /**
+         * Creates the fieldmap from the data provided by the Dictionary created by the
+         * PorpertyManager when loading properties.
+         */
         private void AssignFields(Dictionary<string, List<int>> fields)
         {
             int[] risks = { 7, 22, 36 };
             int[] treasures = { 2, 17, 33 };
-
+            agencyFields = fields["agency"];
+            bonusFields = fields["bonus"];
 
             foreach (int i in risks)
             {
@@ -62,11 +79,11 @@ namespace Monopoly.Main
             {
                 fieldMap[i] = FieldType.TREASURE;
             }
-            foreach (int i in fields["bonus"])
+            foreach (int i in bonusFields)
             {
                 fieldMap[i] = FieldType.BONUS_PROPERTY;
             }
-            foreach (int i in fields["agency"])
+            foreach (int i in agencyFields)
             {
                 fieldMap[i] = FieldType.AGENCY;
             }
@@ -81,40 +98,30 @@ namespace Monopoly.Main
             fieldMap[0] = FieldType.START;
             fieldMap[38] = FieldType.TAX_FINE;
             fieldMap[4] = FieldType.TAX;
-
-            agencyFields = fields["agency"];
-            bonusFields = fields["bonus"];
         }
 
+        /**
+         * Moves player to prison, updates player's position.
+         */
         public Point GoToPrison(Player player, decimal playerNumber)
         {
             playerFields[player] = 10;
             return GetCoordsOfNextField(player, playerNumber);
         }
 
-        private void Draw()
-        {
-
-        }
-
-        private int AgencyBonus()
-        {
-            return 1;
-        }
-
-        private int BonusPropertyAmount(Player player, int field)
-        {
-            return 1;
-        }
-
+        /**
+         * Updates player's position by +1 field.
+         */
         public FieldType Move(Player player)
         {
-            //move from one field to another
             playerFields[player]++;
             playerFields[player] = playerFields[player] % 40;
             return fieldMap[playerFields[player]];
         }
 
+        /**
+         * Returns the number of field at which the player is.
+         */
         public int PlayerPosition(Player player)
         {
             if (playerFields.ContainsKey(player))
@@ -124,6 +131,11 @@ namespace Monopoly.Main
             return 99;
         }
 
+        /**
+         * Returns the position of where on the gameplan should the player character be 
+         * positioned after moving to next field. It randomises the position by +-3px
+         * in each direction to make the movement not too uniform.
+         */
         public Point GetCoordsOfNextField(Player player, decimal playerNumber)
         {
             int field = playerFields[player];
@@ -170,10 +182,12 @@ namespace Monopoly.Main
             ret.X += 426;
             ret.Y += randomizer.Next(-3, 4);
             ret.Y += 5;
-
             return ret;
         }
 
+        /**
+         * Returns the coords where the enxt apartment should be drawn.
+         */
         public Point GetCoordsOfNextApartment(int field, int apartmentCount)
         {
             Point ret = new Point(0, 0);
