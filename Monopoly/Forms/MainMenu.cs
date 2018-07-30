@@ -102,5 +102,10 @@ namespace Monopoly.Main
 
             }
         }
+
+        private void helpButton_Click(object sender, EventArgs e)
+        {
+            new Forms.Help().ShowDialog();
+        }
     }
 }

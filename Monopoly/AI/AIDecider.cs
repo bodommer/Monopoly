@@ -16,7 +16,7 @@ namespace Monopoly.AI
     { 
 
         private static readonly HashSet<Game.GameStage> defaultActions = new HashSet<Game.GameStage> {
-            Game.GameStage.NO_FUNDS, Game.GameStage.NO_ACTION, Game.GameStage.AWAITING_RENT,
+            Game.GameStage.NO_ACTION, Game.GameStage.AWAITING_RENT,
             Game.GameStage.NO_FUNDS_BUY, Game.GameStage.SPECIAL_CARD, Game.GameStage.HOLIDAY,
             Game.GameStage.CANNOT_UPGRADE, Game.GameStage.SPECIAL_FIELD };
 

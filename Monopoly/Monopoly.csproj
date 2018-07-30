@@ -75,6 +75,12 @@
     <Compile Include="Cards\PropertyManager.cs" />
     <Compile Include="Cards\SpecialCard.cs" />
     <Compile Include="Cards\TreasureCardManager.cs" />
+    <Compile Include="Forms\Help.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Help.Designer.cs">
+      <DependentUpon>Help.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\NewGameDialog.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -155,9 +161,13 @@
     <None Include="bin\Debug\Resources\images\9" />
     <None Include="Properties\DataSources\Monopoly.Cards.IPurchasable.datasource" />
     <None Include="Properties\DataSources\Monopoly.Main.PropertyCard.datasource" />
+    <None Include="Resources\User_Documentation.rtf" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <EmbeddedResource Include="Forms\Help.resx">
+      <DependentUpon>Help.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\MainMenu.resx">
       <DependentUpon>MainMenu.cs</DependentUpon>
     </EmbeddedResource>

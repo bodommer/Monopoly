@@ -74,7 +74,7 @@ namespace Monopoly.Forms
 
         private bool AllFieldsOK()
         {
-            if (name1.Text != "" && name2.Text != "" && FieldOK(2) && FieldOK(3) && FieldOK(4) && FieldOK(5))
+            if (name1.Text.Trim() != "" && name2.Text.Trim() != "" && FieldOK(2) && FieldOK(3) && FieldOK(4) && FieldOK(5))
             {
                 return true;
             }
@@ -83,7 +83,7 @@ namespace Monopoly.Forms
 
         private bool FieldOK(int i)
         {
-            if (textboxes[i].Text != "" || textboxes[i].Enabled == false)
+            if (textboxes[i].Text.Trim() != "" || textboxes[i].Enabled == false)
             {
                 return true;
             }

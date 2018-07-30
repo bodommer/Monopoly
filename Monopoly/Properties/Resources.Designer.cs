@@ -59,5 +59,15 @@ namespace Monopoly.Properties {
                 resourceCulture = value;
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {\rtf1\ansi\ansicpg1252\uc0\stshfdbch0\stshfloch0\stshfhich0\stshfbi0\deff0\adeff0{\fonttbl{\f0\froman\fcharset0\fprq2{\*\panose 02020603050405020304}Times New Roman;}{\f1\froman\fcharset2\fprq2{\*\panose 05050102010706020507}Symbol;}{\f2\fswiss\fcharset0\fprq2{\*\panose 020b0604020202020204}Arial;}}{\colortbl;\red0\green0\blue0;\red153\green153\blue153
+        ///;\red67\green67\blue67;\red102\green102\blue102;}{\stylesheet{\s0\snext0\sqformat\spriority0\fi0\sb0\sa0\aspalpha\aspnum\adjustright\widctlpar\ltrpar\li0\l [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string User_Documentation {
+            get {
+                return ResourceManager.GetString("User_Documentation", resourceCulture);
+            }
+        }
     }
 }

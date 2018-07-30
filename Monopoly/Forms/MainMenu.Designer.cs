@@ -30,7 +30,7 @@
         {
             this.newGameButton = new System.Windows.Forms.Button();
             this.loadGameButton = new System.Windows.Forms.Button();
-            this.settingsButton = new System.Windows.Forms.Button();
+            this.helpButton = new System.Windows.Forms.Button();
             this.exitButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
@@ -61,15 +61,16 @@
             this.loadGameButton.UseVisualStyleBackColor = true;
             this.loadGameButton.Click += new System.EventHandler(this.loadGameButton_Click);
             // 
-            // settingsButton
+            // helpButton
             // 
-            this.settingsButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F);
-            this.settingsButton.Location = new System.Drawing.Point(60, 190);
-            this.settingsButton.Name = "settingsButton";
-            this.settingsButton.Size = new System.Drawing.Size(200, 70);
-            this.settingsButton.TabIndex = 2;
-            this.settingsButton.Text = "Settings";
-            this.settingsButton.UseVisualStyleBackColor = true;
+            this.helpButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F);
+            this.helpButton.Location = new System.Drawing.Point(60, 190);
+            this.helpButton.Name = "helpButton";
+            this.helpButton.Size = new System.Drawing.Size(200, 70);
+            this.helpButton.TabIndex = 2;
+            this.helpButton.Text = "Help";
+            this.helpButton.UseVisualStyleBackColor = true;
+            this.helpButton.Click += new System.EventHandler(this.helpButton_Click);
             // 
             // exitButton
             // 
@@ -92,7 +93,7 @@
             this.ClientSize = new System.Drawing.Size(584, 321);
             this.ControlBox = false;
             this.Controls.Add(this.exitButton);
-            this.Controls.Add(this.settingsButton);
+            this.Controls.Add(this.helpButton);
             this.Controls.Add(this.loadGameButton);
             this.Controls.Add(this.newGameButton);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
@@ -109,7 +110,7 @@
 
         private System.Windows.Forms.Button newGameButton;
         private System.Windows.Forms.Button loadGameButton;
-        private System.Windows.Forms.Button settingsButton;
+        private System.Windows.Forms.Button helpButton;
         private System.Windows.Forms.Button exitButton;
     }
 }

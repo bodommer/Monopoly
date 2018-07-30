@@ -22,9 +22,9 @@ namespace Monopoly.Main
     public class Game
     {
         /**
-         * Describes the states in which the game is. For more GameState description, see GameStates.pdf
+         * Describes the states in which the game is. For more GameState description, see GameStates.pdf in Documentation folder.
          */
-        public enum GameStage { DICE, NO_FUNDS, NO_ACTION, AWAITING_PURCHASE,
+        public enum GameStage { DICE, NO_ACTION, AWAITING_PURCHASE,
             AWAITING_RENT, AWAITING_UPGRADE, NO_FUNDS_PAY, NO_FUNDS_BUY,
             CANNOT_UPGRADE, SPECIAL_CARD, SPECIAL_FIELD, TRADE_OFFER,
             TRADE_CONFIRM, WHAT_NEXT, MORTGAGE_MENU, MORTGAGE_TAKE, MORTGAGE_PAY,
@@ -163,10 +163,6 @@ namespace Monopoly.Main
 
                 case '3':
                     Button3_action();
-                    break;
-
-                case 's':
-                    SaveButton_action();
                     break;
 
                 case 'l':
@@ -756,6 +752,11 @@ namespace Monopoly.Main
                 }
             }
             players = newArray;
+            if (players.Length == 1)
+            {
+                MessageBox.Show(players[0].name + " has won the game! CONGRATULATIONS!");
+                window.mainMenuButton.PerformClick();
+            }
         }
 
         /**

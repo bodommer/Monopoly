@@ -535,6 +535,7 @@ namespace Monopoly.Main
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.playerPanel);
             this.Controls.Add(this.drawArea);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.KeyPreview = true;
             this.Margin = new System.Windows.Forms.Padding(2);
             this.MaximizeBox = false;
