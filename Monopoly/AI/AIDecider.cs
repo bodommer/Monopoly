@@ -162,9 +162,8 @@ namespace Monopoly.AI
 
         public static bool ShallBuy(Card card, AIPlayer player) 
         {
-            Card c = (Card)card;
             float coeffitient = (float) 3.2 - 3 * player.dangerFactor;
-             if (coeffitient * c.Cost <= player.Money)
+             if (coeffitient * card.Cost <= player.Money)
             {
                 return true;
             }
@@ -173,9 +172,8 @@ namespace Monopoly.AI
 
         public static bool ShallUpgrade(Card card, AIPlayer player)
         {
-            Card c = (Card)card;
             float coeffitient = (float) 2.1 - player.dangerFactor;
-            if (coeffitient * c.Cost <= player.Money)
+            if (coeffitient * card.Cost <= player.Money)
             {
                 return true;
             }

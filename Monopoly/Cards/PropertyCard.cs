@@ -31,9 +31,12 @@ namespace Monopoly.Main
             // fixing interpreting & as an ecape character
             if (details[0] == "ATT")
             {
-                Name = "AT&&T";
+                Name = "AT&T";
             }
-            else
+            else if (details[0] == "CA")
+            {
+                Name = "CA Technologies";
+            }
             {
                 Name = details[0];
             }

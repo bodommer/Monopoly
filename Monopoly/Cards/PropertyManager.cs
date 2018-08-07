@@ -68,25 +68,53 @@ namespace Monopoly.Cards
 
             // Something like "ReadAllLines(), but with Resources
             string details = Resource1.properties;
-            string[] cardDetails = Regex.Split(details, @"\r?\n|\r");
+
+            Regex regex = new Regex(@"(?<id>[1-9][0-9]*) (?<name>[A-Za-z0-9 ]+);(?<description>[a-z]+);(?<cost>[0-9\.]+);(?<noupgrade>[0-9\.]+);(?<upgrade1>[0-9\.]+);(?<upgrade2>[0-9\.]+);(?<upgrade3>[0-9\.]+);(?<upgradecost>[0-9\.]+);(?<mortgage>[0-9\.]+);(?<money>[0-9\.]+)");
+            MatchCollection props = regex.Matches(details);
+
+            regex = new Regex(@"(?<id>[1-9][0-9]*) (?<name>[A-Za-z0-9 ]+);(?<description>[a-z]+);(?<cost>[0-9\.]+);(?<mortgage>[0-9\.]+);b");
+            MatchCollection bonuses = regex.Matches(details);
+
+            regex = new Regex(@"(?<id>[1-9][0-9]*) (?<name>[A-Za-z0-9 ]+);(?<description>[a-z]+);(?<cost>[0-9\.]+);(?<mortgage>[0-9\.]+);a");
+            MatchCollection agencies = regex.Matches(details);
+
+            // we need to have 22 property cards to match the gameplan, if not, somebody edited the source files severely!
+            if (props.Count != 22)
+            {
+                throw new IOException("Source files are wrong (Property cards)! Re-install the game and try again!");
+            }
+
+            // we need 4 bonus cards, if not, somebody edited the source files severely!
+            if (bonuses.Count != 4)
+            {
+                throw new IOException("Source files are wrong (Bonus cards)! Re-install the game and try again!");
+            }
+
+            // we need 2 agency cards, if not, somebody edited the source files severely!
+            if (agencies.Count != 2)
+            {
+                throw new IOException("Source files are wrong (Agency cards)! Re-install the game and try again!");
+            }
 
             // Initialise PropertyCards
-            for (int i = 0; i < NUMBER_OF_PROPERTY_CARDS; i++)
+            foreach (Match m in props)
             {
-                string[] numberAndData = cardDetails[i].Split(' ');
+                string[] numberAndData = m.ToString().Split(' ');
                 propertyCards.Add(int.Parse(numberAndData[0]), new PropertyCard(numberAndData[1], logos[int.Parse(numberAndData[0])]));
             }
-            // Initialise AgencyCards
-            for (int i = NUMBER_OF_PROPERTY_CARDS; i < NUMBER_OF_PROPERTY_CARDS + NUMBER_OF_AGENCIES; i++)
-            {
-                string[] numberAndData = cardDetails[i].Split(' ');
-                propertyCards.Add(int.Parse(numberAndData[0]), new AgencyCard(numberAndData[1], logos[int.Parse(numberAndData[0])]));
-            }
+
             // Initialise BonusCards
-            for (int i = NUMBER_OF_PROPERTY_CARDS + NUMBER_OF_AGENCIES; i < NUMBER_OF_PROPERTY_CARDS + NUMBER_OF_AGENCIES + NUMBER_OF_BONUS_CARDS; i++)
+            foreach (Match m in bonuses)
             {
-                string[] numberAndData = cardDetails[i].Split(' ');
+                string[] numberAndData = m.ToString().Split(' ');
                 propertyCards.Add(int.Parse(numberAndData[0]), new BonusCard(numberAndData[1], logos[int.Parse(numberAndData[0])]));
+            }
+
+            // Initialise AgencyCards
+            foreach (Match m in agencies)
+            {
+                string[] numberAndData = m.ToString().Split(' ');
+                propertyCards.Add(int.Parse(numberAndData[0]), new AgencyCard(numberAndData[1], logos[int.Parse(numberAndData[0])]));
             }
         }
 
@@ -179,19 +207,19 @@ namespace Monopoly.Cards
         public Card GetTradeCard(AIPlayer player)
         {
             AgencyCard agency = WantsAgency(player);
-            if (agency != null && agency.Cost < player.Money)
+            if (agency != null && agency.Cost < player.Money && WhoOwns(agency) != null)
             {
                 return agency;
             }
             BonusCard bonus = WantsBonus(player);
-            if (bonus != null && bonus.Cost < player.Money)
+            if (bonus != null && bonus.Cost < player.Money && WhoOwns(bonus) != null)
             {
                 return bonus;
             }
             PropertyCard property = WantsProperty(player);
-            if (property != null && property.Cost < player.Money)
+            if (property != null && property.Cost < player.Money && WhoOwns(property) != null)
             {
-                return (Card) property;
+                return property;
             }
             return null;
         }
@@ -279,7 +307,10 @@ namespace Monopoly.Cards
             int ret = 0;
             foreach(int i in group)
             {
-                if (WhoOwns(propertyCards[i]) == player) ret++;
+                if (ownership.ContainsKey(propertyCards[i]))
+                {
+                    if (WhoOwns(propertyCards[i]) == player) ret++;
+                }
             }
             return ret;
         }

@@ -1,0 +1,2 @@
+﻿The resource uses all the images located in the 'Resource/jpg' folder - images 1-39, playerHub and gameplan (image-drawn.png). 
+Do not use company logos of png nor raw format.

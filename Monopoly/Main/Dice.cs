@@ -61,7 +61,7 @@ namespace Monopoly.Main
                 result += Roll(window);
             }
             return result;
-            //return 12; //for testing only!
+            //return 7; //for testing only!
         }
     }
 }

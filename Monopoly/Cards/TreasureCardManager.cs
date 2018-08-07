@@ -15,8 +15,6 @@ namespace Monopoly.Cards
     [Serializable]
     public class TreasureCardManager
     {
-        private const int NUMBER_OF_CARDS = 10;
-
         private TreasureCard[] TreasureCards;
         private int cardPointer = 0;
 
@@ -28,18 +26,24 @@ namespace Monopoly.Cards
             HashSet<TreasureCard> TreasureCardSet = new HashSet<TreasureCard>();
 
             // initialise all the Treasure cards
-
             // like ReadAllLines() in typical text file
             string details = Resource1.treasureCards;
-            string[] cardDetails = Regex.Split(details, @"\r?\n|\r");
 
-            TreasureCards = new TreasureCard[cardDetails.Count()];
-            for (int i = 0; i < NUMBER_OF_CARDS; i++)
+            Regex regex = new Regex(@"(?<description>[A-Za-z .!0-9\-'?]+);(?<money>[0-9\.]+)");
+            MatchCollection cards = regex.Matches(details);
+
+            foreach (Match m in cards)
             {
-                TreasureCardSet.Add(new TreasureCard(cardDetails[i]));
+                TreasureCardSet.Add(new TreasureCard(m.ToString()));
             }
 
-            TreasureCards = TreasureCardSet.ToArray<TreasureCard>();
+            // if there is no treasure card, somebody edited the source files severely!
+            if (TreasureCardSet.Count < 1)
+            {
+                throw new IOException("Source files are wrong (treasure cards)! Re-install the game and try again!");
+            }
+
+            TreasureCards = TreasureCardSet.ToArray();
         }
 
         /**
@@ -48,7 +52,7 @@ namespace Monopoly.Cards
         public TreasureCard GetTreasureCard()
         {
             cardPointer++;
-            cardPointer = cardPointer % NUMBER_OF_CARDS;
+            cardPointer = cardPointer % TreasureCards.Length;
             return TreasureCards[cardPointer];
         }
     }

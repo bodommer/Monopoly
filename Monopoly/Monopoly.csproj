@@ -392,6 +392,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Monopoly.ico" />
+    <Content Include="Resources\resource-info.txt" />
     <None Include="Resources\jpg\image-drawn.png" />
     <None Include="Resources\jpg\playerHub.png" />
   </ItemGroup>

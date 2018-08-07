@@ -51,7 +51,7 @@ namespace Monopoly.Main
         private int playerTurnPointer = 0;
         // possesses references to all players in game
         private Player[] players;
-        // easily accessible informationa bout current player - instead of players[playerTurnPointer]
+        // easily accessible information about current player - instead of players[playerTurnPointer]
         // improves readability of code
         private Player currentPlayer;
         // stores information about the traded property for when the player accepts/rejects trade offer
