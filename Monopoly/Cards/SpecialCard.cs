@@ -9,6 +9,7 @@ namespace Monopoly.Cards
     /**
      * An ancestor card of Treasure Card and Risk Card.
      */
+    [Serializable()]
     public abstract class SpecialCard
     {
         public string Description { get; protected set; }

@@ -1,0 +1,12 @@
+You won 5m in a lottery. What a great day this is!;plus;5;0
+Some vandal damaged your car. The repair costs were 2m.;minus;2;0
+Your ex-spouse wanted some aliments for your child. You agreed to pay 3m.;minus;3;0
+You slipped on the ice and broke your leg! Now you have to spend 3 turns in the hospital.;minus;0;3
+There was a hurricane last night and severly damaged your apartment. You have to pay 1.5m to fix it.;minus;1.5;0 
+You forgot to file your Tax Summary Report and were fined with 10m. You'd better write the date into your diary!;minus;10;0
+You were driving drunk and police arrested you. You have to pay fine of 1m and spend 3 turns in jail.;minus;1;4
+Remember that one friend you went to school with? He is now an influential politician and arranged a solid 25m business for you. Pure profit!;plus;25;0
+Your health suddenly deteriorated - you had to visit spa and leave your work responsibilities behind. It cost you 1m and you spend 1 turn there.;minus;1;2
+A catastrophe! Your spouse was kidnapped and you had to pay 10m to rescue her!;minus;10;0
+
+// format: <text> <money plus/minus> <money amount> <turns stop>

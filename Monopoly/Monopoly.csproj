@@ -45,6 +45,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
   </PropertyGroup>
   <PropertyGroup>
     <StartupObject />
@@ -367,13 +368,13 @@
     <None Include="Resources\images\39.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="bin\Debug\treasureCards.txt" />
+    <None Include="Resources\treasureCards.txt" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="bin\Debug\riskCards.txt" />
+    <None Include="Resources\riskCards.txt" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="bin\Debug\properties.txt" />
+    <None Include="Resources\properties.txt" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.6.1">

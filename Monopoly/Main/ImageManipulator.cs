@@ -21,8 +21,8 @@ namespace Monopoly.Main
                 24, 26, 27, 29, 31, 32, 34, 37, 39, 12, 28, 5, 15, 25, 35 };
             foreach (int i in order) {
                 var image = System.Drawing.Image.FromFile("Resources/logos/" + i + ".png");
-                var ratioX = (double)292 / image.Width;
-                var ratioY = (double)136 / image.Height;
+                var ratioX = (double)280 / image.Width;
+                var ratioY = (double)130 / image.Height;
                 var ratio = Math.Min(ratioX, ratioY);
                 var newWidth = (int)(image.Width * ratio);
                 var newHeight = (int)(image.Height * ratio);

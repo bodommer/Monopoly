@@ -53,6 +53,7 @@ namespace Monopoly.Main
             {
                 player[i].Hide();
             }
+            //textBox.Location = new Point(20, 200);
             PrepareForDice(Color.Green);
         }
 
@@ -76,7 +77,7 @@ namespace Monopoly.Main
         public void ShowDiceNumber(int i)
         {
             diceLabel.Text = i.ToString();
-            this.Update();
+            Update();
         }
 
         /**
@@ -85,11 +86,13 @@ namespace Monopoly.Main
          */
         private void DisplayCard(Card card, Color foreColor, Color backColor)
         {
+            logoBox.Width = 298;
+            logoBox.Height = 140;
             CardTitle.Text = card.Name;
             CardTitle.BackColor = Color.White;
             CardTitle.ForeColor = Color.Black;
             Image logo = card.logo;
-            logoBox.Padding = new Padding((298 - logo.Width) / 2, (140 - logo.Height) / 2, 0, 0);
+            logoBox.Padding = new Padding((296 - logo.Width) / 2, (136 - logo.Height) / 2, 0, 0);
             logoBox.Image = logo;
             priceLabel.Text = "Price: " + card.Cost + "m";
             ShowCard();
@@ -148,6 +151,7 @@ namespace Monopoly.Main
         {
             HideElements();
             detailBox.Show();
+            textBox.Text = "You played a special card!";
             cardNameLabel.BorderStyle = BorderStyle.FixedSingle;
             cardContentLabel.BorderStyle = BorderStyle.FixedSingle;
             cardContentLabel.Text = card.Description;
@@ -453,7 +457,7 @@ namespace Monopoly.Main
             if (multiselect)
             {
                 textBox.Text = "Which property do you want to mortgage?";
-                gameButton1.Text = "Mortgage selected properties";
+                gameButton1.Text = "Mortgage selected";
             }
             else
             {
@@ -514,6 +518,11 @@ namespace Monopoly.Main
             HideElements();
             textBox.Text = text;
             textBox.Update();
+        }
+
+        private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
+        {
+
         }
     }
 }

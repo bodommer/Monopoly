@@ -24,7 +24,7 @@ namespace Monopoly.Players
             Trade = true;
             dangerFactor = (float) new Random().NextDouble(); 
             Money = money;
-            this.name = name;
+            this.name = name + " (AI)";
             Blocked = 0;
             Prison = false;
             Color = color;

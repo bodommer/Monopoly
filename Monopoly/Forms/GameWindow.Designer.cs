@@ -73,6 +73,7 @@ namespace Monopoly.Main
             this.cardContentLabel = new System.Windows.Forms.Label();
             this.moneyTrackBar = new System.Windows.Forms.TrackBar();
             this.trackBarShower = new System.Windows.Forms.Label();
+            this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.drawArea)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.propertyCardBindingSource)).BeginInit();
@@ -368,6 +369,7 @@ namespace Monopoly.Main
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.logoBox.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.logoBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.logoBox.Location = new System.Drawing.Point(655, 230);
             this.logoBox.Name = "logoBox";
             this.logoBox.Size = new System.Drawing.Size(298, 140);
@@ -496,12 +498,15 @@ namespace Monopoly.Main
             this.trackBarShower.Text = "0.2";
             this.trackBarShower.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // backgroundWorker1
+            // 
+            this.backgroundWorker1.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker1_DoWork);
+            // 
             // Monopoly
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(1184, 761);
+            this.ClientSize = new System.Drawing.Size(1176, 753);
             this.ControlBox = false;
             this.Controls.Add(this.trackBarShower);
             this.Controls.Add(this.moneyTrackBar);
@@ -606,6 +611,7 @@ namespace Monopoly.Main
         public System.Windows.Forms.Button gameButton3;
         public System.Windows.Forms.Button exitButton;
         public System.Windows.Forms.Button mainMenuButton;
+        private System.ComponentModel.BackgroundWorker backgroundWorker1;
     }
 #endregion
 }

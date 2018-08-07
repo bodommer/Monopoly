@@ -1,0 +1,12 @@
+You read your company's Annual Fiscal Report just to find out there was no profit nor loss.;0
+A heritage from your uncle was quite good and you earned 5m!;5
+You managed to make a business with a foreign company that earned you some 10m.;10
+You managed to claim a 2m tax return. Neat!;2
+A famous footballer transferred to a football club you own and the stock market went crazy. The value of your club rised by 50m.;50
+You sold your private jet over price and profitted 10m.;10
+An anonymous donor sent you 5m hoping you would consider your candidacy for president with enough funds.;5
+Your friends gave you an expensive ride for you birthday which you managed to sell secretly for 2.5m;2.5
+Some allowance from your rich paps. 1 million.;1
+Your IT company managed to sign a service-providing contract with the government with 20m profit.;20
+
+//format <text> <extra money> (in millions)

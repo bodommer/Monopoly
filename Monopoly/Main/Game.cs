@@ -11,6 +11,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 using System.Reflection;
 using System.Diagnostics;
 using Monopoly.AI;
+using System.ComponentModel;
 
 namespace Monopoly.Main
 {
@@ -64,6 +65,7 @@ namespace Monopoly.Main
             this.players = players;
             GameState = GameStage.DICE;
             this.window = window;
+            //bgw = new BackgroundWorker();
             colorGroups = new int[,] { { 0, 0, 0 }, { 255, 51, 51 }, { 0, 128, 255 }, { 152, 76, 0 },
                                              {255, 153, 51 }, {255, 102, 255 }, {0, 0, 204 },
                                              {0, 204, 102 }, {255, 255, 51 } };
@@ -126,7 +128,7 @@ namespace Monopoly.Main
          */
         private void B1Callback (object sender, EventArgs ea)
         {
-                Button1_action();
+            Button1_action();
         }
 
         /**
@@ -310,9 +312,10 @@ namespace Monopoly.Main
             Card card = (Card)propertyManager
                  .CardAt(gameplan.PlayerPosition(currentPlayer));
 
+            GameStage state = GameState;
             GameState = GameStage.NO_ACTION;
 
-            switch (GameState)
+            switch (state)
             {
                 case GameStage.DICE:
                     SaveButton_action();
@@ -355,9 +358,10 @@ namespace Monopoly.Main
          */
         private void Button3_action()
         {
+            GameStage state = GameState;
             GameState = GameStage.NO_ACTION;
 
-            switch (GameState)
+            switch (state)
             {
                 case GameStage.WHAT_NEXT:
                     NextPlayer();
@@ -466,7 +470,11 @@ namespace Monopoly.Main
                 case FieldType.RISK:
                     RiskCard riskCard = riskCardManager.GetRiskCard();
                     window.DisplayRiskCard(riskCard);
-                    PlayRiskCard(riskCard);
+                    if (PlayRiskCard(riskCard))
+                    {
+                        GameState = GameStage.HOLIDAY;
+                        return;
+                    }
                     GameState = GameStage.SPECIAL_CARD;
                     return;
 
@@ -493,6 +501,12 @@ namespace Monopoly.Main
 
                 case FieldType.TAX:
                     window.ShowMessage("Each of us has to pay taxes!");
+                    if (currentPlayer.Money < TAX_PRICE)
+                    {
+                        window.ShowNoMoneyPay();
+                        GameState = GameStage.NO_FUNDS_PAY;
+                        break;
+                    }
                     currentPlayer.Money -= TAX_PRICE;
                     GameState = GameStage.SPECIAL_FIELD;
                     break;
@@ -507,6 +521,12 @@ namespace Monopoly.Main
 
                 case FieldType.TAX_FINE:
                     window.ShowMessage("You have to pay taxes!");
+                    if (currentPlayer.Money < TAX_FINE_COST)
+                    {
+                        window.ShowNoMoneyPay();
+                        GameState = GameStage.NO_FUNDS_PAY;
+                        break;
+                    }
                     currentPlayer.Money -= TAX_FINE_COST;
                     GameState = GameStage.SPECIAL_FIELD;
                     break;
@@ -647,8 +667,12 @@ namespace Monopoly.Main
 
         /**
          * Performs playing a risk card - showing the card and its action.
+         * Returns bool value according to the answer to the question:
+         * "Does this player end turn immediately after confirming card?"
+         * Meaning, that the player gets blocked by playing the card.
+         * False in case of monetary change, true in case of blocking a player.
          */
-        private void PlayRiskCard(RiskCard riskCard)
+        private bool PlayRiskCard(RiskCard riskCard)
         {
             if (riskCard.MoneyPlusMinus == "plus")
             {
@@ -661,8 +685,9 @@ namespace Monopoly.Main
             currentPlayer.Blocked += riskCard.TurnsStop;
             if (riskCard.TurnsStop > 0)
             {
-                NextPlayer();
+                return true;
             }
+            return false;
         }
 
         /**
