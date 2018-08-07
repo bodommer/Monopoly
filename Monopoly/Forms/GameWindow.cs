@@ -166,9 +166,9 @@ namespace Monopoly.Main
          */
         public void DisplayRiskCard(RiskCard card)
         {
+            DisplaySpecialCard(card);
             cardNameLabel.Text = "Risk Card";
             textBox.Text = "You played a risk card!";
-            DisplaySpecialCard(card);
         }
 
         /**
@@ -176,9 +176,9 @@ namespace Monopoly.Main
          */
         public void DisplayTreasureCard(TreasureCard card)
         {
+            DisplaySpecialCard(card);
             cardNameLabel.Text = "Treasure Card";
             textBox.Text = "You played a trasure card!";
-            DisplaySpecialCard(card);
         }
 
         /**

@@ -132,39 +132,41 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <None Include="bin\Debug\Resources\images\1" />
-    <None Include="bin\Debug\Resources\images\11" />
-    <None Include="bin\Debug\Resources\images\12" />
-    <None Include="bin\Debug\Resources\images\13" />
-    <None Include="bin\Debug\Resources\images\14" />
-    <None Include="bin\Debug\Resources\images\15" />
-    <None Include="bin\Debug\Resources\images\16" />
-    <None Include="bin\Debug\Resources\images\18" />
-    <None Include="bin\Debug\Resources\images\19" />
-    <None Include="bin\Debug\Resources\images\21" />
-    <None Include="bin\Debug\Resources\images\23" />
-    <None Include="bin\Debug\Resources\images\24" />
-    <None Include="bin\Debug\Resources\images\25" />
-    <None Include="bin\Debug\Resources\images\26" />
-    <None Include="bin\Debug\Resources\images\27" />
-    <None Include="bin\Debug\Resources\images\28" />
-    <None Include="bin\Debug\Resources\images\29" />
-    <None Include="bin\Debug\Resources\images\3" />
-    <None Include="bin\Debug\Resources\images\31" />
-    <None Include="bin\Debug\Resources\images\32" />
-    <None Include="bin\Debug\Resources\images\34" />
-    <None Include="bin\Debug\Resources\images\35" />
-    <None Include="bin\Debug\Resources\images\37" />
-    <None Include="bin\Debug\Resources\images\39" />
-    <None Include="bin\Debug\Resources\images\5" />
-    <None Include="bin\Debug\Resources\images\6" />
-    <None Include="bin\Debug\Resources\images\8" />
-    <None Include="bin\Debug\Resources\images\9" />
+    <None Include="Resources\raw\1" />
+    <None Include="Resources\raw\11" />
+    <None Include="Resources\raw\12" />
+    <None Include="Resources\raw\13" />
+    <None Include="Resources\raw\14" />
+    <None Include="Resources\raw\15" />
+    <None Include="Resources\raw\16" />
+    <None Include="Resources\raw\18" />
+    <None Include="Resources\raw\19" />
+    <None Include="Resources\raw\21" />
+    <None Include="Resources\raw\23" />
+    <None Include="Resources\raw\24" />
+    <None Include="Resources\raw\25" />
+    <None Include="Resources\raw\26" />
+    <None Include="Resources\raw\27" />
+    <None Include="Resources\raw\28" />
+    <None Include="Resources\raw\29" />
+    <None Include="Resources\raw\3" />
+    <None Include="Resources\raw\31" />
+    <None Include="Resources\raw\32" />
+    <None Include="Resources\raw\34" />
+    <None Include="Resources\raw\35" />
+    <None Include="Resources\raw\37" />
+    <None Include="Resources\raw\39" />
+    <None Include="Resources\raw\5" />
+    <None Include="Resources\raw\6" />
+    <None Include="Resources\raw\8" />
+    <None Include="Resources\raw\9" />
     <None Include="Properties\DataSources\Monopoly.Cards.IPurchasable.datasource" />
     <None Include="Properties\DataSources\Monopoly.Main.PropertyCard.datasource" />
     <None Include="Resources\User_Documentation.rtf" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="bin\Debug\Resources\" />
+  </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Forms\Help.resx">
       <DependentUpon>Help.cs</DependentUpon>
@@ -194,178 +196,178 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <None Include="bin\Debug\Resources\images\image-drawn.png" />
+    <None Include="Resources\raw\image-drawn.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="bin\Debug\Resources\logos\1.png" />
+    <None Include="Resources\png\1.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="bin\Debug\Resources\logos\3.png" />
+    <None Include="Resources\png\3.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="bin\Debug\Resources\logos\5.png" />
+    <None Include="Resources\png\5.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="bin\Debug\Resources\logos\6.png" />
+    <None Include="Resources\png\6.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="bin\Debug\Resources\logos\8.png" />
+    <None Include="Resources\png\8.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="bin\Debug\Resources\logos\9.png" />
+    <None Include="Resources\png\9.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="bin\Debug\Resources\logos\11.png" />
+    <None Include="Resources\png\11.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="bin\Debug\Resources\logos\12.png" />
+    <None Include="Resources\png\12.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="bin\Debug\Resources\logos\13.png" />
+    <None Include="Resources\png\13.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="bin\Debug\Resources\logos\14.png" />
+    <None Include="Resources\png\14.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="bin\Debug\Resources\logos\15.png" />
+    <None Include="Resources\png\15.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="bin\Debug\Resources\logos\16.png" />
+    <None Include="Resources\png\16.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="bin\Debug\Resources\logos\18.png" />
+    <None Include="Resources\png\18.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="bin\Debug\Resources\logos\19.png" />
+    <None Include="Resources\png\19.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="bin\Debug\Resources\logos\21.png" />
+    <None Include="Resources\png\21.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="bin\Debug\Resources\logos\23.png" />
+    <None Include="Resources\png\23.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="bin\Debug\Resources\logos\24.png" />
+    <None Include="Resources\png\24.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="bin\Debug\Resources\logos\25.png" />
+    <None Include="Resources\png\25.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="bin\Debug\Resources\logos\26.png" />
+    <None Include="Resources\png\26.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="bin\Debug\Resources\logos\27.png" />
+    <None Include="Resources\png\27.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="bin\Debug\Resources\logos\28.png" />
+    <None Include="Resources\png\28.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="bin\Debug\Resources\logos\29.png" />
+    <None Include="Resources\png\29.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="bin\Debug\Resources\logos\31.png" />
+    <None Include="Resources\png\31.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="bin\Debug\Resources\logos\32.png" />
+    <None Include="Resources\png\32.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="bin\Debug\Resources\logos\34.png" />
+    <None Include="Resources\png\34.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="bin\Debug\Resources\logos\35.png" />
+    <None Include="Resources\png\35.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="bin\Debug\Resources\logos\37.png" />
+    <None Include="Resources\png\37.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="bin\Debug\Resources\logos\39.png" />
+    <None Include="Resources\png\39.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="bin\Debug\Resources\images\playerHub.png" />
+    <None Include="Resources\raw\playerHub.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\images\1.jpg" />
+    <None Include="Resources\jpg\1.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\images\3.jpg" />
+    <None Include="Resources\jpg\3.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\images\5.jpg" />
+    <None Include="Resources\jpg\5.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\images\6.jpg" />
+    <None Include="Resources\jpg\6.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\images\8.jpg" />
+    <None Include="Resources\jpg\8.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\images\9.jpg" />
+    <None Include="Resources\jpg\9.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\images\11.jpg" />
+    <None Include="Resources\jpg\11.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\images\12.jpg" />
+    <None Include="Resources\jpg\12.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\images\13.jpg" />
+    <None Include="Resources\jpg\13.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\images\14.jpg" />
+    <None Include="Resources\jpg\14.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\images\15.jpg" />
+    <None Include="Resources\jpg\15.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\images\16.jpg" />
+    <None Include="Resources\jpg\16.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\images\18.jpg" />
+    <None Include="Resources\jpg\18.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\images\19.jpg" />
+    <None Include="Resources\jpg\19.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\images\21.jpg" />
+    <None Include="Resources\jpg\21.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\images\23.jpg" />
+    <None Include="Resources\jpg\23.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\images\24.jpg" />
+    <None Include="Resources\jpg\24.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\images\25.jpg" />
+    <None Include="Resources\jpg\25.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\images\26.jpg" />
+    <None Include="Resources\jpg\26.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\images\27.jpg" />
+    <None Include="Resources\jpg\27.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\images\28.jpg" />
+    <None Include="Resources\jpg\28.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\images\29.jpg" />
+    <None Include="Resources\jpg\29.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\images\31.jpg" />
+    <None Include="Resources\jpg\31.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\images\32.jpg" />
+    <None Include="Resources\jpg\32.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\images\34.jpg" />
+    <None Include="Resources\jpg\34.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\images\35.jpg" />
+    <None Include="Resources\jpg\35.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\images\37.jpg" />
+    <None Include="Resources\jpg\37.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\images\39.jpg" />
+    <None Include="Resources\jpg\39.jpg" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\treasureCards.txt" />
@@ -390,6 +392,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Monopoly.ico" />
+    <None Include="Resources\jpg\image-drawn.png" />
+    <None Include="Resources\jpg\playerHub.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
