@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -31,8 +32,8 @@ namespace Monopoly.Cards
         {
             string[] info = data.Split(';');
             Name = info[0];
-            Cost = float.Parse(info[2]);
-            MortgageValue = float.Parse(info[3]);
+            Cost = float.Parse(info[2], CultureInfo.InvariantCulture);
+            MortgageValue = float.Parse(info[3], CultureInfo.InvariantCulture);
             Group = 0;
             logo = img;
         }

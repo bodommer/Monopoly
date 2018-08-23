@@ -1,6 +1,7 @@
 ﻿using Monopoly.Cards;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -27,7 +28,7 @@ namespace Monopoly.Main
                 string[] content = data.Split(';');
                 Description = content[0];
                 MoneyPlusMinus = content[1];
-                MoneyChange = float.Parse(content[2]);
+                MoneyChange = float.Parse(content[2], CultureInfo.InvariantCulture);
                 TurnsStop = int.Parse(content[3]);
             } catch (FormatException e)
             {

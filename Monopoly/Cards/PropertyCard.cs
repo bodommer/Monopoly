@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -43,12 +44,12 @@ namespace Monopoly.Main
             Cost = float.Parse(details[2]);
             Apartments = 0;
             payments = new float[4];
-            payments[0] = float.Parse(details[3]);
-            payments[1] = float.Parse(details[4]);
-            payments[2] = float.Parse(details[5]);
-            payments[3] = float.Parse(details[6]);
-            ApartmentCost = float.Parse(details[7]);
-            MortgageValue = float.Parse(details[8]);
+            payments[0] = float.Parse(details[3], CultureInfo.InvariantCulture);
+            payments[1] = float.Parse(details[4], CultureInfo.InvariantCulture);
+            payments[2] = float.Parse(details[5], CultureInfo.InvariantCulture);
+            payments[3] = float.Parse(details[6], CultureInfo.InvariantCulture);
+            ApartmentCost = float.Parse(details[7], CultureInfo.InvariantCulture);
+            MortgageValue = float.Parse(details[8], CultureInfo.InvariantCulture);
             Group = int.Parse(details[9]);
 
             logo = img;
