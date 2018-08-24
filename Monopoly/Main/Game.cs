@@ -309,7 +309,7 @@ namespace Monopoly.Main
         {
             if (GameState == GameStage.NO_ACTION) { return;  }
 
-            Card card = (Card)propertyManager
+            Card card = propertyManager
                  .CardAt(gameplan.PlayerPosition(currentPlayer));
 
             GameStage state = GameState;
@@ -407,7 +407,9 @@ namespace Monopoly.Main
                     using (Stream SaveFileStream = File.Create(sfd.FileName))
                     {
                         BinaryFormatter serializer = new BinaryFormatter();
+                        GameState = GameStage.DICE;
                         serializer.Serialize(SaveFileStream, this);
+                        GameState = GameStage.NO_ACTION;
                         SaveFileStream.Close();
                     }
                 }

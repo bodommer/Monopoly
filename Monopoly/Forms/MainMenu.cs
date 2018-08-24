@@ -83,15 +83,15 @@ namespace Monopoly.Main
                         g = (Game)deserializer.Deserialize(openFileStream);
                         openFileStream.Close();
 
-                    Hide();
-                    using (Monopoly gw = new Monopoly(g.GetPlayers()))
-                    {
-                        gw.Show();
-                        g.SetWindow(gw);
-                        g.UpdateWindow();
-                        gw.Hide();
-                        if (gw.ShowDialog() == DialogResult.OK) Show();
-                    };
+                        Hide();
+                        using (Monopoly gw = new Monopoly(g.GetPlayers()))
+                        {
+                            gw.Show();
+                            g.SetWindow(gw);
+                            g.UpdateWindow();
+                            gw.Hide();
+                            if (gw.ShowDialog() == DialogResult.OK) Show();
+                        };
                     }
                     catch (IOException ex)
                     {
